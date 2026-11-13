@@ -47,8 +47,17 @@ export class LandmarkOverlay extends LitElement implements Controller {
   }
 
   init() {
+    // The element outlives games: a new one replaces the previous loop.
+    this.dispose();
     if (this.game.landmarks().length === 0) return;
     this.follow();
+  }
+
+  dispose() {
+    if (this.frame !== null) cancelAnimationFrame(this.frame);
+    this.frame = null;
+    this.spots = [];
+    this.openIndex = null;
   }
 
   tick() {
@@ -62,8 +71,7 @@ export class LandmarkOverlay extends LitElement implements Controller {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    if (this.frame !== null) cancelAnimationFrame(this.frame);
-    this.frame = null;
+    this.dispose();
   }
 
   private follow = () => {
@@ -145,8 +153,13 @@ export class LandmarkOverlay extends LitElement implements Controller {
           style="left: ${spot.x}px; top: ${spot.y - PIN_GAP_PX}px; border-color: ${
             owner ? owner.territoryColor().toHex() : "rgba(255, 255, 255, 0.3)"
           }"
-          @mouseenter=${() => (this.openIndex = spot.index)}
-          @mouseleave=${() => (this.openIndex = null)}
+          @pointerenter=${(e: PointerEvent) => {
+            // Hover is for a mouse; a tap's emulated enter would race the click.
+            if (e.pointerType === "mouse") this.openIndex = spot.index;
+          }}
+          @pointerleave=${(e: PointerEvent) => {
+            if (e.pointerType === "mouse") this.openIndex = null;
+          }}
           @click=${() =>
             (this.openIndex =
               this.openIndex === spot.index ? null : spot.index)}

@@ -91,6 +91,15 @@ describe("landmark bonus", () => {
     ).toBeCloseTo(1 + 2 * LANDMARK_TROOP_BONUS, 6);
   });
 
+  test("landmarks do not speed up the decay of troops over the cap", async () => {
+    const { game, a } = await twoPlayers([LANDMARK]);
+    const config = game.config();
+    a.setTroops(Math.floor(config.maxTroops(a) * 1.5));
+    const decay = config.troopIncreaseRate(a);
+    expect(decay).toBeLessThan(0);
+    expect(config.troopIncreaseRate(a, 3)).toBe(decay);
+  });
+
   test("a holder at max troops gains no troops", async () => {
     const { game, a } = await twoPlayers([LANDMARK]);
     a.setTroops(game.config().maxTroops(a));

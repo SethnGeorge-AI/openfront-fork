@@ -441,6 +441,7 @@ export class GameRenderer {
     window.removeEventListener("resize", this.onResize);
     this.canvasSizeObserver?.disconnect();
     this.canvasSizeObserver = null;
+    for (const layer of this.layers) layer.dispose?.();
   }
 
   tick() {

@@ -141,4 +141,21 @@ describe("createRenderer", () => {
     expect(removeSpy).toHaveBeenCalledWith("resize", resizeListener);
     expect(observer.disconnect).toHaveBeenCalled();
   });
+
+  it("disposes its controllers when the game stops", () => {
+    const layer = { dispose: vi.fn() };
+    const renderer = new GameRenderer(
+      {
+        updateCanvasBoundingRect: vi.fn(),
+        centerAll: vi.fn(),
+        observeCanvasSize: () => ({ disconnect: vi.fn() }),
+      } as any,
+      {} as any,
+      [layer, {}],
+      {} as any,
+    );
+    renderer.initialize();
+    renderer.dispose();
+    expect(layer.dispose).toHaveBeenCalledOnce();
+  });
 });

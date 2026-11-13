@@ -24,4 +24,10 @@ export interface Controller {
 
   /** Optional throttle on tick frequency, in milliseconds. */
   getTickIntervalMs?: () => number;
+
+  /**
+   * Called when the game stops. A controller whose element outlives the game
+   * (it stays in index.html) stops its loops and clears what it shows here.
+   */
+  dispose?: () => void;
 }

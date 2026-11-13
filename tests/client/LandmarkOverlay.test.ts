@@ -59,13 +59,16 @@ async function markers(overlay: LandmarkOverlay) {
 
 async function hoverCard(overlay: LandmarkOverlay) {
   const [marker] = await markers(overlay);
-  marker.dispatchEvent(new MouseEvent("mouseenter"));
+  marker.dispatchEvent(
+    new PointerEvent("pointerenter", { pointerType: "mouse" }),
+  );
   await overlay.updateComplete;
   return overlay.querySelector<HTMLElement>("[data-landmark-card]");
 }
 
 afterEach(() => {
   document.body.innerHTML = "";
+  vi.restoreAllMocks();
 });
 
 describe("LandmarkOverlay", () => {
@@ -113,14 +116,64 @@ describe("LandmarkOverlay", () => {
     expect(card?.textContent).toContain("landmark.held_by_you");
   });
 
+  it("opens the card on a tap and closes it on the next tap", async () => {
+    const overlay = mount(alice);
+    const [marker] = await markers(overlay);
+    // What a touchscreen fires for one tap.
+    const tap = async () => {
+      marker.dispatchEvent(
+        new PointerEvent("pointerenter", { pointerType: "touch" }),
+      );
+      marker.dispatchEvent(new MouseEvent("mouseenter"));
+      marker.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      marker.dispatchEvent(
+        new PointerEvent("pointerleave", { pointerType: "touch" }),
+      );
+      await overlay.updateComplete;
+    };
+    await tap();
+    expect(overlay.querySelector("[data-landmark-card]")).not.toBeNull();
+    await tap();
+    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+  });
+
   it("closes the card when the pointer leaves", async () => {
     const overlay = mount(alice);
     const [marker] = await markers(overlay);
-    marker.dispatchEvent(new MouseEvent("mouseenter"));
+    marker.dispatchEvent(
+      new PointerEvent("pointerenter", { pointerType: "mouse" }),
+    );
     await overlay.updateComplete;
-    marker.dispatchEvent(new MouseEvent("mouseleave"));
+    marker.dispatchEvent(
+      new PointerEvent("pointerleave", { pointerType: "mouse" }),
+    );
     await overlay.updateComplete;
     expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+  });
+});
+
+describe("LandmarkOverlay frame loop", () => {
+  it("runs one loop however many games init it", () => {
+    let id = 0;
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation(() => ++id);
+    const cancel = vi.spyOn(window, "cancelAnimationFrame");
+    const overlay = mount(alice);
+    overlay.init();
+    const first = id;
+    overlay.init();
+    expect(cancel).toHaveBeenCalledWith(first);
+  });
+
+  it("stops the loop and clears its pins when disposed", async () => {
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation(() => 42);
+    const cancel = vi.spyOn(window, "cancelAnimationFrame");
+    const overlay = mount(alice);
+    overlay.init();
+    expect(await markers(overlay)).toHaveLength(1);
+    overlay.dispose();
+    await overlay.updateComplete;
+    expect(cancel).toHaveBeenCalledWith(42);
+    expect(overlay.querySelectorAll("[data-landmark]")).toHaveLength(0);
   });
 });
 
