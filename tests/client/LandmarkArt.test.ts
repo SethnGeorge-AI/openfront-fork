@@ -47,7 +47,8 @@ describe("landmark pixel art", () => {
           if (ch !== ".") expect(LANDMARK_PALETTE).toHaveProperty(ch);
         }
       }
-      expect(rows.join("").replace(/\./g, "").length).toBeGreaterThan(100);
+      // Not blank (the thinnest, the Nazca geoglyph, is about 80 pixels).
+      expect(rows.join("").replace(/\./g, "").length).toBeGreaterThan(50);
     },
   );
 
