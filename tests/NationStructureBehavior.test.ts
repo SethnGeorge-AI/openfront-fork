@@ -296,6 +296,7 @@ describe("NationStructureBehavior.tryBuildDefensePost", () => {
       config: () => ({
         gameConfig: () => ({ difficulty }),
         isUnitDisabled: () => false,
+        capitalsEnabled: () => false,
         defensePostRange: () => 30,
       }),
       unitInfo: () => ({ cost: () => 0n }),
@@ -969,6 +970,7 @@ describe("NationStructureBehavior.doHandleStructures — crowded-map exception",
     return {
       config: () => ({
         isUnitDisabled: () => false,
+        capitalsEnabled: () => false,
         gameConfig: () => ({
           difficulty: opts.difficulty ?? Difficulty.Medium,
         }),
@@ -1015,6 +1017,7 @@ describe("NationStructureBehavior.doHandleStructures — crowded-map exception",
     const game = makeCrowdedGame({ difficulty: Difficulty.Impossible });
     game.config = () => ({
       isUnitDisabled: () => false,
+      capitalsEnabled: () => false,
       gameConfig: () => ({ difficulty: Difficulty.Impossible }),
       startingGold: () => 10_000_000n, // high starting gold
     });
