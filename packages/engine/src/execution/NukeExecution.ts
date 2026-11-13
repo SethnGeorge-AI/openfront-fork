@@ -446,6 +446,7 @@ export class NukeExecution implements Execution {
     for (const unit of mg.units()) {
       const type = unit.type();
       if (
+        type === UnitType.Capital || // capitals are nuke-proof
         type === UnitType.AtomBomb ||
         type === UnitType.HydrogenBomb ||
         type === UnitType.MIRVWarhead ||

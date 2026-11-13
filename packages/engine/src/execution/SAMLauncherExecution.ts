@@ -371,7 +371,8 @@ export class SAMLauncherExecution implements Execution {
     while (this.sam.missileTimerQueue().length > 0) {
       const frontTime = this.sam.missileTimerQueue()[0];
       const cooldown =
-        this.mg.config().SAMCooldown() - (this.mg.ticks() - frontTime);
+        this.mg.config().samCooldownFor(this.sam.type()) -
+        (this.mg.ticks() - frontTime);
 
       if (cooldown > 0) {
         break;

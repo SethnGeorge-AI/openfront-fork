@@ -1,3 +1,4 @@
+import { UnitType } from "@openfront/engine-api/game/GameTypes";
 import { MessageType } from "@openfront/engine-api/game/GameTypes";
 import {
   zInt,
@@ -60,6 +61,12 @@ export class DeleteUnitExecution implements Execution {
 
     if (!mg.isLand(unit.tile())) {
       console.warn(`SECURITY: unit ${this.unitId} is not on land`);
+      this.active = false;
+      return;
+    }
+
+    if (unit.type() === UnitType.Capital) {
+      console.warn(`SECURITY: cannot delete a capital`);
       this.active = false;
       return;
     }

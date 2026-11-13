@@ -80,8 +80,12 @@ export class PlayerExecution implements Execution {
 
       const owner = this.mg!.owner(u.tile());
       if (u.type() === UnitType.Capital && owner !== this.player) {
-        // Lost tile (captured or left empty): rebuild one tier lower below.
-        lostCapital = { tier: u.level(), tile: u.tile() };
+        // Rebuilt below: one tier lower if an enemy took the tile, same tier
+        // if it was only left empty (e.g. by a nuke — capitals are nuke-proof).
+        lostCapital = {
+          tier: owner.isPlayer() ? u.level() - 1 : u.level(),
+          tile: u.tile(),
+        };
         u.delete(
           true,
           owner.isPlayer() ? this.mg!.player(owner.id()) : undefined,
@@ -108,7 +112,7 @@ export class PlayerExecution implements Execution {
       placeCapital(
         this.mg!,
         this.player,
-        Math.max(1, lostCapital.tier - 1),
+        Math.max(1, lostCapital.tier),
         lostCapital.tile,
       );
     }

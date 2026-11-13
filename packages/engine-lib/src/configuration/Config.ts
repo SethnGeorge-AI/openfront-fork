@@ -12,7 +12,7 @@ import { GameConfig } from "@openfront/engine-api/Schemas";
 import { pow } from "../DetMath";
 import { DoomsdayClockSpeed } from "../game/DoomsdayClock";
 import { assertNever } from "../Util";
-import { requiredCapitalTier } from "./CapitalTiers";
+import { CAPITAL_SAM_COOLDOWN, requiredCapitalTier } from "./CapitalTiers";
 
 export interface NukeMagnitude {
   inner: number;
@@ -174,6 +174,12 @@ export class Config {
   }
   SAMCooldown(): number {
     return 90;
+  }
+  /** Ticks a SAM missile slot takes to reload; the capital's is near-instant. */
+  samCooldownFor(type: UnitType): number {
+    return type === UnitType.Capital
+      ? CAPITAL_SAM_COOLDOWN
+      : this.SAMCooldown();
   }
   SiloCooldown(): number {
     return 90;

@@ -12,6 +12,10 @@ import {
 import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
 import { TeamCountConfig } from "@openfront/engine-api/Schemas";
 import { NukeType } from "@openfront/engine-api/StatsSchemas";
+import {
+  capitalTier,
+  capitalTierCost,
+} from "@openfront/engine-lib/configuration/CapitalTiers";
 import { Config } from "@openfront/engine-lib/configuration/Config";
 import { exp, log, pow2 } from "@openfront/engine-lib/DetMath";
 import {
@@ -20,10 +24,6 @@ import {
   toInt,
   within,
 } from "@openfront/engine-lib/Util";
-import {
-  capitalTier,
-  capitalTierCost,
-} from "@openfront/engine-lib/configuration/CapitalTiers";
 import type { EngineUnitInfo, Game, Player, Unit } from "../game/Game";
 
 export interface AttackLogicInput {
@@ -728,6 +728,13 @@ export class EngineConfig extends Config {
   }
 
   dynamicSamRange(sam: Unit, currentTick: number): number {
+    if (sam.type() === UnitType.Capital) {
+      // 15% over a SAM of the same level, no ramp while upgrading.
+      return Math.min(
+        this.maxSamRange(),
+        Math.floor(this.samRange(sam.level()) * 1.15),
+      );
+    }
     const state = sam.samLauncherState();
     if (state === undefined || state.upgradeStartTick === undefined) {
       return this.samRange(sam.level());

@@ -111,4 +111,16 @@ describe("Capital placement", () => {
     expect(player.isAlive()).toBe(false);
     expect(capitals(player)).toHaveLength(0);
   });
+
+  test("tile left unowned (e.g. nuked): moves, keeps tier", async () => {
+    const { game, player } = await spawned({ capitals: true });
+    const capital = capitals(player)[0];
+    capital.increaseLevel();
+    const oldTile = capital.tile();
+    player.relinquish(oldTile);
+    executeTicks(game, 1);
+    expect(capitals(player)).toHaveLength(1);
+    expect(capitals(player)[0].level()).toBe(2);
+    expect(capitals(player)[0].tile()).not.toBe(oldTile);
+  });
 });

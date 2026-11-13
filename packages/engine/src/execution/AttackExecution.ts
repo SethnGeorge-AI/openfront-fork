@@ -9,6 +9,7 @@ import {
   TerraNullius,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
+import { CAPITAL_DEFENSE_RANGE } from "@openfront/engine-lib/configuration/CapitalTiers";
 import { renderTroops } from "@openfront/engine-lib/Format";
 import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
 import {
@@ -31,6 +32,28 @@ import type {
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
 import { FlatBinaryHeap } from "./utils/FlatBinaryHeap"; // adjust path if needed
+
+/** A defender's Defense Post, or capital (35-tile radius), covers `tile`. */
+export function defenderHasDefenseNearby(
+  mg: Game,
+  tile: TileRef,
+  defender: Player,
+): boolean {
+  return (
+    mg.hasUnitNearby(
+      tile,
+      mg.config().defensePostRange(),
+      UnitType.DefensePost,
+      defender.id(),
+    ) ||
+    mg.hasUnitNearby(
+      tile,
+      CAPITAL_DEFENSE_RANGE,
+      UnitType.Capital,
+      defender.id(),
+    )
+  );
+}
 
 const malusForRetreat = 25;
 export class AttackExecution implements Execution {
@@ -370,13 +393,7 @@ export class AttackExecution implements Execution {
     // result array per conquered tile — this runs for every tile of every
     // attack on the map.
     const defenderHasDefensePost =
-      defender !== null &&
-      this.mg.hasUnitNearby(
-        tile,
-        this.mg.config().defensePostRange(),
-        UnitType.DefensePost,
-        defender.id(),
-      );
+      defender !== null && defenderHasDefenseNearby(this.mg, tile, defender);
     return {
       terrain: this.map.terrainType(tile),
       attackTroops,
