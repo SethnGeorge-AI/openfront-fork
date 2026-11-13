@@ -65,6 +65,9 @@ function countryFlag(name: string, code: string): Flag {
 /**
  * The player's owned cosmetics, grouped into equip categories.
  */
+// This fork gives every cosmetic away (FREE_COSMETIC_FLARES).
+const FREE_COSMETICS = true;
+
 @customElement("inventory-modal")
 export class InventoryModal extends BaseModal {
   protected routerName = "inventory";
@@ -178,8 +181,12 @@ export class InventoryModal extends BaseModal {
     userMeResponse?: UserMeResponse | false,
   ): Promise<void> {
     const loadId = ++this.ownershipLoadId;
-    if (userMeResponse !== undefined && userMeResponse !== false) {
-      this.userMeResponse = userMeResponse;
+    // Every cosmetic is free in this fork, so no account is needed to own one.
+    if (
+      FREE_COSMETICS ||
+      (userMeResponse !== undefined && userMeResponse !== false)
+    ) {
+      if (userMeResponse) this.userMeResponse = userMeResponse;
       this.ownershipState = "loaded";
       return;
     }
@@ -621,7 +628,6 @@ export class InventoryModal extends BaseModal {
   }
 
   protected renderHeaderSlot() {
-    const isLoggedIn = this.userMeResponse !== false;
     return html`
       <div
         class="relative flex flex-col border-b border-white/10 pb-4 shrink-0"
@@ -630,23 +636,6 @@ export class InventoryModal extends BaseModal {
           title: translateText("inventory.title"),
           onBack: () => this.close(),
           ariaLabel: translateText("common.back"),
-          rightContent: html`<o-button
-            data-inventory-header-action
-            class="no-game-portal"
-            variant=${isLoggedIn ? "primary" : "danger"}
-            size="sm"
-            .translationKey=${
-              isLoggedIn ? "main.store" : "common.not_logged_in"
-            }
-            @click=${() => {
-              if (isLoggedIn) {
-                this.close();
-                window.location.hash = "modal=store&tab=cosmetics";
-              } else {
-                window.showPage?.("page-account");
-              }
-            }}
-          ></o-button>`,
         })}
 
         <div class="md:flex items-center gap-2 justify-center mt-4">

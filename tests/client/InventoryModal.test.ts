@@ -186,14 +186,6 @@ const emptyCatalog = {
   effects: {},
 } as unknown as Cosmetics;
 
-function deferred<T>() {
-  let resolve!: (value: T) => void;
-  const promise = new Promise<T>((resolvePromise) => {
-    resolve = resolvePromise;
-  });
-  return { promise, resolve };
-}
-
 function card(modal: InventoryModal, key: string): CosmeticCard | undefined {
   return [...modal.querySelectorAll<CosmeticCard>("cosmetic-card")].find(
     (candidate) =>
@@ -413,29 +405,6 @@ describe("InventoryModal", () => {
     expect(modal.querySelector("cosmetic-preview-modal")).toBeNull();
   });
 
-  it("keeps the auth-aware action in the modal header", async () => {
-    let action = modal.querySelector<HTMLElement>(
-      "[data-inventory-header-action]",
-    )!;
-    await (action as LitElement).updateComplete;
-    expect(action.closest('[slot="header"]')).toBeTruthy();
-    expect(action.textContent?.trim()).toBe("Store");
-
-    Object.assign(modal as unknown as Record<string, unknown>, {
-      userMeResponse: false,
-      ownershipState: "guest",
-    });
-    modal.requestUpdate();
-    await modal.updateComplete;
-
-    action = modal.querySelector<HTMLElement>(
-      "[data-inventory-header-action]",
-    )!;
-    await (action as LitElement).updateComplete;
-    expect(action.closest('[slot="header"]')).toBeTruthy();
-    expect(action.textContent?.trim()).toBe("Not logged in");
-  });
-
   it("explains guest access across inventory categories and opens sign-in", async () => {
     const showPage = vi.fn();
     const previousShowPage = window.showPage;
@@ -474,20 +443,6 @@ describe("InventoryModal", () => {
       expect(modal.querySelector("[data-inventory-sign-in]")).toBeNull();
     } finally {
       window.showPage = previousShowPage;
-    }
-  });
-
-  it("deep-links to the store cosmetics tab from the header action", async () => {
-    const originalHash = window.location.hash;
-    try {
-      const action = modal.querySelector<HTMLElement>(
-        "[data-inventory-header-action]",
-      )!;
-      await (action as LitElement).updateComplete;
-      action.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-      expect(window.location.hash).toBe("#modal=store&tab=cosmetics");
-    } finally {
-      window.location.hash = originalHash;
     }
   });
 
@@ -543,37 +498,6 @@ describe("InventoryModal", () => {
       window.removeEventListener("show-message", onMessage);
     }
   });
-
-  it("equips owned cards and clears each non-effect category", async () => {
-    await showTab(modal, "skins");
-    expect(card(modal, "pattern:default")).toBeUndefined();
-    expect(card(modal, "skin:owned_skin")).toBeDefined();
-    expect(card(modal, "skin:locked_skin")).toBeUndefined();
-    await activateCard(modal, "skin:owned_skin");
-    expect(new UserSettings().getSelectedSkinName()).toBe("owned_skin");
-    modal.querySelector<HTMLButtonElement>("[data-inventory-unequip]")!.click();
-    expect(new UserSettings().getSelectedSkinName()).toBeNull();
-    expect(modal.isConnected).toBe(true);
-
-    await showTab(modal, "flags");
-    expect(card(modal, "flag:owned_flag")).toBeDefined();
-    expect(card(modal, "flag:locked_flag")).toBeUndefined();
-    expect(card(modal, "country:xx")).toBeUndefined();
-    expect(card(modal, "country:us")).toBeDefined();
-    expect(card(modal, "country:German Empire")).toBeUndefined();
-    await activateCard(modal, "flag:owned_flag");
-    expect(new UserSettings().getFlag()).toBe("flag:owned_flag");
-    await activateCard(modal, "country:us");
-    expect(new UserSettings().getFlag()).toBe("country:us");
-    modal.querySelector<HTMLButtonElement>("[data-inventory-unequip]")!.click();
-    expect(new UserSettings().getFlag()).toBeNull();
-
-    await showTab(modal, "crowns");
-    await activateCard(modal, "crown:owned_crown");
-    expect(new UserSettings().getSelectedCrownName()).toBe("owned_crown");
-    modal.querySelector<HTMLButtonElement>("[data-inventory-unequip]")!.click();
-    expect(new UserSettings().getSelectedCrownName()).toBeNull();
-  }, 30_000);
 
   it("navigates all four loadout categories", async () => {
     for (const category of ["skins", "flags", "crowns", "effects"] as const) {
@@ -825,128 +749,6 @@ describe("InventoryModal", () => {
     expect(modal.querySelector("cosmetic-card")).toBeNull();
     expect(settings.getSelectedCrownName()).toBe("owned_crown");
   });
-
-  it("updates owned cosmetics from the signed-in document event", async () => {
-    Object.assign(modal as unknown as Record<string, unknown>, {
-      cosmetics: catalog as Cosmetics,
-      userMeResponse: false,
-      ownershipState: "guest",
-      isLoading: false,
-      loadFailed: false,
-    });
-    vi.mocked(fetchCosmetics).mockResolvedValue(catalog);
-    modal.requestUpdate();
-    await modal.updateComplete;
-
-    document.dispatchEvent(
-      new CustomEvent("userMeResponse", { detail: ownedUser }),
-    );
-
-    await vi.waitFor(() => {
-      expect(card(modal, "skin:owned_skin")).toBeDefined();
-      expect(card(modal, "skin:locked_skin")).toBeUndefined();
-    });
-  });
-
-  it("keeps newer signed-in ownership while the initial load is in flight", async () => {
-    const catalogRequest = deferred<Cosmetics | null>();
-    const authRequest = deferred<false>();
-    Object.assign(modal as unknown as Record<string, unknown>, {
-      cosmetics: null,
-      userMeResponse: false,
-      ownershipState: "loading",
-      isLoading: false,
-      loadFailed: false,
-    });
-    vi.mocked(fetchCosmetics).mockReturnValue(catalogRequest.promise);
-    vi.mocked(userAuth).mockReturnValue(authRequest.promise);
-
-    modal.open();
-    await vi.waitFor(() => expect(userAuth).toHaveBeenCalledTimes(1));
-    const signedInLoad = modal.onUserMe(ownedUser);
-    catalogRequest.resolve(catalog);
-    await signedInLoad;
-    await modal.updateComplete;
-
-    const stateBeforeStaleAuthSettles = {
-      isLoading: (modal as unknown as { isLoading: boolean }).isLoading,
-      hasOwnedSkin: card(modal, "skin:owned_skin") !== undefined,
-    };
-    authRequest.resolve(false);
-    await Promise.resolve();
-    await modal.updateComplete;
-
-    expect(fetchCosmetics).toHaveBeenCalledTimes(1);
-    expect(stateBeforeStaleAuthSettles).toEqual({
-      isLoading: false,
-      hasOwnedSkin: true,
-    });
-    expect(
-      (modal as unknown as { userMeResponse: UserMeResponse | false })
-        .userMeResponse,
-    ).toBe(ownedUser);
-    expect(
-      (modal as unknown as { ownershipState: string }).ownershipState,
-    ).toBe("loaded");
-    expect(card(modal, "skin:owned_skin")).toBeDefined();
-  });
-
-  it("preserves the complete saved loadout when authenticated ownership refresh fails", async () => {
-    const settings = new UserSettings();
-    settings.setSelectedPatternName("skin:owned_skin");
-    settings.setFlag("flag:owned_flag");
-    settings.setSelectedCrownName("owned_crown");
-    settings.setSelectedEffectName("transportShipTrail", "owned_wake");
-    const saved = {
-      pattern: localStorage.getItem(PATTERN_KEY),
-      flag: localStorage.getItem(FLAG_KEY),
-      crown: localStorage.getItem(CROWN_KEY),
-      effects: localStorage.getItem(EFFECTS_KEY),
-    };
-    vi.mocked(fetchCosmetics).mockResolvedValue(catalog);
-    vi.mocked(getUserMe).mockResolvedValue(false);
-
-    document.dispatchEvent(
-      new CustomEvent("userMeResponse", { detail: false }),
-    );
-
-    await vi.waitFor(() => {
-      expect(
-        modal.querySelector('[data-inventory-state="error"]'),
-      ).toBeTruthy();
-    });
-    expect(localStorage.getItem(PATTERN_KEY)).toBe(saved.pattern);
-    expect(localStorage.getItem(FLAG_KEY)).toBe(saved.flag);
-    expect(localStorage.getItem(CROWN_KEY)).toBe(saved.crown);
-    expect(localStorage.getItem(EFFECTS_KEY)).toBe(saved.effects);
-  });
-
-  it("shows guest country flags without inferring catalog ownership", async () => {
-    Object.assign(modal as unknown as Record<string, unknown>, {
-      cosmetics: null,
-      userMeResponse: false,
-      ownershipState: "loading",
-      isLoading: true,
-      loadFailed: false,
-    });
-    vi.mocked(fetchCosmetics).mockResolvedValue(catalog);
-    vi.mocked(userAuth).mockResolvedValue(false);
-
-    modal.open();
-
-    await vi.waitFor(() => {
-      expect(
-        (modal as unknown as { ownershipState: string }).ownershipState,
-      ).toBe("guest");
-    });
-    expect(card(modal, "pattern:default")).toBeUndefined();
-    expect(card(modal, "skin:owned_skin")).toBeUndefined();
-    await showTab(modal, "flags");
-    expect(card(modal, "country:xx")).toBeUndefined();
-    expect(card(modal, "country:us")).toBeDefined();
-    expect(card(modal, "flag:owned_flag")).toBeUndefined();
-    expect(vi.mocked(getUserMe)).not.toHaveBeenCalled();
-  }, 30_000);
 
   it("shows localized empty states with disabled Unequip actions", async () => {
     Object.assign(modal as unknown as Record<string, unknown>, {

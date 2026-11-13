@@ -1,0 +1,287 @@
+{
+  "colorPalettes": {
+    "crimson": {
+      "name": "crimson",
+      "primaryColor": "#b91c1c",
+      "secondaryColor": "#fca5a5"
+    },
+    "ocean": {
+      "name": "ocean",
+      "primaryColor": "#1e3a8a",
+      "secondaryColor": "#60a5fa"
+    },
+    "forest": {
+      "name": "forest",
+      "primaryColor": "#14532d",
+      "secondaryColor": "#4ade80"
+    },
+    "sunset": {
+      "name": "sunset",
+      "primaryColor": "#c2410c",
+      "secondaryColor": "#fde047"
+    },
+    "royal": {
+      "name": "royal",
+      "primaryColor": "#4c1d95",
+      "secondaryColor": "#f0abfc"
+    },
+    "mono": {
+      "name": "mono",
+      "primaryColor": "#111827",
+      "secondaryColor": "#e5e7eb"
+    },
+    "gold": {
+      "name": "gold",
+      "primaryColor": "#78350f",
+      "secondaryColor": "#fbbf24"
+    },
+    "ice": {
+      "name": "ice",
+      "primaryColor": "#0e7490",
+      "secondaryColor": "#ecfeff"
+    }
+  },
+  "patterns": {
+    "stripes": {
+      "name": "stripes",
+      "product": null,
+      "rarity": "common",
+      "pattern": "ABEAMw",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    },
+    "checker": {
+      "name": "checker",
+      "product": null,
+      "rarity": "common",
+      "pattern": "AAEABg",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    },
+    "dots": {
+      "name": "dots",
+      "product": null,
+      "rarity": "common",
+      "pattern": "ACAQAMAwAAA",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    },
+    "diagonal": {
+      "name": "diagonal",
+      "product": null,
+      "rarity": "common",
+      "pattern": "ADAYB4PB4HA4HA4",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    },
+    "grid": {
+      "name": "grid",
+      "product": null,
+      "rarity": "common",
+      "pattern": "ADAY_wEBAQEBAQE",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    },
+    "bricks": {
+      "name": "bricks",
+      "product": null,
+      "rarity": "common",
+      "pattern": "ADAI_wEQEA",
+      "colorPalettes": [
+        {
+          "name": "crimson",
+          "isArchived": false
+        },
+        {
+          "name": "ocean",
+          "isArchived": false
+        },
+        {
+          "name": "forest",
+          "isArchived": false
+        },
+        {
+          "name": "sunset",
+          "isArchived": false
+        },
+        {
+          "name": "royal",
+          "isArchived": false
+        },
+        {
+          "name": "mono",
+          "isArchived": false
+        },
+        {
+          "name": "gold",
+          "isArchived": false
+        },
+        {
+          "name": "ice",
+          "isArchived": false
+        }
+      ]
+    }
+  },
+  "flags": {}
+}

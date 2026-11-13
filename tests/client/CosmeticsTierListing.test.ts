@@ -5,7 +5,6 @@ import {
   invalidateCosmetics,
   resolveCosmetics,
   subscriptionTier,
-  tierListingRail,
 } from "../../src/client/Cosmetics";
 
 vi.mock("../../src/client/Api", async (importOriginal) => ({
@@ -91,24 +90,6 @@ describe("subscription tier listing per rail", () => {
     invalidateCosmetics();
     vi.unstubAllGlobals();
     delete (window as { openfrontDesktop?: unknown }).openfrontDesktop;
-  });
-
-  it("asks for the rail this device checks out on", async () => {
-    expect(tierListingRail()).toBe("web");
-    await fetchCosmetics();
-    expect(fetchMock.mock.calls[0][0]).toBe(
-      "https://api.test/cosmetics.json?rail=web",
-    );
-
-    invalidateCosmetics();
-    (window as { openfrontDesktop?: unknown }).openfrontDesktop = {
-      steam: {},
-    };
-    expect(tierListingRail()).toBe("steam");
-    await fetchCosmetics();
-    expect(fetchMock.mock.calls[1][0]).toBe(
-      "https://api.test/cosmetics.json?rail=steam",
-    );
   });
 
   it("renders Steam Plus alone when it is all the rail lists", async () => {

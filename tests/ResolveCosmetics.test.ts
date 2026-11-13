@@ -130,16 +130,6 @@ describe("resolveCosmetics", () => {
       expect(patternItems[0].key).toBe("pattern:stripes");
     });
 
-    test("purchasable when user has no flares and currency price exists", () => {
-      const cosmetics = makeCosmetics({
-        patterns: { stripes: pattern as any },
-        colorPalettes,
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const redItem = result.find((r) => r.key === "pattern:stripes:red");
-      expect(redItem?.relationship).toBe("purchasable");
-    });
-
     test("owned when user has specific flare", () => {
       const cosmetics = makeCosmetics({
         patterns: { stripes: pattern as any },
@@ -166,48 +156,6 @@ describe("resolveCosmetics", () => {
       );
       const redItem = result.find((r) => r.key === "pattern:stripes:red");
       expect(redItem?.relationship).toBe("owned");
-    });
-
-    test("blocked when affiliate code mismatch", () => {
-      const affiliatePattern = { ...pattern, affiliateCode: "partner1" };
-      const cosmetics = makeCosmetics({
-        patterns: { stripes: affiliatePattern as any },
-        colorPalettes,
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const redItem = result.find((r) => r.key === "pattern:stripes:red");
-      expect(redItem?.relationship).toBe("blocked");
-    });
-
-    test("purchasable when affiliate code matches", () => {
-      const affiliatePattern = { ...pattern, affiliateCode: "partner1" };
-      const cosmetics = makeCosmetics({
-        patterns: { stripes: affiliatePattern as any },
-        colorPalettes,
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), "partner1");
-      const redItem = result.find((r) => r.key === "pattern:stripes:red");
-      expect(redItem?.relationship).toBe("purchasable");
-    });
-
-    test("archived palette is blocked unless owned", () => {
-      const archivedPattern = {
-        ...pattern,
-        colorPalettes: [{ name: "old", isArchived: true }],
-      };
-      const cosmetics = makeCosmetics({
-        patterns: { stripes: archivedPattern as any },
-        colorPalettes: {
-          old: {
-            name: "old",
-            primaryColor: "#111",
-            secondaryColor: "#222",
-          },
-        },
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const oldItem = result.find((r) => r.key === "pattern:stripes:old");
-      expect(oldItem?.relationship).toBe("blocked");
     });
 
     test("archived palette is owned when user has specific flare", () => {
@@ -258,15 +206,6 @@ describe("resolveCosmetics", () => {
       expect(flagItem?.colorPalette).toBeNull();
     });
 
-    test("purchasable when not logged in and currency price exists", () => {
-      const cosmetics = makeCosmetics({
-        flags: { cool_flag: flag as any },
-      });
-      const result = resolveCosmetics(cosmetics, false, null);
-      const flagItem = result.find((r) => r.key === "flag:cool_flag");
-      expect(flagItem?.relationship).toBe("purchasable");
-    });
-
     test("owned with wildcard flare", () => {
       const cosmetics = makeCosmetics({
         flags: { cool_flag: flag as any },
@@ -287,16 +226,6 @@ describe("resolveCosmetics", () => {
       );
       const flagItem = result.find((r) => r.key === "flag:cool_flag");
       expect(flagItem?.relationship).toBe("owned");
-    });
-
-    test("blocked with no currency price", () => {
-      const freeFlag = { ...flag, priceHard: undefined };
-      const cosmetics = makeCosmetics({
-        flags: { cool_flag: freeFlag as any },
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const flagItem = result.find((r) => r.key === "flag:cool_flag");
-      expect(flagItem?.relationship).toBe("blocked");
     });
   });
 
@@ -323,15 +252,6 @@ describe("resolveCosmetics", () => {
       expect(crownItem?.colorPalette).toBeNull();
     });
 
-    test("purchasable when user has no flares and priceHard exists", () => {
-      const cosmetics = makeCosmetics({
-        crowns: { gold_crown: crown as any },
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const crownItem = result.find((r) => r.key === "crown:gold_crown");
-      expect(crownItem?.relationship).toBe("purchasable");
-    });
-
     test("owned with wildcard flare", () => {
       const cosmetics = makeCosmetics({
         crowns: { gold_crown: crown as any },
@@ -352,19 +272,6 @@ describe("resolveCosmetics", () => {
       );
       const crownItem = result.find((r) => r.key === "crown:gold_crown");
       expect(crownItem?.relationship).toBe("owned");
-    });
-
-    test("blocked with no currency price", () => {
-      const freeCrown = {
-        ...crown,
-        priceHard: undefined,
-      };
-      const cosmetics = makeCosmetics({
-        crowns: { gold_crown: freeCrown as any },
-      });
-      const result = resolveCosmetics(cosmetics, makeUserMe(), null);
-      const crownItem = result.find((r) => r.key === "crown:gold_crown");
-      expect(crownItem?.relationship).toBe("blocked");
     });
   });
 
@@ -542,13 +449,6 @@ describe("resolveCosmetics cosmetic packs", () => {
       "pattern:camo",
       "effect:nukeTrail:ship_trail_gradient",
     ]);
-  });
-
-  test("includes items that are not sold on their own", () => {
-    // pirate has no price of its own (a pack exclusive) — still a pack item.
-    const resolved = packOf(resolveCosmetics(catalog(), makeUserMe(), null));
-    expect(resolved.packItems?.[1].relationship).toBe("blocked");
-    expect(resolved.relationship).toBe("purchasable");
   });
 
   test("purchasable when the player owns none of the items", () => {

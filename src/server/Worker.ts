@@ -7,6 +7,7 @@ import {
 import { adjustForTeams } from "@openfront/engine-lib/game/TeamAssignment";
 import { CloseCode, CloseReason } from "@openfront/shared/CloseCodes";
 import { GameEnv } from "@openfront/shared/configuration/Env";
+import { FREE_COSMETIC_FLARES } from "@openfront/shared/CosmeticSchemas";
 import { generateID, replacer } from "@openfront/shared/SharedUtil";
 import {
   ClientMessage,
@@ -60,6 +61,7 @@ import { loadGatekeeper } from "./Gatekeeper";
 import { MapPlaylist } from "./MapPlaylist";
 import { setNoStoreHeaders } from "./NoStoreHeaders";
 import { PrivilegeRefresher } from "./PrivilegeRefresher";
+import { getResourcesDir } from "./PublicAssetManifest";
 import { startRankedCheckinLoops } from "./RankedCheckin";
 import { rejoinOrClose } from "./Rejoin";
 import { ServerEnv } from "./ServerEnv";
@@ -328,7 +330,7 @@ export async function startWorker() {
   }
 
   const privilegeRefresher = new PrivilegeRefresher(
-    ServerEnv.jwtIssuer() + "/cosmetics.json",
+    path.join(getResourcesDir(), "cosmetics", "catalog.json"),
     ServerEnv.apiKey(),
     ServerEnv.jwtIssuer() + "/reserved_clan_tags",
     log,
@@ -916,7 +918,7 @@ export async function startWorker() {
 
         const cosmeticResult = privilegeRefresher
           .get()
-          .isAllowed(flares ?? [], clientMsg.cosmetics ?? {});
+          .isAllowed(FREE_COSMETIC_FLARES, clientMsg.cosmetics ?? {});
 
         if (cosmeticResult.type === "forbidden") {
           log.warn(`Forbidden: ${cosmeticResult.reason}`, {

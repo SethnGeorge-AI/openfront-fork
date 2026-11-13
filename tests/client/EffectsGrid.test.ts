@@ -9,7 +9,7 @@ import type { CosmeticCard } from "../../src/client/components/CosmeticCard";
 import type { EffectsGrid } from "../../src/client/components/EffectsGrid";
 import { purchaseCosmetic } from "../../src/client/Cosmetics";
 import "../../src/client/components/EffectsGrid";
-import { EFFECTS_KEY, UserSettings } from "../../src/client/UserSettings";
+import { UserSettings } from "../../src/client/UserSettings";
 
 vi.mock("../../src/client/Cosmetics", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../../src/client/Cosmetics")>()),
@@ -329,89 +329,5 @@ describe("EffectsGrid", () => {
       expect.objectContaining({ effectType: "nukeExplosion", slot: "hydro" }),
     );
     expect(grid.querySelector("[data-effects-unequip]")).toBeTruthy();
-  });
-
-  it("focuses purchases without initiating a purchase", async () => {
-    const onPurchaseFocus = vi.fn();
-    grid = await createGrid();
-    grid.mode = "purchase";
-    grid.tabbed = true;
-    grid.onPurchaseFocus = onPurchaseFocus;
-    grid.requestUpdate();
-    await grid.updateComplete;
-
-    clickEffectType(grid, "nukeExplosion");
-    await grid.updateComplete;
-    clickNukeType(grid, "hydro");
-    await grid.updateComplete;
-
-    const locked = effectCard(grid, "effect:nukeExplosion:locked_hydro")!;
-    locked.onActivate!(locked.resolved);
-    expect(onPurchaseFocus).toHaveBeenCalledWith(locked.resolved);
-    expect(purchaseCosmetic).not.toHaveBeenCalled();
-    expect(localStorage.getItem(EFFECTS_KEY)).toBeNull();
-  });
-
-  it("reports visible purchases when the nuke sub-tab changes", async () => {
-    const onVisiblePurchaseItemsChange = vi.fn();
-    grid = await createGrid();
-    grid.mode = "purchase";
-    grid.tabbed = true;
-    grid.onVisiblePurchaseItemsChange = onVisiblePurchaseItemsChange;
-    grid.requestUpdate();
-    await grid.updateComplete;
-
-    clickEffectType(grid, "nukeExplosion");
-    await grid.updateComplete;
-    clickNukeType(grid, "hydro");
-    await grid.updateComplete;
-
-    expect(onVisiblePurchaseItemsChange).toHaveBeenLastCalledWith([
-      expect.objectContaining({ key: "effect:nukeExplosion:locked_hydro" }),
-      expect.objectContaining({
-        key: "effect:nukeExplosion:locked_hydro_alt",
-      }),
-    ]);
-  });
-
-  it("marks only the Store-focused effect as focused", async () => {
-    grid = await createGrid();
-    grid.mode = "purchase";
-    grid.tabbed = true;
-    grid.focusedKey = "effect:nukeExplosion:locked_hydro";
-    grid.requestUpdate();
-    await grid.updateComplete;
-
-    clickEffectType(grid, "nukeExplosion");
-    await grid.updateComplete;
-    clickNukeType(grid, "hydro");
-    await grid.updateComplete;
-
-    expect(effectCard(grid, "effect:nukeExplosion:locked_hydro")?.state).toBe(
-      "focused",
-    );
-    expect(
-      effectCard(grid, "effect:nukeExplosion:locked_hydro_alt")?.state,
-    ).toBe("idle");
-  });
-
-  it("uses a two-column phone grid with responsive expansion", async () => {
-    grid = await createGrid();
-    grid.mode = "purchase";
-    grid.tabbed = true;
-    grid.requestUpdate();
-    await grid.updateComplete;
-    clickEffectType(grid, "nukeExplosion");
-    await grid.updateComplete;
-    clickNukeType(grid, "hydro");
-    await grid.updateComplete;
-
-    const items = grid.querySelector<HTMLElement>("[data-effects-items]")!;
-    expect(items).toBeTruthy();
-    expect(items.classList).toContain("grid");
-    expect(items.classList).toContain("grid-cols-2");
-    expect(items.classList).toContain("sm:grid-cols-3");
-    expect(items.classList).toContain("lg:grid-cols-4");
-    expect(items.className).not.toMatch(/\bflex\b|flex-wrap/);
   });
 });

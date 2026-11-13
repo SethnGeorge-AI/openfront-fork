@@ -1,5 +1,6 @@
 import { ReservedClanTagsResponseSchema } from "@openfront/shared/ClanApiSchemas";
 import { CosmeticsSchema } from "@openfront/shared/CosmeticSchemas";
+import fs from "fs/promises";
 import { base64url } from "jose";
 import { Logger } from "winston";
 import { startPolling } from "./PollingLoop";
@@ -19,7 +20,8 @@ export class PrivilegeRefresher {
   private log: Logger;
 
   constructor(
-    private cosmeticsEndpoint: string,
+    // This fork's catalog is a local file (resources/cosmetics/catalog.json).
+    private cosmeticsPath: string,
     private apiKey: string,
     private reservedClanTagsEndpoint: string,
     parentLog: Logger,
@@ -54,31 +56,27 @@ export class PrivilegeRefresher {
         }
       };
 
-      const [cosmeticsResponse, reservedClanTagsResponse] = await Promise.all([
-        fetchWithTimeout(this.cosmeticsEndpoint),
+      const [cosmeticsData, reservedClanTagsResponse] = await Promise.all([
+        fs.readFile(this.cosmeticsPath, "utf8").then(JSON.parse),
         fetchWithTimeout(this.reservedClanTagsEndpoint),
       ]);
-
-      if (!cosmeticsResponse || !cosmeticsResponse.ok) {
-        throw new Error(
-          `Cosmetics HTTP error! status: ${cosmeticsResponse?.status ?? "network error"}`,
-        );
-      }
-
-      const cosmeticsData = await cosmeticsResponse.json();
       const result = CosmeticsSchema.safeParse(cosmeticsData);
 
       if (!result.success) {
         throw new Error(`Invalid cosmetics data: ${result.error.message}`);
       }
 
-      // Reserved clan tags are critical: a missing or malformed list would
-      // make every non-member tag look fictional and let impersonation
-      // through. Throw so the previous (good) checker is retained instead.
+      // This fork has no clans service: without the list every tag is
+      // fictional and kept, as the fail-open checker did. A list that does
+      // arrive but is malformed still throws, keeping the previous checker.
       if (!reservedClanTagsResponse || !reservedClanTagsResponse.ok) {
-        throw new Error(
-          `Reserved clan tags HTTP error! status: ${reservedClanTagsResponse?.status ?? "network error"}`,
+        this.privilegeChecker = new PrivilegeCheckerImpl(
+          result.data,
+          base64url.decode,
+          new Set(),
         );
+        this.log.info("Privilege checker loaded (no reserved clan tags)");
+        return;
       }
       const reservedClanTagsData = await reservedClanTagsResponse.json();
       const reservedClanTagsResult =

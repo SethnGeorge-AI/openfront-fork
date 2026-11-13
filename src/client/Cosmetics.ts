@@ -17,6 +17,7 @@ import {
   Effect,
   findEffectForSlot,
   Flag,
+  FREE_COSMETIC_FLARES,
   Pack,
   Pattern,
   Skin,
@@ -30,7 +31,6 @@ import {
 } from "@openfront/shared/WireSchemas";
 import {
   changeSubscriptionTier,
-  getApiBase,
   getUserMe,
   invalidateUserMe,
   openSubscriptionPortal,
@@ -59,6 +59,11 @@ import { translateText } from "./Utils";
  * that answers in eight is not, and should keep its cosmetics.
  */
 export const COSMETICS_FETCH_TIMEOUT_MS = 10_000;
+
+// Every cosmetic is free in this fork (see FREE_COSMETIC_FLARES); the game
+// server grants the same flares, so what the client sends is accepted.
+const FREE_COSMETICS = true;
+const FREE_COSMETICS_PROFILE = { player: { flares: FREE_COSMETIC_FLARES } };
 
 let __cosmetics: Promise<Cosmetics | null> | null = null;
 let __cosmeticsHash: string | null = null;
@@ -988,8 +993,9 @@ export function tierListingRail(): TierListingRail {
   return paymentsProvider() === "steam" ? "steam" : "web";
 }
 
+// This fork serves its own free catalog (resources/cosmetics/catalog.json).
 function cosmeticsJsonUrl(): string {
-  return `${getApiBase()}/cosmetics.json?rail=${tierListingRail()}`;
+  return assetUrl("cosmetics/catalog.json");
 }
 
 export async function fetchCosmetics(): Promise<Cosmetics | null> {
@@ -1089,6 +1095,8 @@ export function cosmeticRelationship(
   },
   userMeResponse: UserMeResponse | false,
 ): "owned" | "purchasable" | "blocked" {
+  // This fork gives every cosmetic away.
+  if (FREE_COSMETICS) return "owned";
   const flares =
     userMeResponse === false ? [] : (userMeResponse.player.flares ?? []);
 
@@ -1118,6 +1126,7 @@ function patternRelationship(
   userMeResponse: UserMeResponse | false,
   affiliateCode: string | null,
 ): "owned" | "purchasable" | "blocked" {
+  if (FREE_COSMETICS) return "owned";
   if (colorPalette === null) {
     // For backwards compatibility only show non-colored patterns if they are owned.
     const flares =
@@ -1580,7 +1589,7 @@ export async function getPlayerCosmeticsRefs(
   let patternDenied = false;
 
   if (pattern) {
-    const userMe = await getUserMe();
+    const userMe = FREE_COSMETICS_PROFILE;
     if (userMe) {
       const flareName =
         pattern.colorPalette?.name === undefined
@@ -1620,7 +1629,7 @@ export async function getPlayerCosmeticsRefs(
         flagDenied = true;
       }
     } else {
-      const userMe = await getUserMe();
+      const userMe = FREE_COSMETICS_PROFILE;
       if (userMe) {
         const flares = userMe.player.flares ?? [];
         const hasWildcard = flares.includes("flag:*");
@@ -1654,7 +1663,7 @@ export async function getPlayerCosmeticsRefs(
         skinDenied = true;
       }
     } else {
-      const userMe = await getUserMe();
+      const userMe = FREE_COSMETICS_PROFILE;
       if (userMe) {
         const flares = userMe.player.flares ?? [];
         const hasWildcard = flares.includes("skin:*");
@@ -1683,7 +1692,7 @@ export async function getPlayerCosmeticsRefs(
         crownDenied = true;
       }
     } else {
-      const userMe = await getUserMe();
+      const userMe = FREE_COSMETICS_PROFILE;
       if (userMe) {
         const flares = userMe.player.flares ?? [];
         const hasWildcard = flares.includes("crown:*");
@@ -1716,7 +1725,7 @@ export async function getPlayerCosmeticsRefs(
       }
       continue;
     }
-    const userMe = await getUserMe();
+    const userMe = FREE_COSMETICS_PROFILE;
     if (userMe) {
       const flares = userMe.player.flares ?? [];
       const hasWildcard = flares.includes("effect:*");

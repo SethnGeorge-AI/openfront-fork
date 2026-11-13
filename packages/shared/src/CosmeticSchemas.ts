@@ -610,3 +610,17 @@ export const DefaultPattern = {
   patternData: "AAAAAA",
   colorPalette: undefined,
 } satisfies PlayerPattern;
+
+/**
+ * This fork gives every cosmetic to every player, signed in or not: its
+ * catalog (resources/cosmetics/catalog.json) is its own and nothing in it is
+ * sold. The client and the game server both use these wildcard flares as
+ * every player's entitlements.
+ */
+export const FREE_COSMETIC_FLARES = [
+  "pattern:*",
+  "flag:*",
+  "skin:*",
+  "crown:*",
+  "effect:*",
+];

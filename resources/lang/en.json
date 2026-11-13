@@ -135,7 +135,6 @@
     "sub_status_unpaid": "Unpaid",
     "subscription_portal_failed": "Failed to open the subscription management portal.",
     "tab_account": "Account",
-    "tab_clans": "Clans",
     "tab_friends": "Friends",
     "tab_games": "Games",
     "tab_progression": "Progression",
@@ -1798,7 +1797,6 @@
   },
   "main": {
     "account": "Account",
-    "clans": "Clans",
     "copyright": "© OpenFront™ and Contributors",
     "create": "Create Lobby",
     "discord_avatar_alt": "Discord profile avatar",
@@ -1807,7 +1805,6 @@
     "help": "Help",
     "inventory": "Inventory",
     "join": "Join Lobby",
-    "leaderboard": "Leaderboard",
     "login_discord": "Login with Discord",
     "login_google": "Login with Google",
     "login_steam": "Login with Steam",
@@ -1819,7 +1816,6 @@
     "settings": "Settings",
     "sign_in": "Sign in",
     "solo": "Solo",
-    "store": "Store",
     "terms_of_service": "Terms of Service",
     "title": "OpenFront (ALPHA)",
     "troubleshooting": "Troubleshooting",
@@ -2339,8 +2335,7 @@
     "share_text": "Check out {name}'s profile on OpenFront",
     "share_x": "Share on X",
     "title": "Player Profile",
-    "view": "View Profile",
-    "view_leaderboard": "View leaderboard"
+    "view": "View Profile"
   },
   "player_stats_table": {
     "arrived": "Arrived",
@@ -3335,7 +3330,6 @@
     "account_invalid_chars": "Username can only contain letters, numbers, underscores, hyphens, and single spaces between words.",
     "claim_at_risk": "\"{name}\" is no longer reserved and can be taken by another player at any moment. Resubscribe now to keep it.",
     "claim_reserved": "\"{name}\" is reserved for you until {date}. Resubscribe before then to keep it.",
-    "clan_browse": "Browse clans",
     "clan_clear": "No tag",
     "clan_custom": "Other tag",
     "clan_label": "Clan tag",

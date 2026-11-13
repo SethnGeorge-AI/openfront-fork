@@ -92,6 +92,13 @@ export class MobileNavBar extends LitElement {
           data-page="page-play"
           data-i18n="main.play"
         ></button>
+        <button
+          class="${MOBILE_ITEM} ${
+            currentPage === "page-inventory" ? "active" : ""
+          }"
+          data-page="page-inventory"
+          data-i18n="main.inventory"
+        ></button>
         <div
           class="flex flex-col w-full mt-auto [.in-game_&]:hidden items-end justify-end pt-4 border-t border-white/10"
         ></div>
