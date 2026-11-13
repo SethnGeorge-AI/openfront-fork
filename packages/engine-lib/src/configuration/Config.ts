@@ -20,10 +20,10 @@ export interface NukeMagnitude {
 
 const DEFAULT_SPAWN_IMMUNITY_TICKS = 5 * 10;
 
-/** Extra gold per tick for each landmark a player holds (15,000 / min). */
-export const LANDMARK_GOLD_PER_TICK: Gold = 25n;
+/** Extra gold per tick for each landmark a player holds (6,000 / min). */
+export const LANDMARK_GOLD_PER_TICK: Gold = 10n;
 /** Troop growth bonus per landmark held: growth is multiplied by 1 + this × held. */
-export const LANDMARK_TROOP_BONUS = 0.1;
+export const LANDMARK_TROOP_BONUS = 0.05;
 
 /** SAM launcher construction duration in ticks (non-instant-build). */
 export const SAM_CONSTRUCTION_TICKS = 30 * 10;
