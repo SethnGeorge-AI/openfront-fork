@@ -30,8 +30,15 @@ const alice = {
   territoryColor: () => ({ toHex: () => "#ff0000" }),
 } as unknown as PlayerView;
 
-/** Two landmarks: one on screen at (100, 120), one far off screen. */
-function mount(owner: PlayerView | null, me: PlayerView | null = null) {
+/**
+ * Two landmarks: the Eiffel Tower's tile centre is on screen at (105, 125),
+ * the other is far off screen. `scale` is screen pixels per map tile.
+ */
+function mount(
+  owner: PlayerView | null,
+  me: PlayerView | null = null,
+  scale = 10,
+) {
   const game = {
     landmarks: () => [
       { name: "Eiffel Tower", x: 10, y: 12, tile: 0 },
@@ -41,6 +48,7 @@ function mount(owner: PlayerView | null, me: PlayerView | null = null) {
     myPlayer: () => me,
   } as unknown as GameView;
   const transformHandler = {
+    scale,
     worldToScreenCoordinates: (c: { x: number; y: number }) =>
       c.x < 100 ? { x: c.x * 10, y: c.y * 10 } : { x: -5000, y: -5000 },
   } as unknown as TransformHandler;
@@ -57,13 +65,27 @@ async function markers(overlay: LandmarkOverlay) {
   return [...overlay.querySelectorAll<HTMLElement>("[data-landmark]")];
 }
 
-async function hoverCard(overlay: LandmarkOverlay) {
-  const [marker] = await markers(overlay);
-  marker.dispatchEvent(
-    new PointerEvent("pointerenter", { pointerType: "mouse" }),
+/** A pointer event on the window, where the overlay hit-tests the art. */
+function pointer(type: string, x: number, y: number, pointerType = "mouse") {
+  window.dispatchEvent(
+    new PointerEvent(type, {
+      pointerType,
+      pointerId: 3,
+      button: 0,
+      clientX: x,
+      clientY: y,
+    }),
   );
+}
+
+const card = (overlay: LandmarkOverlay) =>
+  overlay.querySelector<HTMLElement>("[data-landmark-card]");
+
+async function hoverCard(overlay: LandmarkOverlay) {
+  await markers(overlay);
+  pointer("pointermove", 105, 125);
   await overlay.updateComplete;
-  return overlay.querySelector<HTMLElement>("[data-landmark-card]");
+  return card(overlay);
 }
 
 afterEach(() => {
@@ -72,30 +94,44 @@ afterEach(() => {
 });
 
 describe("LandmarkOverlay", () => {
-  it("renders a marker only for landmarks on screen", async () => {
-    const overlay = mount(alice);
-    const shown = await markers(overlay);
+  it("paints art only for landmarks on screen", async () => {
+    const shown = await markers(mount(alice));
     expect(shown).toHaveLength(1);
-    expect(shown[0].getAttribute("aria-label")).toContain("Eiffel Tower");
+    expect(shown[0].getAttribute("aria-label")).toBe("Eiffel Tower");
+    expect(shown[0].querySelector("svg")).not.toBeNull();
   });
 
-  it("pins the marker above its tile so clicks on the tile reach the map", async () => {
-    const overlay = mount(alice);
-    const [marker] = await markers(overlay);
-    // The landmark tile's centre is at screen y = 125 (see mount()).
-    const top = parseFloat(marker.style.top);
-    expect(top).toBeLessThan(125);
-    expect(marker.className).toContain("-translate-y-full");
+  it("sizes the art in map tiles, so it zooms with the terrain", async () => {
+    const [near] = await markers(mount(alice, null, 10));
+    expect(near.style.width).toBe("120px"); // 12 tiles at 10px a tile
+    document.body.innerHTML = "";
+    const [far] = await markers(mount(alice, null, 0.5));
+    expect(far.style.width).toBe("18px"); // never smaller than 18px
   });
 
-  it("rings a held landmark in its owner's color", async () => {
-    const [marker] = await markers(mount(alice));
-    expect(marker.style.borderColor).toBe("rgb(255, 0, 0)");
+  it("centres the art on its tile", async () => {
+    const [art] = await markers(mount(alice));
+    expect([art.style.left, art.style.top]).toEqual(["105px", "125px"]);
+    expect(art.className).toContain("-translate-x-1/2");
+    expect(art.className).toContain("-translate-y-1/2");
   });
 
-  it("shows the name, owner and both bonuses on hover", async () => {
-    const card = await hoverCard(mount(alice));
-    const text = card?.textContent ?? "";
+  it("takes no pointer events, so clicks, drags and zoom reach the map", async () => {
+    const [art] = await markers(mount(alice));
+    expect(art.className).toContain("pointer-events-none");
+    expect(art.className).not.toContain("pointer-events-auto");
+  });
+
+  it("glows in its holder's colour, and not at all when unclaimed", async () => {
+    const [held] = await markers(mount(alice));
+    expect(held.style.filter).toContain("#ff0000");
+    document.body.innerHTML = "";
+    const [free] = await markers(mount(null));
+    expect(free.style.filter).toBe("");
+  });
+
+  it("shows the name, owner and both bonuses while the mouse is over the art", async () => {
+    const text = (await hoverCard(mount(alice)))?.textContent ?? "";
     expect(text).toContain("Eiffel Tower");
     expect(text).toContain('landmark.owner {"name":"Alice"}');
     expect(text).toContain(
@@ -106,111 +142,65 @@ describe("LandmarkOverlay", () => {
     );
   });
 
-  it("keeps the card inside the screen near the left edge", async () => {
-    // The pin is at x = 105; a 288px card centred there would start at -39.
-    const card = await hoverCard(mount(alice));
-    expect(parseFloat(card!.style.left)).toBeGreaterThanOrEqual(144 + 8);
-  });
-
-  it("shows the landmark's pixel art in the card", async () => {
-    const card = await hoverCard(mount(alice));
-    expect(card!.querySelector("[data-landmark-art] svg")).not.toBeNull();
-  });
-
-  it("opens the card below the pin near the top edge", async () => {
-    // The pin's tile is at y = 125, too close to the top for a card above it.
-    const card = await hoverCard(mount(alice));
-    expect(card!.className).not.toContain("-translate-y-full");
-    expect(parseFloat(card!.style.top)).toBeGreaterThan(125);
-  });
-
-  it("passes the scroll wheel through to the map", async () => {
-    const map = document.createElement("div");
-    map.id = "game-input-overlay";
-    document.body.appendChild(map);
-    const wheels: WheelEvent[] = [];
-    map.addEventListener("wheel", (e) => wheels.push(e as WheelEvent));
-    const [marker] = await markers(mount(alice));
-    marker.dispatchEvent(
-      new WheelEvent("wheel", { deltaY: 50, clientX: 105, clientY: 119 }),
-    );
-    expect(wheels.map((w) => [w.deltaY, w.clientX, w.clientY])).toEqual([
-      [50, 105, 119],
-    ]);
-  });
-
-  it("hands a drag that starts on a pin to the map, without opening the card", async () => {
-    const map = document.createElement("div");
-    map.id = "game-input-overlay";
-    document.body.appendChild(map);
-    const downs: PointerEvent[] = [];
-    map.addEventListener("pointerdown", (e) => downs.push(e as PointerEvent));
+  it("closes the card when the mouse leaves the art", async () => {
     const overlay = mount(alice);
-    const [marker] = await markers(overlay);
-    const at = (type: string, x: number) =>
-      new PointerEvent(type, {
-        pointerId: 7,
-        pointerType: "touch",
-        button: 0,
-        clientX: x,
-        clientY: 119,
-        bubbles: true,
-      });
-    marker.dispatchEvent(at("pointerdown", 105));
-    marker.dispatchEvent(at("pointermove", 108));
-    expect(downs).toHaveLength(0); // still a tap
-    marker.dispatchEvent(at("pointermove", 130));
-    expect(downs.map((d) => [d.pointerId, d.clientX, d.clientY])).toEqual([
-      [7, 105, 119],
-    ]);
-    marker.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await hoverCard(overlay);
+    pointer("pointermove", 500, 500);
     await overlay.updateComplete;
-    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
-  });
-
-  it("says unclaimed when nobody holds it", async () => {
-    const card = await hoverCard(mount(null));
-    expect(card?.textContent).toContain("landmark.unclaimed");
-  });
-
-  it("says held by you when the viewer holds it", async () => {
-    const card = await hoverCard(mount(alice, alice));
-    expect(card?.textContent).toContain("landmark.held_by_you");
+    expect(card(overlay)).toBeNull();
   });
 
   it("opens the card on a tap and closes it on the next tap", async () => {
     const overlay = mount(alice);
-    const [marker] = await markers(overlay);
-    // What a touchscreen fires for one tap.
+    await markers(overlay);
     const tap = async () => {
-      marker.dispatchEvent(
-        new PointerEvent("pointerenter", { pointerType: "touch" }),
-      );
-      marker.dispatchEvent(new MouseEvent("mouseenter"));
-      marker.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-      marker.dispatchEvent(
-        new PointerEvent("pointerleave", { pointerType: "touch" }),
-      );
+      pointer("pointerdown", 105, 125, "touch");
+      pointer("pointerup", 106, 125, "touch");
       await overlay.updateComplete;
     };
     await tap();
-    expect(overlay.querySelector("[data-landmark-card]")).not.toBeNull();
+    expect(card(overlay)).not.toBeNull();
     await tap();
-    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+    expect(card(overlay)).toBeNull();
   });
 
-  it("closes the card when the pointer leaves", async () => {
+  it("does not open the card when a touch drag starts on the art", async () => {
     const overlay = mount(alice);
-    const [marker] = await markers(overlay);
-    marker.dispatchEvent(
-      new PointerEvent("pointerenter", { pointerType: "mouse" }),
-    );
+    await markers(overlay);
+    pointer("pointerdown", 105, 125, "touch");
+    pointer("pointerup", 160, 125, "touch");
     await overlay.updateComplete;
-    marker.dispatchEvent(
-      new PointerEvent("pointerleave", { pointerType: "mouse" }),
+    expect(card(overlay)).toBeNull();
+  });
+
+  it("says unclaimed when nobody holds it", async () => {
+    expect((await hoverCard(mount(null)))?.textContent).toContain(
+      "landmark.unclaimed",
     );
-    await overlay.updateComplete;
-    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+  });
+
+  it("says held by you when the viewer holds it", async () => {
+    expect((await hoverCard(mount(alice, alice)))?.textContent).toContain(
+      "landmark.held_by_you",
+    );
+  });
+
+  it("shows the landmark's pixel art in the card", async () => {
+    const c = await hoverCard(mount(alice));
+    expect(c!.querySelector("[data-landmark-art] svg")).not.toBeNull();
+  });
+
+  it("keeps the card inside the screen near the left edge", async () => {
+    // A 288px card centred on x = 105 would start at -39.
+    const c = await hoverCard(mount(alice));
+    expect(parseFloat(c!.style.left)).toBeGreaterThanOrEqual(144 + 8);
+  });
+
+  it("opens the card below the art near the top edge", async () => {
+    // The 120px art spans y 65..185, too close to the top for a card above.
+    const c = await hoverCard(mount(alice));
+    expect(c!.className).not.toContain("-translate-y-full");
+    expect(parseFloat(c!.style.top)).toBeGreaterThan(185);
   });
 });
 

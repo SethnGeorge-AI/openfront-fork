@@ -15,33 +15,31 @@ import { landmarkArt } from "../landmarkArt";
 /** Gold a held landmark pays per minute (10 ticks a second). */
 const GOLD_PER_MINUTE = renderNumber(LANDMARK_GOLD_PER_TICK * 600n);
 const TROOP_PERCENT = Math.round(LANDMARK_TROOP_BONUS * 100);
-/**
- * The marker is a pin standing this far above its tile, so the tile itself
- * stays clickable (spawning or attacking onto a landmark).
- */
-const PIN_GAP_PX = 6;
-/** Markers this far past the screen edge are still drawn, so they slide in. */
-const EDGE_PX = 40;
-/** The card's width (w-72), its gap to the screen edge, and the room it needs above a pin. */
+/** The art spans this many map tiles, so it zooms with the terrain... */
+const ART_TILES = 12;
+/** ...but never shrinks below this, so a landmark stays findable zoomed out. */
+const ART_MIN_PX = 18;
+/** The card's width (w-72), its gap to the screen edge, and the room it needs above the art. */
 const CARD_W = 288;
 const CARD_MARGIN = 8;
 const CARD_ROOM_PX = 150;
-/** Movement that turns a press on a pin into a map drag (InputHandler's threshold). */
+/** A touch that moves this far is a map drag, not a tap (InputHandler's threshold). */
 const DRAG_PX = 10;
-
-/** The element the map's InputHandler listens on. */
-const mapInput = () => document.getElementById("game-input-overlay");
 
 interface Spot {
   index: number;
   x: number;
   y: number;
+  /** Side of the art's square on screen, in pixels. */
+  size: number;
 }
 
 /**
- * Landmark markers on the map: a ring in the holder's color around a
- * monument icon, with a card (name, holder, bonuses) on hover or tap.
- * Positions follow the camera every frame; holders refresh each tick.
+ * Landmark art painted onto the map: each landmark's pixel art, centred on its
+ * tile and sized in map tiles, glowing in its holder's colour. The art takes no
+ * pointer events, so the map keeps every click, drag and zoom; hovering it with
+ * a mouse, or tapping it, opens a card (name, holder, bonuses). Positions follow
+ * the camera every frame; holders refresh each tick.
  */
 @customElement("landmark-overlay")
 export class LandmarkOverlay extends LitElement implements Controller {
@@ -51,13 +49,26 @@ export class LandmarkOverlay extends LitElement implements Controller {
   @state() private spots: Spot[] = [];
   @state() private openIndex: number | null = null;
   private frame: number | null = null;
-  /** A press on a pin that is not yet a drag. */
+  /** Where a touch began, to tell a tap on the art from a map drag. */
   private press: { id: number; x: number; y: number } | null = null;
-  /** Set when a press became a map drag, so its click does not toggle the card. */
-  private dragged = false;
 
   createRenderRoot() {
     return this;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("pointermove", this.onPointerMove);
+    window.addEventListener("pointerdown", this.onPointerDown);
+    window.addEventListener("pointerup", this.onPointerUp);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener("pointermove", this.onPointerMove);
+    window.removeEventListener("pointerdown", this.onPointerDown);
+    window.removeEventListener("pointerup", this.onPointerUp);
+    this.dispose();
   }
 
   init() {
@@ -75,7 +86,7 @@ export class LandmarkOverlay extends LitElement implements Controller {
   }
 
   tick() {
-    // Holders change with the territory; markers and the card re-read them.
+    // Holders change with the territory; the art and the card re-read them.
     if (this.spots.length > 0) this.requestUpdate();
   }
 
@@ -83,30 +94,27 @@ export class LandmarkOverlay extends LitElement implements Controller {
     return 500;
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.dispose();
-  }
-
   private follow = () => {
     this.frame = requestAnimationFrame(this.follow);
     this.updateSpots();
   };
 
-  /** Screen positions of the landmarks in view; skips a no-op re-render. */
+  /** Screen positions and sizes of the landmarks in view; skips a no-op re-render. */
   updateSpots() {
+    const size = Math.max(ART_MIN_PX, ART_TILES * this.transformHandler.scale);
     const next: Spot[] = [];
     this.game.landmarks().forEach((l, index) => {
       const p = this.transformHandler.worldToScreenCoordinates(
         new Cell(l.x + 0.5, l.y + 0.5),
       );
+      const half = size / 2;
       if (
-        p.x >= -EDGE_PX &&
-        p.y >= -EDGE_PX &&
-        p.x <= window.innerWidth + EDGE_PX &&
-        p.y <= window.innerHeight + EDGE_PX
+        p.x >= -half &&
+        p.y >= -half &&
+        p.x <= window.innerWidth + half &&
+        p.y <= window.innerHeight + half
       ) {
-        next.push({ index, x: p.x, y: p.y });
+        next.push({ index, x: p.x, y: p.y, size });
       }
     });
     const prev = this.spots;
@@ -116,10 +124,44 @@ export class LandmarkOverlay extends LitElement implements Controller {
         (s, i) =>
           s.index !== prev[i].index ||
           Math.abs(s.x - prev[i].x) > 0.5 ||
-          Math.abs(s.y - prev[i].y) > 0.5,
+          Math.abs(s.y - prev[i].y) > 0.5 ||
+          Math.abs(s.size - prev[i].size) > 0.5,
       );
     if (moved) this.spots = next;
   }
+
+  /** The landmark whose art is under a screen point (the last drawn wins). */
+  private hit(x: number, y: number): number | null {
+    for (let i = this.spots.length - 1; i >= 0; i--) {
+      const s = this.spots[i];
+      if (Math.abs(x - s.x) <= s.size / 2 && Math.abs(y - s.y) <= s.size / 2) {
+        return s.index;
+      }
+    }
+    return null;
+  }
+
+  private onPointerMove = (e: PointerEvent) => {
+    if (e.pointerType !== "mouse" || this.spots.length === 0) return;
+    const index = this.hit(e.clientX, e.clientY);
+    if (index !== this.openIndex) this.openIndex = index;
+  };
+
+  private onPointerDown = (e: PointerEvent) => {
+    if (e.pointerType === "mouse" || e.button !== 0) return;
+    this.press = { id: e.pointerId, x: e.clientX, y: e.clientY };
+  };
+
+  /** A touch that lifts where it landed toggles the card of the art it hit. */
+  private onPointerUp = (e: PointerEvent) => {
+    const p = this.press;
+    if (p === null || e.pointerId !== p.id) return;
+    this.press = null;
+    if (Math.abs(e.clientX - p.x) + Math.abs(e.clientY - p.y) >= DRAG_PX)
+      return;
+    const index = this.hit(p.x, p.y);
+    this.openIndex = index === null || index === this.openIndex ? null : index;
+  };
 
   private ownerLine(owner: PlayerView | null): string {
     if (owner === null) return translateText("landmark.unclaimed");
@@ -129,64 +171,24 @@ export class LandmarkOverlay extends LitElement implements Controller {
     return translateText("landmark.owner", { name: owner.displayName() });
   }
 
-  private onPinPointerDown = (e: PointerEvent) => {
-    if (e.button !== 0) return;
-    this.press = { id: e.pointerId, x: e.clientX, y: e.clientY };
-    this.dragged = false;
-  };
-
-  /** Past the drag threshold the press is the map's: replay its start there. */
-  private onPinPointerMove = (e: PointerEvent) => {
-    const p = this.press;
-    if (p === null || e.pointerId !== p.id) return;
-    if (Math.abs(e.clientX - p.x) + Math.abs(e.clientY - p.y) < DRAG_PX) return;
-    this.press = null;
-    this.dragged = true;
-    mapInput()?.dispatchEvent(
-      new PointerEvent("pointerdown", {
-        pointerId: p.id,
-        pointerType: e.pointerType,
-        isPrimary: e.isPrimary,
-        button: 0,
-        buttons: 1,
-        clientX: p.x,
-        clientY: p.y,
-        bubbles: true,
-      }),
-    );
-  };
-
-  private onPinClick = (index: number) => {
-    this.press = null;
-    if (this.dragged) {
-      this.dragged = false;
-      return;
-    }
-    this.openIndex = this.openIndex === index ? null : index;
-  };
-
-  private onPinWheel = (e: WheelEvent) => {
-    e.preventDefault();
-    mapInput()?.dispatchEvent(new WheelEvent("wheel", e));
-  };
-
   private renderCard(spot: Spot) {
     const landmark = this.game.landmarks()[spot.index];
     const owner = this.game.landmarkOwner(spot.index);
     const art = landmarkArt(landmark.name);
-    // Kept on screen: clamped sideways, and below the pin when there is no room above.
+    // Kept on screen: clamped sideways, and below the art when there is no room above.
     const left = Math.min(
       Math.max(spot.x, CARD_W / 2 + CARD_MARGIN),
       window.innerWidth - CARD_W / 2 - CARD_MARGIN,
     );
-    const below = spot.y < CARD_ROOM_PX;
+    const top = spot.y - spot.size / 2;
+    const below = top < CARD_ROOM_PX;
     return html`<div
       data-landmark-card
       class="absolute pointer-events-none flex w-72 items-center gap-3 -translate-x-1/2 ${
         below ? "" : "-translate-y-full"
       } rounded-xl bg-gray-900/95 px-4 py-3 text-white shadow-2xl ring-1 ring-white/10"
       style="left: ${left}px; top: ${
-        below ? spot.y + CARD_MARGIN : spot.y - PIN_GAP_PX - 36
+        below ? spot.y + spot.size / 2 + CARD_MARGIN : top - CARD_MARGIN
       }px"
     >
       ${
@@ -223,37 +225,17 @@ export class LandmarkOverlay extends LitElement implements Controller {
       ${this.spots.map((spot) => {
         const landmark = this.game.landmarks()[spot.index];
         const owner = this.game.landmarkOwner(spot.index);
-        return html`<button
-          type="button"
+        const glow = owner
+          ? `drop-shadow(0 0 2px ${owner.territoryColor().toHex()}) drop-shadow(0 0 1px ${owner.territoryColor().toHex()})`
+          : "";
+        return html`<div
           data-landmark
           aria-label=${landmark.name}
-          class="absolute pointer-events-auto touch-none flex size-7 -translate-x-1/2 -translate-y-full items-center justify-center rounded-full border-2 bg-gray-900/85 text-white shadow-lg transition-transform hover:scale-110"
-          style="left: ${spot.x}px; top: ${spot.y - PIN_GAP_PX}px; border-color: ${
-            owner ? owner.territoryColor().toHex() : "rgba(255, 255, 255, 0.3)"
-          }"
-          @pointerenter=${(e: PointerEvent) => {
-            // Hover is for a mouse; a tap's emulated enter would race the click.
-            if (e.pointerType === "mouse") this.openIndex = spot.index;
-          }}
-          @pointerleave=${(e: PointerEvent) => {
-            if (e.pointerType === "mouse") this.openIndex = null;
-          }}
-          @pointerdown=${this.onPinPointerDown}
-          @pointermove=${this.onPinPointerMove}
-          @wheel=${this.onPinWheel}
-          @click=${() => this.onPinClick(spot.index)}
+          class="absolute pointer-events-none -translate-x-1/2 -translate-y-1/2"
+          style="left: ${spot.x}px; top: ${spot.y}px; width: ${spot.size}px; height: ${spot.size}px; filter: ${glow}"
         >
-          <svg viewBox="0 0 16 16" class="size-4" aria-hidden="true">
-            <path
-              fill="currentColor"
-              d="M8 1 1.5 4.5V6h13V4.5L8 1Zm-5 6v5h2V7H3Zm4 0v5h2V7H7Zm4 0v5h2V7h-2ZM1.5 13v2h13v-2h-13Z"
-            />
-          </svg>
-          <span
-            class="absolute left-1/2 top-full -translate-x-1/2 border-x-4 border-t-[6px] border-x-transparent border-t-gray-900/85"
-            aria-hidden="true"
-          ></span>
-        </button>`;
+          ${landmarkArt(landmark.name)}
+        </div>`;
       })}
       ${open ? this.renderCard(open) : nothing}
     </div>`;
