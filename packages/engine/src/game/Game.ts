@@ -297,6 +297,10 @@ export interface Unit extends UnitLike {
   // Upgradable Structures
   level(): number;
   increaseLevel(): void;
+  /** Tick the capital's pending upgrade lands, or null when none is pending. */
+  capitalUpgradeAt(): Tick | null;
+  /** Starts a timed upgrade to the next level (capital only). */
+  startCapitalUpgrade(): void;
   decreaseLevel(destroyer?: Player): void;
 }
 

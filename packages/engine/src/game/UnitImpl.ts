@@ -14,6 +14,7 @@ import {
   GameUpdateType,
   UnitUpdate,
 } from "@openfront/engine-api/game/GameUpdates";
+import { CAPITAL_UPGRADE_TICKS } from "@openfront/engine-lib/configuration/CapitalTiers";
 import { maxHealthWithVeterancy } from "@openfront/engine-lib/game/Veterancy";
 import {
   snapshotType,
@@ -93,7 +94,10 @@ export class UnitImpl implements Unit {
     if (this._type === UnitType.TransportShip) {
       this._transportShipState = { isRetreating: false, troops: 0 };
     }
-    if (this._type === UnitType.SAMLauncher) {
+    if (
+      this._type === UnitType.SAMLauncher ||
+      this._type === UnitType.Capital
+    ) {
       this._samLauncherState = {
         startRange: this.mg.config().samRange(1),
         targetLevel: 1,
@@ -739,6 +743,31 @@ export class UnitImpl implements Unit {
 
   hasTrainStation(): boolean {
     return this._hasTrainStation;
+  }
+
+  // The capital reuses the SAM upgrade state as its pending timed upgrade: it is
+  // pending while targetLevel is above the current level.
+  capitalUpgradeAt(): Tick | null {
+    const s = this._samLauncherState;
+    if (
+      this._type !== UnitType.Capital ||
+      s === undefined ||
+      s.upgradeStartTick === undefined ||
+      s.targetLevel <= this._level
+    ) {
+      return null;
+    }
+    return s.upgradeStartTick + s.duration;
+  }
+
+  startCapitalUpgrade(): void {
+    this._samLauncherState = {
+      upgradeStartTick: this.mg.ticks(),
+      startRange: this.mg.config().dynamicSamRange(this, this.mg.ticks()),
+      targetLevel: this._level + 1,
+      duration: CAPITAL_UPGRADE_TICKS,
+    };
+    this.mg.addUpdate(this.toUpdate());
   }
 
   increaseLevel(): void {

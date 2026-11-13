@@ -1,6 +1,7 @@
 import { TileRef } from "@openfront/engine-api/game/GameMap";
 import { UnitType } from "@openfront/engine-api/game/GameTypes";
 import { Game, Player, Unit } from "../game/Game";
+import { CapitalExecution } from "./CapitalExecution";
 import { SAMLauncherExecution } from "./SAMLauncherExecution";
 
 /**
@@ -19,7 +20,7 @@ export function placeCapital(
   const capital = player.buildUnit(UnitType.Capital, tile, {});
   for (let level = 1; level < tier; level++) capital.increaseLevel();
   game.addExecution(new SAMLauncherExecution(player, null, capital));
-  // Task 4: CapitalExecution (timed upgrades) is added here.
+  game.addExecution(new CapitalExecution(capital));
   return capital;
 }
 

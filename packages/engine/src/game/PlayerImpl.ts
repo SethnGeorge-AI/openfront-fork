@@ -33,7 +33,10 @@ import {
 } from "@openfront/engine-api/game/GameUpdates";
 import { ReadonlyTileSet } from "@openfront/engine-api/game/ReadViews";
 import { ClientID } from "@openfront/engine-api/Schemas";
-import { capitalTier } from "@openfront/engine-lib/configuration/CapitalTiers";
+import {
+  CAPITAL_MAX_TIER,
+  capitalTier,
+} from "@openfront/engine-lib/configuration/CapitalTiers";
 import { andFN, manhattanDistFN } from "@openfront/engine-lib/game/GameMapImpl";
 import { TileSet } from "@openfront/engine-lib/game/TileSet";
 import { PseudoRandom } from "@openfront/engine-lib/PseudoRandom";
@@ -1504,12 +1507,22 @@ export class PlayerImpl implements Player {
     if (!this.isUnitValidToUpgrade(unit)) {
       return false;
     }
+    if (
+      unit.type() === UnitType.Capital &&
+      (unit.capitalUpgradeAt() !== null || unit.level() >= CAPITAL_MAX_TIER)
+    ) {
+      return false;
+    }
     return true;
   }
 
   upgradeUnit(unit: Unit) {
     const cost = this.mg.unitInfo(unit.type()).cost(this.mg, this);
     this.removeGold(cost);
+    if (unit.type() === UnitType.Capital) {
+      unit.startCapitalUpgrade(); // lands in CapitalExecution
+      return;
+    }
     unit.increaseLevel();
     this.recordUnitConstructed(unit.type());
   }
