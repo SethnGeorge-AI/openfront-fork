@@ -5,104 +5,104 @@
   "id": "World",
   "landmarks": [
     {
-      "name": "Great Pyramid of Giza",
-      "coordinates": [1148, 364]
+      "coordinates": [1148, 364],
+      "name": "Great Pyramid of Giza"
     },
     {
-      "name": "Eiffel Tower",
-      "coordinates": [980, 249]
+      "coordinates": [980, 249],
+      "name": "Eiffel Tower"
     },
     {
-      "name": "Colosseum",
-      "coordinates": [1040, 285]
+      "coordinates": [1040, 285],
+      "name": "Colosseum"
     },
     {
-      "name": "Big Ben",
-      "coordinates": [966, 227]
+      "coordinates": [966, 227],
+      "name": "Big Ben"
     },
     {
-      "name": "Stonehenge",
-      "coordinates": [955, 229]
+      "coordinates": [955, 229],
+      "name": "Stonehenge"
     },
     {
-      "name": "Kremlin",
-      "coordinates": [1183, 200]
+      "coordinates": [1183, 200],
+      "name": "Kremlin"
     },
     {
-      "name": "Statue of Liberty",
-      "coordinates": [539, 295]
+      "coordinates": [539, 295],
+      "name": "Statue of Liberty"
     },
     {
-      "name": "Golden Gate Bridge",
-      "coordinates": [270, 315]
+      "coordinates": [270, 315],
+      "name": "Golden Gate Bridge"
     },
     {
-      "name": "Grand Canyon",
-      "coordinates": [327, 326]
+      "coordinates": [327, 326],
+      "name": "Grand Canyon"
     },
     {
-      "name": "Niagara Falls",
-      "coordinates": [514, 285]
+      "coordinates": [514, 285],
+      "name": "Niagara Falls"
     },
     {
-      "name": "Chichen Itza",
-      "coordinates": [463, 413]
+      "coordinates": [463, 413],
+      "name": "Chichen Itza"
     },
     {
-      "name": "Machu Picchu",
-      "coordinates": [558, 601]
+      "coordinates": [558, 601],
+      "name": "Machu Picchu"
     },
     {
-      "name": "Christ the Redeemer",
-      "coordinates": [723, 663]
+      "coordinates": [723, 663],
+      "name": "Christ the Redeemer"
     },
     {
-      "name": "Iguazu Falls",
-      "coordinates": [662, 681]
+      "coordinates": [662, 681],
+      "name": "Iguazu Falls"
     },
     {
-      "name": "Victoria Falls",
-      "coordinates": [1119, 633]
+      "coordinates": [1119, 633],
+      "name": "Victoria Falls"
     },
     {
-      "name": "Mount Kilimanjaro",
-      "coordinates": [1185, 546]
+      "coordinates": [1185, 546],
+      "name": "Mount Kilimanjaro"
     },
     {
-      "name": "Petra",
-      "coordinates": [1173, 362]
+      "coordinates": [1173, 362],
+      "name": "Petra"
     },
     {
-      "name": "Burj Khalifa",
-      "coordinates": [1287, 391]
+      "coordinates": [1287, 391],
+      "name": "Burj Khalifa"
     },
     {
-      "name": "Taj Mahal",
-      "coordinates": [1418, 380]
+      "coordinates": [1418, 380],
+      "name": "Taj Mahal"
     },
     {
-      "name": "Mount Everest",
-      "coordinates": [1469, 375]
+      "coordinates": [1469, 375],
+      "name": "Mount Everest"
     },
     {
-      "name": "Great Wall of China",
-      "coordinates": [1534, 305]
+      "coordinates": [1534, 305],
+      "name": "Great Wall of China"
     },
     {
-      "name": "Mount Fuji",
-      "coordinates": [1763, 319]
+      "coordinates": [1763, 319],
+      "name": "Mount Fuji"
     },
     {
-      "name": "Angkor Wat",
-      "coordinates": [1567, 455]
+      "coordinates": [1567, 455],
+      "name": "Angkor Wat"
     },
     {
-      "name": "Sydney Opera House",
-      "coordinates": [1825, 737]
+      "coordinates": [1825, 737],
+      "name": "Sydney Opera House"
     },
     {
-      "name": "Uluru",
-      "coordinates": [1722, 682]
+      "coordinates": [1722, 682],
+      "name": "Uluru"
     }
   ],
   "layers": [

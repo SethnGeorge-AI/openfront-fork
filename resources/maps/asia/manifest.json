@@ -4,44 +4,44 @@
   "id": "Asia",
   "landmarks": [
     {
-      "name": "Great Wall of China",
-      "coordinates": [945, 600]
+      "coordinates": [945, 600],
+      "name": "Great Wall of China"
     },
     {
-      "name": "Forbidden City",
-      "coordinates": [1181, 601]
+      "coordinates": [1181, 601],
+      "name": "Forbidden City"
     },
     {
-      "name": "Taj Mahal",
-      "coordinates": [681, 748]
+      "coordinates": [681, 748],
+      "name": "Taj Mahal"
     },
     {
-      "name": "Mount Everest",
-      "coordinates": [797, 740]
+      "coordinates": [797, 740],
+      "name": "Mount Everest"
     },
     {
-      "name": "Mount Fuji",
-      "coordinates": [1471, 663]
+      "coordinates": [1471, 663],
+      "name": "Mount Fuji"
     },
     {
-      "name": "Angkor Wat",
-      "coordinates": [1011, 940]
+      "coordinates": [1011, 940],
+      "name": "Angkor Wat"
     },
     {
-      "name": "Petra",
-      "coordinates": [120, 705]
+      "coordinates": [120, 705],
+      "name": "Petra"
     },
     {
-      "name": "Burj Khalifa",
-      "coordinates": [381, 767]
+      "coordinates": [381, 767],
+      "name": "Burj Khalifa"
     },
     {
-      "name": "Mount Kinabalu",
-      "coordinates": [1169, 1054]
+      "coordinates": [1169, 1054],
+      "name": "Mount Kinabalu"
     },
     {
-      "name": "Petronas Towers",
-      "coordinates": [974, 1089]
+      "coordinates": [974, 1089],
+      "name": "Petronas Towers"
     }
   ],
   "map": {

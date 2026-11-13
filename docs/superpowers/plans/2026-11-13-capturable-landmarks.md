@@ -9,6 +9,7 @@
 **Tech Stack:** TypeScript, zod (manifest schema), engine packages (`engine-api`, `engine-lib`, `engine`), Lit + Tailwind (HUD), Vitest.
 
 **Spec:** No separate spec doc; the decisions come from the user in this session (2026-11-13):
+
 1. Landmarks are **capturable sites with a gameplay bonus**, shown with an icon on the map and a hover/click info card styled like the rest of the HUD (card mock: name, `Owner: <player>`, gold bonus).
 2. Maps: **World + continent maps**: `world`, `europe`, `asia`, `africa`, `northamerica`, `southamerica`, `australia`.
 3. Holding a landmark gives bonus gold **and boosts troop creation while holding it** (no timer: the boost ends the tick the landmark is lost).
@@ -38,6 +39,7 @@
 ### Task 1: Landmark map data: schema, loader, and the 7 maps
 
 **Files:**
+
 - Modify: `packages/engine-api/src/game/MapManifest.ts` (add `LandmarkSchema`, `landmarks` to `mapInfoShape`, bounds + duplicate checks in the manifest `superRefine`)
 - Modify: `packages/engine-api/src/game/MapFiles.ts` (re-export `Landmark` type next to `Nation`)
 - Modify: `packages/engine-lib/src/game/TerrainMapLoader.ts` (`TerrainMapData.landmarks`, compact halving, land validation)
@@ -46,6 +48,7 @@
 - Test: `tests/MapManifestSchema.test.ts`, new `tests/Landmarks.test.ts`
 
 **Interfaces:**
+
 - Produces:
   - `LandmarkSchema = z.strictObject({ name: z.string().min(1), coordinates: Coordinates })` and `type Landmark = z.infer<typeof LandmarkSchema>` exported from `@openfront/engine-api/game/MapManifest`.
   - `mapInfoShape.landmarks: z.array(LandmarkSchema).optional()`; manifest rejects out-of-bounds coordinates (path `["landmarks", i, "coordinates"]`), duplicate names, and two landmarks on the same tile.
@@ -72,6 +75,7 @@
   - **australia:** Sydney Opera House, Uluru, Daintree Rainforest, Twelve Apostles, Kakadu, Bungle Bungle Range, Pinnacles Desert, Cradle Mountain
 
   Coordinates: locate each place on `map-generator/assets/maps/<map>/image.png`. The map's existing `nations` entries are real places with known positions, so fit a linear lat/long → pixel mapping from three of them, then move the result to the nearest land tile if the test reports water.
+
 - [ ] **Step 9: Run** `npx vitest tests/Landmarks.test.ts tests/MapManifestSchema.test.ts tests/MapConsistency.test.ts --run`. Expected: PASS.
 - [ ] **Step 10: Commit**
 
@@ -83,6 +87,7 @@ git commit -m "feat: landmark map data for World and continent maps"
 ### Task 2: Engine: landmark bonus while held
 
 **Files:**
+
 - Modify: `packages/engine-lib/src/configuration/Config.ts` (constants, `troopIncreaseRate` parameter)
 - Modify: `packages/engine/src/game/Game.ts` (interface), `packages/engine/src/game/GameImpl.ts` (`createGame` + implementation)
 - Modify: `packages/engine/src/execution/PlayerExecution.ts:99-105`
@@ -90,6 +95,7 @@ git commit -m "feat: landmark map data for World and continent maps"
 - Test: `tests/core/LandmarkBonus.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Landmark`, `TerrainMapData.landmarks` (Task 1).
 - Produces:
   - `export const LANDMARK_GOLD_PER_TICK: Gold = 25n;` `export const LANDMARK_TROOP_BONUS = 0.1;` in `engine-lib/configuration/Config.ts`.
@@ -119,6 +125,7 @@ git commit -m "feat: landmarks give gold and troop growth while held"
 ### Task 3: Client: landmark markers and info card
 
 **Files:**
+
 - Modify: `src/client/view/GameView.ts` (landmark accessors from `_mapData`)
 - Modify: `src/client/hud/layers/ControlPanel.ts:154,342` (pass `game.landmarksHeldBy(player)` to `troopIncreaseRate`)
 - Create: `src/client/hud/layers/LandmarkOverlay.ts` (`<landmark-overlay>`)
@@ -128,6 +135,7 @@ git commit -m "feat: landmarks give gold and troop growth while held"
 - Test: `tests/client/LandmarkOverlay.test.ts`
 
 **Interfaces:**
+
 - Consumes: `TerrainMapData.landmarks` (Task 1), `LANDMARK_GOLD_PER_TICK`, `LANDMARK_TROOP_BONUS`, `Config.troopIncreaseRate(player, landmarksHeld)` (Task 2).
 - Produces:
   - `GameView.landmarks(): readonly { name: string; x: number; y: number; tile: TileRef }[]`, `GameView.landmarkOwner(i: number): PlayerView | null`, `GameView.landmarksHeldBy(player: PlayerView): number`.
@@ -135,6 +143,7 @@ git commit -m "feat: landmarks give gold and troop growth while held"
   - en.json keys: `landmark.owner` ("Owner: {name}"), `landmark.unclaimed` ("Unclaimed"), `landmark.gold_bonus` ("+{amount} gold / min"), `landmark.troop_bonus` ("+{percent}% troop growth"), `landmark.held_by_you` ("Held by you").
 
 UI, matching the existing HUD (dark `bg-gray-900/95`, `rounded-xl`, `shadow-2xl`, white text, uppercase tracking headings, as in `OnboardingOverlay`/`PlayerInfoOverlay`):
+
 - Marker: 28px round button centred on the tile, `bg-gray-900/85` with the icon, ring `border-2` in the owner's `territoryColor().toHex()` (white/30 when unclaimed); `pointer-events-auto` only on the marker. Markers whose screen position is off-screen are not rendered.
 - Card: opens on hover (desktop) or tap (touch), above the marker; shows the name, owner line (`landmark.owner` / `landmark.unclaimed` / `landmark.held_by_you`), and both bonuses (gold = `LANDMARK_GOLD_PER_TICK * 600n` rendered with `renderNumber`, percent = `LANDMARK_TROOP_BONUS * 100`). A tap elsewhere closes it.
 - Positions follow the camera with a `requestAnimationFrame` loop as `OnboardingOverlay.followTarget` does; ownership refreshes in `tick()`.

@@ -9,6 +9,7 @@ import {
   clearPublicAssetManifestCache,
   copyRootPublicFiles,
   createHashedPublicAssetFiles,
+  getProprietaryDir,
   getPublicDir,
   writeRootFilesIndex,
 } from "../../src/server/PublicAssetManifest";
@@ -486,6 +487,45 @@ describe("PublicAssetManifest", () => {
       expect(svg, asset).not.toMatch(
         /<script|\son[a-z]+\s*=|<foreignObject|(?:xlink:)?href\s*=\s*["'](?!#|data:image\/)/i,
       );
+    }
+  });
+});
+
+describe("fork-assets fallback for proprietary/", () => {
+  const repoRoot = path.resolve(__dirname, "../..");
+  let tmp: string | null = null;
+  afterEach(async () => {
+    if (tmp) await fs.rm(tmp, { recursive: true, force: true });
+    tmp = null;
+  });
+
+  test("uses proprietary/ when it is present", async () => {
+    tmp = await fs.mkdtemp(path.join(os.tmpdir(), "of-assets-"));
+    await fs.mkdir(path.join(tmp, "proprietary"));
+    expect(getProprietaryDir(tmp)).toBe(path.join(tmp, "proprietary"));
+  });
+
+  test("falls back to fork-assets/ when proprietary/ is missing", async () => {
+    tmp = await fs.mkdtemp(path.join(os.tmpdir(), "of-assets-"));
+    expect(getProprietaryDir(tmp)).toBe(path.join(tmp, "fork-assets"));
+  });
+
+  test("fork-assets/ has every asset the build and page reference", () => {
+    clearPublicAssetManifestCache();
+    const manifest = buildPublicAssetManifest([
+      path.join(repoRoot, "resources"),
+      path.join(repoRoot, "fork-assets"),
+    ]);
+    for (const asset of [
+      "icons/icon512_maskable.png",
+      "icons/icon512_rounded.png",
+      "images/Favicon.svg",
+      "images/KeyArt.jpg",
+      "images/OF.png",
+      "images/OpenFront.png",
+      "images/OpenFrontLogo.svg",
+    ]) {
+      expect(manifest[asset], asset).toBeDefined();
     }
   });
 });

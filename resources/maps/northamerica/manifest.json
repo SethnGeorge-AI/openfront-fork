@@ -4,44 +4,44 @@
   "id": "NorthAmerica",
   "landmarks": [
     {
-      "name": "Statue of Liberty",
-      "coordinates": [1763, 805]
+      "coordinates": [1763, 805],
+      "name": "Statue of Liberty"
     },
     {
-      "name": "Golden Gate Bridge",
-      "coordinates": [864, 871]
+      "coordinates": [864, 871],
+      "name": "Golden Gate Bridge"
     },
     {
-      "name": "Grand Canyon",
-      "coordinates": [1036, 900]
+      "coordinates": [1036, 900],
+      "name": "Grand Canyon"
     },
     {
-      "name": "Niagara Falls",
-      "coordinates": [1672, 758]
+      "coordinates": [1672, 758],
+      "name": "Niagara Falls"
     },
     {
-      "name": "Mount Rushmore",
-      "coordinates": [1212, 738]
+      "coordinates": [1212, 738],
+      "name": "Mount Rushmore"
     },
     {
-      "name": "Yellowstone",
-      "coordinates": [1074, 731]
+      "coordinates": [1074, 731],
+      "name": "Yellowstone"
     },
     {
-      "name": "Chichen Itza",
-      "coordinates": [1492, 1178]
+      "coordinates": [1492, 1178],
+      "name": "Chichen Itza"
     },
     {
-      "name": "Old Quebec",
-      "coordinates": [1810, 689]
+      "coordinates": [1810, 689],
+      "name": "Old Quebec"
     },
     {
-      "name": "Teotihuacan",
-      "coordinates": [1287, 1202]
+      "coordinates": [1287, 1202],
+      "name": "Teotihuacan"
     },
     {
-      "name": "Denali",
-      "coordinates": [308, 363]
+      "coordinates": [308, 363],
+      "name": "Denali"
     }
   ],
   "map": {

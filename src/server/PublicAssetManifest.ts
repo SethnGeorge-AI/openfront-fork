@@ -255,8 +255,13 @@ export function getPublicDir(resourcesDir: string): string {
   return path.join(resourcesDir, "public");
 }
 
+// OpenFront's proprietary/ assets (All Rights Reserved) are not in this
+// fork's repository; without them the build uses the fork's own fork-assets/.
 export function getProprietaryDir(rootDir: string = process.cwd()): string {
-  return path.join(rootDir, "proprietary");
+  const proprietary = path.join(rootDir, "proprietary");
+  return fs.existsSync(proprietary)
+    ? proprietary
+    : path.join(rootDir, "fork-assets");
 }
 
 // Scans directories with synchronous fs.existsSync — assumes a small number of sourceDirs.

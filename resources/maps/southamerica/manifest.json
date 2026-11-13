@@ -4,36 +4,36 @@
   "id": "SouthAmerica",
   "landmarks": [
     {
-      "name": "Machu Picchu",
-      "coordinates": [614, 1112]
+      "coordinates": [614, 1112],
+      "name": "Machu Picchu"
     },
     {
-      "name": "Christ the Redeemer",
-      "coordinates": [1470, 1389]
+      "coordinates": [1470, 1389],
+      "name": "Christ the Redeemer"
     },
     {
-      "name": "Iguazu Falls",
-      "coordinates": [1148, 1493]
+      "coordinates": [1148, 1493],
+      "name": "Iguazu Falls"
     },
     {
-      "name": "Angel Falls",
-      "coordinates": [912, 503]
+      "coordinates": [912, 503],
+      "name": "Angel Falls"
     },
     {
-      "name": "Aconcagua",
-      "coordinates": [719, 1703]
+      "coordinates": [719, 1703],
+      "name": "Aconcagua"
     },
     {
-      "name": "Salar de Uyuni",
-      "coordinates": [774, 1325]
+      "coordinates": [774, 1325],
+      "name": "Salar de Uyuni"
     },
     {
-      "name": "Nazca Lines",
-      "coordinates": [539, 1164]
+      "coordinates": [539, 1164],
+      "name": "Nazca Lines"
     },
     {
-      "name": "Torres del Paine",
-      "coordinates": [688, 2184]
+      "coordinates": [688, 2184],
+      "name": "Torres del Paine"
     }
   ],
   "map": {

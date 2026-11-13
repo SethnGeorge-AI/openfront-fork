@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1364 259">
+  <path d="M120 10 220 68v116L120 242 20 184V68Z" fill="#2563eb"/>
+  <path d="M68 150l52-52 52 52" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="262" y="172" textLength="1080" lengthAdjust="spacingAndGlyphs" font-family="Overpass, Arial, Helvetica, sans-serif" font-size="120" font-weight="800" fill="#ffffff">OPENFRONT <tspan fill="#60a5fa">FORK</tspan></text>
+</svg>

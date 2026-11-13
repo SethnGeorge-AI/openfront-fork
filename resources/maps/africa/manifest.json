@@ -4,36 +4,36 @@
   "id": "Africa",
   "landmarks": [
     {
-      "name": "Great Pyramid of Giza",
-      "coordinates": [1372, 248]
+      "coordinates": [1372, 248],
+      "name": "Great Pyramid of Giza"
     },
     {
-      "name": "Abu Simbel",
-      "coordinates": [1387, 475]
+      "coordinates": [1387, 475],
+      "name": "Abu Simbel"
     },
     {
-      "name": "Mount Kilimanjaro",
-      "coordinates": [1542, 1154]
+      "coordinates": [1542, 1154],
+      "name": "Mount Kilimanjaro"
     },
     {
-      "name": "Victoria Falls",
-      "coordinates": [1220, 1557]
+      "coordinates": [1220, 1557],
+      "name": "Victoria Falls"
     },
     {
-      "name": "Table Mountain",
-      "coordinates": [1020, 2003]
+      "coordinates": [1020, 2003],
+      "name": "Table Mountain"
     },
     {
-      "name": "Timbuktu",
-      "coordinates": [439, 632]
+      "coordinates": [439, 632],
+      "name": "Timbuktu"
     },
     {
-      "name": "Lalibela",
-      "coordinates": [1591, 750]
+      "coordinates": [1591, 750],
+      "name": "Lalibela"
     },
     {
-      "name": "Great Zimbabwe",
-      "coordinates": [1358, 1620]
+      "coordinates": [1358, 1620],
+      "name": "Great Zimbabwe"
     }
   ],
   "map": {

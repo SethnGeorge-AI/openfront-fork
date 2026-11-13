@@ -1,0 +1,5 @@
+The assets in fork-assets/ are original works made for this fork and are
+licensed under Creative Commons BY-SA 4.0, like the rest of the repository's
+assets. They stand in for OpenFront's proprietary/ assets (All Rights
+Reserved), which are not part of this repository: the build uses
+proprietary/ when it is present and fork-assets/ otherwise.
