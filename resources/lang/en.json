@@ -1702,6 +1702,13 @@
     "lobby_creator": "Kicked by lobby creator",
     "match_cancelled": "Match cancelled: a player failed to connect. You have not lost any ELO."
   },
+  "landmark": {
+    "gold_bonus": "+{amount} gold / min",
+    "held_by_you": "Held by you",
+    "owner": "Owner: {name}",
+    "troop_bonus": "+{percent}% troop growth",
+    "unclaimed": "Unclaimed"
+  },
   "lang": {
     "en": "English",
     "lang_code": "en",

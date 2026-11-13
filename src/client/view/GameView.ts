@@ -1004,6 +1004,35 @@ export class GameView implements GameLike {
   layers(): import("@openfront/engine-api/game/MapFiles").MapLayer[] {
     return this._mapData.layers ?? [];
   }
+  private _landmarks?: { name: string; x: number; y: number; tile: TileRef }[];
+  /** The map's capturable landmarks. */
+  landmarks(): readonly {
+    name: string;
+    x: number;
+    y: number;
+    tile: TileRef;
+  }[] {
+    this._landmarks ??= (this._mapData.landmarks ?? []).map((l) => ({
+      name: l.name,
+      x: l.coordinates[0],
+      y: l.coordinates[1],
+      tile: this._map.ref(l.coordinates[0], l.coordinates[1]),
+    }));
+    return this._landmarks;
+  }
+  /** Who holds landmark `index` (its tile's owner), or null if nobody. */
+  landmarkOwner(index: number): PlayerView | null {
+    const owner = this.owner(this.landmarks()[index].tile);
+    return owner.isPlayer() ? (owner as PlayerView) : null;
+  }
+  /** How many landmarks `player` holds; the engine pays the bonus on this. */
+  landmarksHeldBy(player: PlayerView): number {
+    let held = 0;
+    for (const l of this.landmarks()) {
+      if (this._map.ownerID(l.tile) === player.smallID()) held++;
+    }
+    return held;
+  }
   /** Nations the map's manifest defines, whether or not they spawned. */
   mapNationCount(): number {
     return this._mapData.nations.length;

@@ -1,0 +1,154 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+vi.mock("../../src/client/Utils", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("../../src/client/Utils")>();
+  return {
+    ...actual,
+    // The key plus its params, so a test sees both what was said and the values.
+    translateText: (key: string, params?: Record<string, unknown>) =>
+      params ? `${key} ${JSON.stringify(params)}` : key,
+  };
+});
+
+import {
+  LANDMARK_GOLD_PER_TICK,
+  LANDMARK_TROOP_BONUS,
+} from "@openfront/engine-lib/configuration/Config";
+import { renderNumber } from "@openfront/engine-lib/Format";
+import { GameMapImpl } from "@openfront/engine-lib/game/GameMapImpl";
+// Registers <landmark-overlay> as a side effect.
+import "../../src/client/hud/layers/LandmarkOverlay";
+import type { LandmarkOverlay } from "../../src/client/hud/layers/LandmarkOverlay";
+import type { TransformHandler } from "../../src/client/TransformHandler";
+import type { GameView, PlayerView } from "../../src/client/view";
+import { makeGameView } from "../util/viewStubs";
+
+const alice = {
+  displayName: () => "Alice",
+  smallID: () => 1,
+  territoryColor: () => ({ toHex: () => "#ff0000" }),
+} as unknown as PlayerView;
+
+/** Two landmarks: one on screen at (100, 120), one far off screen. */
+function mount(owner: PlayerView | null, me: PlayerView | null = null) {
+  const game = {
+    landmarks: () => [
+      { name: "Eiffel Tower", x: 10, y: 12, tile: 0 },
+      { name: "Far Away", x: 900, y: 900, tile: 1 },
+    ],
+    landmarkOwner: (i: number) => (i === 0 ? owner : null),
+    myPlayer: () => me,
+  } as unknown as GameView;
+  const transformHandler = {
+    worldToScreenCoordinates: (c: { x: number; y: number }) =>
+      c.x < 100 ? { x: c.x * 10, y: c.y * 10 } : { x: -5000, y: -5000 },
+  } as unknown as TransformHandler;
+  const overlay = document.createElement("landmark-overlay") as LandmarkOverlay;
+  overlay.game = game;
+  overlay.transformHandler = transformHandler;
+  document.body.appendChild(overlay);
+  return overlay;
+}
+
+async function markers(overlay: LandmarkOverlay) {
+  overlay.updateSpots();
+  await overlay.updateComplete;
+  return [...overlay.querySelectorAll<HTMLElement>("[data-landmark]")];
+}
+
+async function hoverCard(overlay: LandmarkOverlay) {
+  const [marker] = await markers(overlay);
+  marker.dispatchEvent(new MouseEvent("mouseenter"));
+  await overlay.updateComplete;
+  return overlay.querySelector<HTMLElement>("[data-landmark-card]");
+}
+
+afterEach(() => {
+  document.body.innerHTML = "";
+});
+
+describe("LandmarkOverlay", () => {
+  it("renders a marker only for landmarks on screen", async () => {
+    const overlay = mount(alice);
+    const shown = await markers(overlay);
+    expect(shown).toHaveLength(1);
+    expect(shown[0].getAttribute("aria-label")).toContain("Eiffel Tower");
+  });
+
+  it("pins the marker above its tile so clicks on the tile reach the map", async () => {
+    const overlay = mount(alice);
+    const [marker] = await markers(overlay);
+    // The landmark tile's centre is at screen y = 125 (see mount()).
+    const top = parseFloat(marker.style.top);
+    expect(top).toBeLessThan(125);
+    expect(marker.className).toContain("-translate-y-full");
+  });
+
+  it("rings a held landmark in its owner's color", async () => {
+    const [marker] = await markers(mount(alice));
+    expect(marker.style.borderColor).toBe("rgb(255, 0, 0)");
+  });
+
+  it("shows the name, owner and both bonuses on hover", async () => {
+    const card = await hoverCard(mount(alice));
+    const text = card?.textContent ?? "";
+    expect(text).toContain("Eiffel Tower");
+    expect(text).toContain('landmark.owner {"name":"Alice"}');
+    expect(text).toContain(
+      `landmark.gold_bonus {"amount":"${renderNumber(LANDMARK_GOLD_PER_TICK * 600n)}"}`,
+    );
+    expect(text).toContain(
+      `landmark.troop_bonus {"percent":${Math.round(LANDMARK_TROOP_BONUS * 100)}}`,
+    );
+  });
+
+  it("says unclaimed when nobody holds it", async () => {
+    const card = await hoverCard(mount(null));
+    expect(card?.textContent).toContain("landmark.unclaimed");
+  });
+
+  it("says held by you when the viewer holds it", async () => {
+    const card = await hoverCard(mount(alice, alice));
+    expect(card?.textContent).toContain("landmark.held_by_you");
+  });
+
+  it("closes the card when the pointer leaves", async () => {
+    const overlay = mount(alice);
+    const [marker] = await markers(overlay);
+    marker.dispatchEvent(new MouseEvent("mouseenter"));
+    await overlay.updateComplete;
+    marker.dispatchEvent(new MouseEvent("mouseleave"));
+    await overlay.updateComplete;
+    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+  });
+});
+
+describe("GameView landmarks", () => {
+  const view = () => {
+    const gameMap = new GameMapImpl(10, 10, new Uint8Array(100), 0);
+    const gv = makeGameView({
+      gameMap,
+      landmarks: [
+        { name: "A", coordinates: [1, 1] },
+        { name: "B", coordinates: [2, 2] },
+      ],
+    });
+    return { gv, gameMap };
+  };
+
+  it("lists the map's landmarks with their tiles", () => {
+    const { gv } = view();
+    expect(gv.landmarks()).toEqual([
+      { name: "A", x: 1, y: 1, tile: gv.ref(1, 1) },
+      { name: "B", x: 2, y: 2, tile: gv.ref(2, 2) },
+    ]);
+  });
+
+  it("counts only the landmarks whose tile the player owns", () => {
+    const { gv, gameMap } = view();
+    gameMap.setOwnerID(gv.ref(1, 1), 1);
+    gameMap.setOwnerID(gv.ref(2, 2), 2);
+    expect(gv.landmarksHeldBy(alice)).toBe(1);
+  });
+});

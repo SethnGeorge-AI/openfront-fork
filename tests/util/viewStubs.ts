@@ -6,6 +6,7 @@
  * minimal stubs for their dependencies.
  */
 
+import type { GameMap } from "@openfront/engine-api/game/GameMap";
 import {
   NameViewData,
   PlayerType,
@@ -17,6 +18,7 @@ import {
   PlayerUpdate,
   UnitUpdate,
 } from "@openfront/engine-api/game/GameUpdates";
+import type { Landmark } from "@openfront/engine-api/game/MapFiles";
 import { Player } from "@openfront/engine-api/Schemas";
 import { Config } from "@openfront/engine-lib/configuration/Config";
 import { GameMapImpl } from "@openfront/engine-lib/game/GameMapImpl";
@@ -73,14 +75,23 @@ export function stubWorker(): WorkerClient {
 }
 
 /** Build TerrainMapData wrapping a fresh GameMapImpl of the given size. */
-function stubTerrainMap(width = 10, height = 10): TerrainMapData {
-  const terrain = new Uint8Array(width * height);
-  const gameMap = new GameMapImpl(width, height, terrain, 0);
+function stubTerrainMap(
+  width = 10,
+  height = 10,
+  gameMap: GameMap = new GameMapImpl(
+    width,
+    height,
+    new Uint8Array(width * height),
+    0,
+  ),
+  landmarks: Landmark[] = [],
+): TerrainMapData {
   return {
     nations: [],
     additionalNations: [],
     gameMap,
     miniGameMap: gameMap,
+    landmarks,
   } as unknown as TerrainMapData;
 }
 
@@ -92,6 +103,8 @@ export interface GameViewStubOptions {
   myClanTag?: string | null;
   humans?: Player[];
   config?: Config;
+  gameMap?: GameMap;
+  landmarks?: Landmark[];
 }
 
 /** Construct a GameView with minimal dependencies. */
@@ -99,7 +112,12 @@ export function makeGameView(opts: GameViewStubOptions = {}): GameView {
   return new GameView(
     stubWorker(),
     opts.config ?? stubConfig(),
-    stubTerrainMap(opts.width ?? 10, opts.height ?? 10),
+    stubTerrainMap(
+      opts.width ?? 10,
+      opts.height ?? 10,
+      opts.gameMap,
+      opts.landmarks,
+    ),
     opts.myClientID,
     opts.myUsername ?? "tester",
     opts.myClanTag ?? null,
