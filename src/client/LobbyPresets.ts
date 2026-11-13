@@ -32,6 +32,7 @@ export const LobbyPresetConfigSchema = z.object({
   infiniteTroops: z.boolean().optional(),
   donateTroops: z.boolean().optional(),
   instantBuild: z.boolean().optional(),
+  capitals: z.boolean().optional(),
   randomSpawn: z.boolean().optional(),
   maxTimer: z.boolean().optional(),
   maxTimerValue: z.number().int().min(1).max(120).optional(),

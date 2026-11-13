@@ -16,6 +16,7 @@
 
 import type { GhostPreviewData, RendererConfig, UnitState } from "../../types";
 import {
+  UT_CAPITAL,
   UT_CITY,
   UT_DEFENSE_POST,
   UT_FACTORY,
@@ -149,6 +150,8 @@ export class StructurePass {
         this.typeToAtlasCol.set(header.unitTypes[i], col);
       }
     }
+    // shortcut: the capital reuses the City icon (its level badge tells them apart); a crown needs icon-atlas.png regenerated.
+    this.typeToAtlasCol.set(UT_CAPITAL, STRUCTURE_ORDER.indexOf(UT_CITY));
 
     // Compile shaders
     this.program = createProgram(

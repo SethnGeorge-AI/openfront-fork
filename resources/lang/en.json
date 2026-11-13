@@ -201,6 +201,7 @@
   "build_menu": {
     "desc": {
       "atom_bomb": "Small explosion",
+      "capital": "Upgrade (30s) to unlock buildings; defends nearby land and shoots down nukes",
       "city": "Increases max population",
       "defense_post": "Increases defenses of nearby borders",
       "factory": "Creates railroads and spawns trains",
@@ -212,6 +213,7 @@
       "warship": "Captures trade ships, destroys ships and boats"
     },
     "not_enough_money": "Not enough money",
+    "requires_tier": "Requires capital tier {tier}",
     "upgrade_amount": "x{amount}",
     "warship_shift_hint": "Hold Shift and drag to select multiple warships at once"
   },
@@ -1343,6 +1345,7 @@
     "infinite_gold": "Infinite gold",
     "infinite_troops": "Infinite troops",
     "instant_build": "Instant build",
+    "capitals": "Capitals (tech tiers)",
     "max_timer": "Game length (minutes)",
     "mins_placeholder": "Mins",
     "nations": "Nations: ",
@@ -3117,6 +3120,7 @@
   "unit_type": {
     "atom_bomb": "Atom Bomb",
     "boat": "Boat",
+    "capital": "Capital",
     "city": "City",
     "defense_post": "Defense Post",
     "factory": "Factory",

@@ -138,6 +138,7 @@ const DEFAULT_OPTIONS = {
   maxTimer: false,
   maxTimerValue: undefined as number | undefined,
   instantBuild: false,
+  capitals: false,
   randomSpawn: false,
   useRandomMap: false,
   gameMode: GameMode.FFA,
@@ -215,6 +216,7 @@ export class SinglePlayerModal extends BaseModal {
   @state() private maxTimerValue: number | undefined =
     DEFAULT_OPTIONS.maxTimerValue;
   @state() private instantBuild: boolean = DEFAULT_OPTIONS.instantBuild;
+  @state() private capitals: boolean = DEFAULT_OPTIONS.capitals;
   @state() private randomSpawn: boolean = DEFAULT_OPTIONS.randomSpawn;
   @state() private useRandomMap: boolean = DEFAULT_OPTIONS.useRandomMap;
   @state() private gameMode: GameMode = DEFAULT_OPTIONS.gameMode;
@@ -596,6 +598,10 @@ export class SinglePlayerModal extends BaseModal {
                     checked: this.instantBuild,
                   },
                   {
+                    labelKey: "game_settings.capitals",
+                    checked: this.capitals,
+                  },
+                  {
                     labelKey: "game_settings.random_spawn",
                     checked: this.randomSpawn,
                   },
@@ -682,6 +688,7 @@ export class SinglePlayerModal extends BaseModal {
       this.compactMap !== DEFAULT_OPTIONS.compactMap ||
       this.maxTimer !== DEFAULT_OPTIONS.maxTimer ||
       this.instantBuild !== DEFAULT_OPTIONS.instantBuild ||
+      this.capitals !== DEFAULT_OPTIONS.capitals ||
       this.randomSpawn !== DEFAULT_OPTIONS.randomSpawn ||
       this.gameMode !== DEFAULT_OPTIONS.gameMode ||
       this.goldMultiplier !== DEFAULT_OPTIONS.goldMultiplier ||
@@ -758,6 +765,7 @@ export class SinglePlayerModal extends BaseModal {
             donateTroops: false,
             infiniteTroops: false,
             instantBuild: false,
+            capitals: false,
             randomSpawn: false,
             disableAlliances: true,
             // The only things built are the nation's silo, port and warship,
@@ -810,6 +818,7 @@ export class SinglePlayerModal extends BaseModal {
     this.maxTimer = DEFAULT_OPTIONS.maxTimer;
     this.maxTimerValue = DEFAULT_OPTIONS.maxTimerValue;
     this.instantBuild = DEFAULT_OPTIONS.instantBuild;
+    this.capitals = DEFAULT_OPTIONS.capitals;
     this.randomSpawn = DEFAULT_OPTIONS.randomSpawn;
     this.teamCount = DEFAULT_OPTIONS.teamCount;
     this.disabledUnits = [...DEFAULT_OPTIONS.disabledUnits];
@@ -855,6 +864,7 @@ export class SinglePlayerModal extends BaseModal {
       infiniteGold: this.infiniteGold,
       infiniteTroops: this.infiniteTroops,
       instantBuild: this.instantBuild,
+      capitals: this.capitals,
       randomSpawn: this.randomSpawn,
       maxTimer: this.maxTimer,
       maxTimerValue: this.maxTimerValue,
@@ -884,6 +894,7 @@ export class SinglePlayerModal extends BaseModal {
     this.infiniteGold = config.infiniteGold ?? false;
     this.infiniteTroops = config.infiniteTroops ?? false;
     this.instantBuild = config.instantBuild ?? false;
+    this.capitals = config.capitals ?? false;
     this.randomSpawn = config.randomSpawn ?? false;
     this.maxTimer = config.maxTimer ?? false;
     this.maxTimerValue = config.maxTimerValue;
@@ -1019,6 +1030,9 @@ export class SinglePlayerModal extends BaseModal {
     switch (labelKey) {
       case "game_settings.instant_build":
         this.instantBuild = checked;
+        break;
+      case "game_settings.capitals":
+        this.capitals = checked;
         break;
       case "game_settings.random_spawn":
         this.randomSpawn = checked;
@@ -1346,6 +1360,7 @@ export class SinglePlayerModal extends BaseModal {
             donateTroops: this.gameMode === GameMode.Team,
             infiniteTroops: this.infiniteTroops,
             instantBuild: this.instantBuild,
+            capitals: this.capitals,
             randomSpawn: this.randomSpawn,
             disabledUnits: this.disabledUnits.filter((unit): unit is UnitType =>
               Object.values(UnitType).includes(unit),

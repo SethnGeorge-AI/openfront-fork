@@ -114,6 +114,11 @@ export function notableLobbySettings(
       label: translateText("game_settings.instant_build"),
       value: enabled,
     });
+  if (c.capitals)
+    items.push({
+      label: translateText("game_settings.capitals"),
+      value: enabled,
+    });
   if (c.randomSpawn)
     items.push({
       label: translateText("game_settings.random_spawn"),

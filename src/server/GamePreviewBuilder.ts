@@ -265,6 +265,7 @@ export async function buildPreview(
       if (gc?.infiniteGold) gameOptions.push("Infinite Gold");
       if (gc?.infiniteTroops) gameOptions.push("Infinite Troops");
       if (gc?.instantBuild) gameOptions.push("Instant Build");
+      if (gc?.capitals) gameOptions.push("Capitals");
       if (gc?.randomSpawn) gameOptions.push("Random Spawn");
       if (gc?.nations === "disabled") gameOptions.push("Nations Disabled");
       if (gc?.donateTroops) gameOptions.push("Troop Donations Enabled");

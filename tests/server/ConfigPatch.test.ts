@@ -29,6 +29,7 @@ const EDITABLE: { [K in keyof GameConfig]?: GameConfig[K] } = {
   infiniteTroops: true,
   donateTroops: false,
   instantBuild: true,
+  capitals: true,
   randomSpawn: true,
   gameMode: GameMode.Team,
   disabledUnits: [UnitType.AtomBomb],

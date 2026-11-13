@@ -6,6 +6,7 @@ import {
   PlayerBuildableUnitType,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
+import { capitalTier } from "@openfront/engine-lib/configuration/CapitalTiers";
 import { renderNumber } from "@openfront/engine-lib/Format";
 import { assetUrl } from "@openfront/shared/AssetUrls";
 import { EventBus } from "@openfront/shared/EventBus";
@@ -37,6 +38,7 @@ const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
+const crownIcon = assetUrl("images/CrownIcon.svg");
 
 export interface BuildItemDisplay {
   unitType: PlayerBuildableUnitType;
@@ -102,6 +104,14 @@ const buildTable: BuildItemDisplay[][] = [
       icon: shieldIcon,
       description: "build_menu.desc.defense_post",
       key: "unit_type.defense_post",
+      countable: true,
+    },
+    {
+      // Never built by hand: enabled only next to the capital, as its upgrade.
+      unitType: UnitType.Capital,
+      icon: crownIcon,
+      description: "build_menu.desc.capital",
+      key: "unit_type.capital",
       countable: true,
     },
     {
@@ -365,6 +375,14 @@ export class BuildMenu extends LitElement implements Controller {
     return unit ? unit.canBuild !== false || unit.canUpgrade !== false : false;
   }
 
+  /** Capital tier `type` still needs, or 0 when it isn't locked. */
+  public lockedTier(type: UnitType): number {
+    const player = this.game?.myPlayer();
+    if (!player) return 0;
+    const needed = this.game.config().requiredTierFor(type, player);
+    return needed > capitalTier(player) ? needed : 0;
+  }
+
   public cost(item: BuildItemDisplay): Gold {
     for (const bu of this.playerBuildables ?? []) {
       if (bu.type === item.unitType) {
@@ -421,6 +439,7 @@ export class BuildMenu extends LitElement implements Controller {
                   return html``;
                 }
                 const enabled = this.canBuildOrUpgrade(item);
+                const lockedTier = this.lockedTier(item.unitType);
                 return html`
                   <button
                     class="build-button"
@@ -428,9 +447,13 @@ export class BuildMenu extends LitElement implements Controller {
                       this.sendBuildOrUpgrade(buildableUnit, this.clickedTile)}
                     ?disabled=${!enabled}
                     title=${
-                      !enabled
-                        ? translateText("build_menu.not_enough_money")
-                        : ""
+                      lockedTier > 0
+                        ? translateText("build_menu.requires_tier", {
+                            tier: lockedTier,
+                          })
+                        : !enabled
+                          ? translateText("build_menu.not_enough_money")
+                          : ""
                     }
                   >
                     <img
@@ -444,7 +467,11 @@ export class BuildMenu extends LitElement implements Controller {
                     </span>
                     <span class="build-description"
                       >${
-                        item.description && translateText(item.description)
+                        lockedTier > 0
+                          ? translateText("build_menu.requires_tier", {
+                              tier: lockedTier,
+                            })
+                          : item.description && translateText(item.description)
                       }</span
                     >
                     <span class="build-cost" translate="no">

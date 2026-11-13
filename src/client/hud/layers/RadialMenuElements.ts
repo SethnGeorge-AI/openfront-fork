@@ -652,16 +652,15 @@ const deleteUnitElement: MenuElement = {
     }
 
     const DELETE_SELECTION_RADIUS = 5;
-    const myUnits = params.myPlayer
-      .units()
-      .filter(
-        (unit) =>
-          !unit.isUnderConstruction() &&
-          unit.markedForDeletion() === false &&
-          Structures.has(unit.type()) &&
-          params.game.manhattanDist(unit.tile(), params.tile) <=
-            DELETE_SELECTION_RADIUS,
-      );
+    const myUnits = params.myPlayer.units().filter(
+      (unit) =>
+        !unit.isUnderConstruction() &&
+        unit.markedForDeletion() === false &&
+        Structures.has(unit.type()) &&
+        unit.type() !== UnitType.Capital && // capitals can't be deleted
+        params.game.manhattanDist(unit.tile(), params.tile) <=
+          DELETE_SELECTION_RADIUS,
+    );
 
     return myUnits.length === 0;
   },
@@ -679,16 +678,15 @@ const deleteUnitElement: MenuElement = {
   ],
   action: (params: MenuElementParams) => {
     const DELETE_SELECTION_RADIUS = 5;
-    const myUnits = params.myPlayer
-      .units()
-      .filter(
-        (unit) =>
-          !unit.isUnderConstruction() &&
-          unit.markedForDeletion() === false &&
-          Structures.has(unit.type()) &&
-          params.game.manhattanDist(unit.tile(), params.tile) <=
-            DELETE_SELECTION_RADIUS,
-      );
+    const myUnits = params.myPlayer.units().filter(
+      (unit) =>
+        !unit.isUnderConstruction() &&
+        unit.markedForDeletion() === false &&
+        Structures.has(unit.type()) &&
+        unit.type() !== UnitType.Capital && // capitals can't be deleted
+        params.game.manhattanDist(unit.tile(), params.tile) <=
+          DELETE_SELECTION_RADIUS,
+    );
 
     const closestUnit = findClosestBy(myUnits, (unit) =>
       params.game.manhattanDist(unit.tile(), params.tile),

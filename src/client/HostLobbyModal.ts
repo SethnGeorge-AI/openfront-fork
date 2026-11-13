@@ -106,6 +106,7 @@ export class HostLobbyModal extends BaseModal {
   @state() private playerLimitValue: number | undefined = undefined;
   @state() private startDelayValue: number | undefined = 3;
   @state() private instantBuild: boolean = false;
+  @state() private capitals: boolean = false;
   @state() private randomSpawn: boolean = false;
   @state() private compactMap: boolean = false;
   @state() private goldMultiplier: boolean = false;
@@ -735,6 +736,10 @@ export class HostLobbyModal extends BaseModal {
                     checked: this.instantBuild,
                   },
                   {
+                    labelKey: "game_settings.capitals",
+                    checked: this.capitals,
+                  },
+                  {
                     labelKey: "game_settings.random_spawn",
                     checked: this.randomSpawn,
                   },
@@ -1106,6 +1111,7 @@ export class HostLobbyModal extends BaseModal {
     this.playerLimitLoadedFor = null;
     this.startDelayValue = 3;
     this.instantBuild = false;
+    this.capitals = false;
     this.randomSpawn = false;
     this.compactMap = false;
     this.useRandomMap = false;
@@ -1205,6 +1211,9 @@ export class HostLobbyModal extends BaseModal {
       case "game_settings.instant_build":
         this.handleInstantBuildChange(checked);
         break;
+      case "game_settings.capitals":
+        this.handleCapitalsChange(checked);
+        break;
       case "game_settings.random_spawn":
         this.handleRandomSpawnChange(checked);
         break;
@@ -1301,6 +1310,11 @@ export class HostLobbyModal extends BaseModal {
 
   private handleInstantBuildChange = (val: boolean) => {
     this.instantBuild = val;
+    void this.putGameConfig();
+  };
+
+  private handleCapitalsChange = (val: boolean) => {
+    this.capitals = val;
     void this.putGameConfig();
   };
 
@@ -1754,6 +1768,7 @@ export class HostLobbyModal extends BaseModal {
       infiniteTroops: this.infiniteTroops,
       donateTroops: this.donateTroops,
       instantBuild: this.instantBuild,
+      capitals: this.capitals,
       randomSpawn: this.randomSpawn,
       maxTimer: this.maxTimer,
       maxTimerValue: this.maxTimerValue,
@@ -1801,6 +1816,7 @@ export class HostLobbyModal extends BaseModal {
     this.infiniteTroops = config.infiniteTroops ?? false;
     this.donateTroops = config.donateTroops ?? isTeam;
     this.instantBuild = config.instantBuild ?? false;
+    this.capitals = config.capitals ?? false;
     this.randomSpawn = config.randomSpawn ?? false;
     this.maxTimer = config.maxTimer ?? false;
     this.maxTimerValue = config.maxTimerValue;
@@ -1941,6 +1957,7 @@ export class HostLobbyModal extends BaseModal {
             infiniteTroops: this.infiniteTroops,
             donateTroops: this.donateTroops,
             instantBuild: this.instantBuild,
+            capitals: this.capitals,
             randomSpawn: this.randomSpawn,
             gameMode: this.gameMode,
             disabledUnits: this.disabledUnits,

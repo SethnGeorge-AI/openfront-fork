@@ -138,7 +138,8 @@ describe("mobile UnitDisplay layout", () => {
       await display.updateComplete;
 
       const grid = display.querySelector<HTMLElement>(".unit-display-grid");
-      expect(grid?.children).toHaveLength(BuildMenus.types.length - 1);
+      // City is disabled; the Capital has no hotbar button (it's upgraded in place).
+      expect(grid?.children).toHaveLength(BuildMenus.types.length - 2);
     } finally {
       display.remove();
     }
