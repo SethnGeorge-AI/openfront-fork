@@ -264,9 +264,10 @@ export class MasterLobbyService {
     );
     if (this.readyWorkers.size === ServerEnv.numWorkers() && !this.started) {
       this.started = true;
-      this.log.info("All workers ready, starting game scheduling");
+      // This fork has no public lobbies: the master never schedules them. The
+      // broadcast stays, workers read the deployment's active flag from it.
+      this.log.info("All workers ready, broadcasting lobbies");
       startPolling(async () => this.broadcastLobbies(), 500);
-      startPolling(async () => await this.maybeScheduleLobby(), 1000);
     }
   }
 

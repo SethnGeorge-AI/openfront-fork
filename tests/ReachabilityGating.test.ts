@@ -111,15 +111,6 @@ function clickEveryButton(): number {
   return buttons.length;
 }
 
-/**
- * The rendered public-lobby card's button. Socket-sourced: whatever the
- * server-list API is doing, this one must keep working (the reachability rule
- * at the top of GameModeSelector.ts).
- */
-function lobbyCardButton(): HTMLButtonElement | null {
-  return selector.querySelector("button.group");
-}
-
 /** Announces a reachability change the way the heartbeat does. */
 async function announce(reachable: boolean, confirmed = false): Promise<void> {
   document.dispatchEvent(
@@ -251,42 +242,6 @@ describe("the multiplayer entry points while the backend is unreachable", () => 
     expect(hostOpen).not.toHaveBeenCalled();
   });
 
-  it("still joins the public lobby card during a confirmed outage", async () => {
-    // The rule (GameModeSelector, top of file): this lobby arrived over a
-    // live game-server socket, which is the only liveness the join needs. The
-    // server-list API's health says nothing about that server, and Main's
-    // funnel would let the very same join through -- so refusing here would
-    // only reject a join that is already under way.
-    selector = await mountSelector();
-    await announce(false, true);
-
-    const card = lobbyCardButton();
-    expect(card).not.toBeNull();
-    card!.click();
-
-    expect(joinLobby).toHaveBeenCalled();
-    expect(joinLobby.mock.calls[0][0].detail.gameID).toBe("public-1");
-  });
-
-  it("does not dim the public lobby card during a confirmed outage", async () => {
-    selector = await mountSelector();
-    await announce(false, true);
-
-    expect(lobbyCardButton()?.getAttribute("aria-disabled")).toBe("false");
-  });
-
-  it("says nothing when a card click goes through during an outage", async () => {
-    // The toast is for a REFUSAL. A join that proceeded has nothing to
-    // apologise for, and telling the player the servers are unreachable while
-    // taking them into a game would be a lie.
-    selector = await mountSelector();
-    await announce(false, true);
-
-    lobbyCardButton()!.click();
-
-    expect(messages).toEqual([]);
-  });
-
   it("says why, on the web, where there is no status bar to read", async () => {
     selector = await mountSelector();
     await announce(false, true);
@@ -347,9 +302,6 @@ describe("the multiplayer entry points while the backend is unreachable", () => 
     clickEveryButton();
     expect(joinOpen).not.toHaveBeenCalled();
     expect(hostOpen).not.toHaveBeenCalled();
-    // ...and the card that came over the socket still joins, from the same
-    // seed.
-    expect(joinLobby).toHaveBeenCalled();
   });
 
   it("does not gate a selector that mounted after an attempt SUCCEEDED", async () => {
@@ -475,17 +427,6 @@ describe("a refused multiplayer click on the web", () => {
 
     clickEveryButton();
 
-    expect(fetchMock.mock.calls.length).toBe(before);
-  });
-
-  it("does not probe on a card click that goes through", async () => {
-    // Socket-sourced: it was never refused, so there is nothing to retry.
-    await mountGated();
-    const before = fetchMock.mock.calls.length;
-
-    lobbyCardButton()!.click();
-
-    expect(joinLobby).toHaveBeenCalled();
     expect(fetchMock.mock.calls.length).toBe(before);
   });
 });

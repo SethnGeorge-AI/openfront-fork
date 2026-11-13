@@ -290,7 +290,6 @@ export class HostLobbyModal extends BaseModal {
         >
           ${translateText("host_modal.title")}
         </span>
-        ${this.renderVisibilityToggle()}
       `,
       onBack: () => {
         this.leaveLobbyOnClose = true;

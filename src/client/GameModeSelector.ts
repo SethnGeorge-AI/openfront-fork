@@ -45,7 +45,6 @@ import { lastUserMeResponse } from "./UserMeBroadcast";
 import { UsernameInput } from "./UsernameInput";
 import {
   calculateServerTimeOffset,
-  getGameModeLabel,
   getGamesPlayed,
   getSecondsUntilServerTimestamp,
   reloadForUpdate,
@@ -647,33 +646,20 @@ export class GameModeSelector extends LitElement {
   }
 
   render() {
-    const ffa = this.lobbies?.games?.["ffa"]?.[0];
-    const teams = this.lobbies?.games?.["team"]?.[0];
-    const special = this.lobbies?.games?.["special"]?.[0];
-    // A lone secondary card takes both of the column's card rows.
-    const cardRows =
-      teams && special
-        ? { special: "sm:row-start-2", teams: "sm:row-start-3" }
-        : {
-            special: "sm:row-start-2 sm:row-span-2",
-            teams: "sm:row-start-2 sm:row-span-2",
-          };
-
     // DOM is in phone order; sm+ places the same elements onto a grid and
     // reading-flow keeps focus order following the rows (Chromium only).
-    // On compact screens (styles.css) Solo/Tutorial sit under the hero card only,
-    // and the lobby column runs down beside them, so its two cards get that height.
-    // There the grid also pulls up over the gap after the banner's row when it's empty.
+    // This fork has no public lobbies, so there are no lobby cards above the buttons.
+    // On compact screens the grid pulls up over the gap after the banner when it is empty.
     return html`
       <div
-        class="flex flex-col gap-4 sm:compact:gap-3 sm:compact:has-[>ios-add-to-home-screen-banner:empty]:-mt-3 w-full px-4 pb-4 mx-auto sm:px-0 sm:pb-0 sm:grid sm:grid-cols-[2fr_1fr] sm:grid-rows-[auto_min(24rem,40vh)_auto_auto] sm:compact:grid-rows-[auto_minmax(min(24rem,40vh),auto)_3.5rem_auto] desktop:sm:grid-rows-[auto_40vh_auto_auto] sm:[reading-flow:grid-rows]"
+        class="flex flex-col gap-4 sm:compact:gap-3 sm:compact:has-[>ios-add-to-home-screen-banner:empty]:-mt-3 w-full px-4 pb-4 mx-auto sm:px-0 sm:pb-0 sm:grid sm:grid-cols-[2fr_1fr] sm:grid-rows-[auto_auto_auto] sm:[reading-flow:grid-rows]"
       >
         <ios-add-to-home-screen-banner
           class="no-game-portal [&:empty]:hidden sm:col-span-2 sm:row-start-1"
         ></ios-add-to-home-screen-banner>
 
         <div
-          class="flex gap-4 sm:compact:gap-3 h-14 sm:col-span-2 sm:row-start-3 sm:compact:col-span-1!"
+          class="flex gap-4 sm:compact:gap-3 h-14 sm:col-span-2 sm:row-start-2"
         >
           <div class="flex-[2]">
             ${this.renderSmallActionCard(
@@ -695,7 +681,7 @@ export class GameModeSelector extends LitElement {
           }
         </div>
         <div
-          class="grid grid-cols-3 gap-4 sm:compact:gap-3 h-14 sm:col-span-2 sm:row-start-4"
+          class="grid grid-cols-3 gap-4 sm:compact:gap-3 h-14 sm:col-span-2 sm:row-start-3"
         >
           ${this.renderSmallActionCard(
             translateText("main.create"),
@@ -728,59 +714,10 @@ export class GameModeSelector extends LitElement {
             translateText("main.join"),
             this.openJoinLobby,
             SECONDARY_ACTION,
-            this.hostedLobbyCount(),
+            undefined,
             true,
           )}
         </div>
-
-        <div class="min-w-0 sm:col-start-1 sm:row-start-2">
-          ${
-            ffa?.gameConfig
-              ? this.renderLobbyCard(ffa, getGameModeLabel(ffa.gameConfig))
-              : this.offlineForLobbies()
-                ? this.renderLobbiesUnavailable()
-                : this.lobbies === null
-                  ? html`<div
-                      class="flex items-center justify-center h-44 sm:h-full"
-                      role="status"
-                      aria-label=${translateText("common.loading")}
-                    >
-                      <span
-                        class="size-24 rounded-full border-[6px] border-blue-500/30 border-t-blue-500 animate-spin"
-                      ></span>
-                    </div>`
-                  : html`<div
-                      class="h-44 sm:h-full rounded-2xl bg-surface"
-                    ></div>`
-          }
-        </div>
-
-        <!-- Always rendered: the heading is the only way into the lobby browser. -->
-        <section
-          class="flex flex-col gap-4 sm:compact:gap-3 min-w-0 sm:grid sm:grid-rows-[auto_1fr_1fr] sm:row-start-2 sm:min-h-0 sm:[reading-flow:grid-rows] sm:col-start-2 sm:compact:row-end-4 sm:compact:grid-rows-[auto_minmax(7.5rem,1fr)_minmax(7.5rem,1fr)]"
-        >
-          ${
-            teams
-              ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.teams}">
-                  ${this.renderLobbyCard(
-                    teams,
-                    getGameModeLabel(teams.gameConfig!),
-                  )}
-                </div>`
-              : nothing
-          }
-          ${
-            special
-              ? html`<div class="min-w-0 sm:min-h-0 ${cardRows.special}">
-                  ${this.renderLobbyCard(
-                    special,
-                    getGameModeLabel(special.gameConfig!),
-                  )}
-                </div>`
-              : nothing
-          }
-          ${this.renderUpcomingHeading()}
-        </section>
 
         ${
           this.showTrustRequired

@@ -224,6 +224,10 @@ export function registerListingRoute(opts: {
         return res.status(409).json({ error: "listing_permanent" });
       }
 
+      // This fork has no public lobbies, so a lobby is never listed.
+      if (listed) {
+        return res.status(403).json({ error: "Public lobbies are disabled" });
+      }
       if (listed) {
         const preError = getListingEligibilityError(game, maxPlayers);
         if (preError !== null) {

@@ -43,7 +43,6 @@ function loop(intervalMs: number): () => Promise<void> {
   if (call === undefined) throw new Error(`no ${intervalMs}ms loop`);
   return call[0];
 }
-const scheduler = () => loop(1000);
 const broadcaster = () => loop(500);
 
 function sent(worker: ReturnType<typeof createMockWorker>, type: string) {
@@ -95,16 +94,6 @@ describe("MasterLobbyService with a lobby coordinator", () => {
     const [lobbies, liveGames] = coordinator.report.mock.calls[0];
     expect(lobbies.map((l: any) => l.gameID)).toEqual(["OWN1"]);
     expect(liveGames).toBe(3);
-  });
-
-  it("schedules nothing of its own while coordinated", async () => {
-    worker.emit("message", {
-      type: "lobbyList",
-      lobbies: [lobby("OWN1")],
-    });
-    await scheduler()();
-    expect(sent(worker, "createGame")).toHaveLength(0);
-    expect(sent(worker, "updateLobby")).toHaveLength(0);
   });
 
   it("feeds workers the coordinator's roster instead of its own lobbies", async () => {
@@ -191,54 +180,5 @@ describe("MasterLobbyService with a lobby coordinator", () => {
     expect(sent(worker, "updateLobby")).toEqual([
       { type: "updateLobby", gameID: "OWN1", startsAt: 1234 },
     ]);
-  });
-
-  it("falls back to single-server scheduling when rosters stop, and returns", async () => {
-    service.coordinatorHandlers().onRoster({
-      serverTime: 1,
-      games: {
-        ffa: [lobby("bFOREIGN1", "ffa", { startsAt: 5 })],
-        team: [],
-        special: [],
-        hosted: [],
-      },
-      delistGameIDs: [],
-    });
-    worker.emit("message", { type: "lobbyList", lobbies: [lobby("OWN1")] });
-
-    coordinator.coordinated = false;
-    await scheduler()();
-    // Local: countdown for own front lobby, and creates to fill the queue.
-    expect(sent(worker, "updateLobby")).toHaveLength(1);
-    expect(sent(worker, "createGame")).toHaveLength(3);
-    await broadcaster()();
-    const [b] = sent(worker, "lobbiesBroadcast");
-    // Foreign lobbies are dropped from the feed: the coordinator that
-    // vouched for them is gone.
-    expect(b.publicGames.games.ffa.map((l: any) => l.gameID)).toEqual(["OWN1"]);
-
-    coordinator.coordinated = true;
-    worker.send.mockClear();
-    await scheduler()();
-    expect(sent(worker, "createGame")).toHaveLength(0);
-    await broadcaster()();
-    expect(
-      sent(worker, "lobbiesBroadcast")[0].publicGames.games.ffa.map(
-        (l: any) => l.gameID,
-      ),
-    ).toEqual(["bFOREIGN1"]);
-  });
-
-  it("stays local until the first roster even with the client attached", async () => {
-    const fresh = fakeCoordinator(false);
-    const log = { info: vi.fn(), error: vi.fn(), warn: vi.fn() } as any;
-    const s = new MasterLobbyService(playlist as any, log);
-    s.attachCoordinator(fresh as any);
-    const w = createMockWorker();
-    s.registerWorker(0, w as any);
-    vi.mocked(startPolling).mockClear();
-    w.emit("message", { type: "workerReady", workerId: 0 });
-    await scheduler()();
-    expect(sent(w, "createGame").length).toBeGreaterThan(0);
   });
 });

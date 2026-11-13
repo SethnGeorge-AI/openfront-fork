@@ -363,7 +363,6 @@ export class JoinLobbyModal extends BaseModal {
             </div>
           </div>
         </form>
-        ${this.renderHostedLobbies()}
       </div>
     `;
   }
@@ -534,8 +533,6 @@ export class JoinLobbyModal extends BaseModal {
     // disarmLeaveOnClose() runs, no close cascade can re-arm it and
     // disconnect the player mid game-start.
     this.leaveLobbyOnClose = true;
-    this.hostedLobbiesLoaded = false;
-    void this.hostedLobbySocket.start();
     const lobbyId = typeof args?.lobbyId === "string" ? args.lobbyId : "";
     const lobbyInfo = args?.lobbyInfo as GameInfo | PublicGameInfo | undefined;
     if (lobbyId) {
