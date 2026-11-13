@@ -1,33 +1,34 @@
 # Graph Report - openfront-fork  (2026-11-13)
 
 ## Corpus Check
-- 2058 files · ~2,782,411 words
+- 2058 files · ~2,782,260 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 568 file(s) not represented in the graph (top: .bin 464, .glsl 76, (none) 14)
 
 ## Summary
-- 25415 nodes · 68380 edges · 743 communities (663 shown, 80 thin omitted)
-- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 6010 edges (avg confidence: 0.86)
+- 25413 nodes · 68367 edges · 798 communities (684 shown, 114 thin omitted)
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 6009 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b1f66460`
+- Built from commit: `ad56f791`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- AccountModal.ts
+- AccountSettingsPanel
 - Payments.ts
+- Cell
 - GameTypes.ts
-- GameImpl.ts
 - showToast
 - ClientEnv
 - .config
-- AStarWaterHierarchical
+- .player
 - Unit
 - AStarAdapter
 - GameView
 - Main.ts
+- SnapshotWriter
 - StatsImpl
 - LobbyTeamView
 - EngineConfig
@@ -41,50 +42,50 @@
 - .emit
 - Schemas.ts
 - ProfileProgression.ts
-- ClientGameRunner.ts
+- GameHealthIndicators
 - GameMapType
-- BinaryReader
+- ReplayPlayback
 - GameUpdates.ts
 - vitest
 - PlayerImpl
 - Worker.ts
 - MapRenderer
-- RadialMenuElements.ts
-- PlayerInfoOverlay.ts
+- RadialMenu
+- PlayerIcons.ts
 - OnboardingOverlay.ts
 - WireSchemas.ts
-- GameMap.ts
+- PathFinder.ts
 - GPURenderer
-- preventDisallowedKeys
-- UserSettings
+- FfaRatingPanel.ts
+- .renderOverlays
 - MapPlaylist.ts
 - name-pass/index.ts
 - WebGLFrameBuilder.ts
 - ApiSchemas.ts
 - ServerEnv
 - LobbyCoordinatorClient.ts
-- ClientMsgRateLimiter.ts
-- NationStructureBehavior.ts
+- SocketIngress.ts
+- UsernameInput
 - UnitImpl
 - UnitDisplay
 - GameImpl.ts
 - GameXpPanel.ts
 - AccountModal
-- GraphicsAdvancedSettings
-- DesktopUpdateStateSeeding.test.ts
+- .graphicsOverrides
+- DesktopShell.ts
 - StoreModal.test.ts
 - WorkerMessages.ts
-- DoomsdayClockExecution.test.ts
+- WinCheckExecution
 - ClanApi.ts
 - src/index.ts
 - DetailedGameViewModal.ts
 - client/ServerList.ts
 - LegendCeremony.ts
-- game.mjs
+- driver.mjs
 - StatsColumns.ts
 - components/LevelBadge.ts
 - CosmeticPreviewRenderer
-- .inSpawnPhase
+- WinModal
 - getUserMe
 - ClanBoostDialog
 - package.json
@@ -95,34 +96,34 @@
 - NavNotificationsStore
 - PlayerGameHistoryView.ts
 - ReplayStore.ts
-- ScriptedGame.ts
+- GameUpdateType
 - MapPicker
 - ClientRenderPipelinePerf.test.ts
 - EffectPreview.ts
 - TransportReconnect.test.ts
-- UserMeResponse
+- UsernameInput.ts
 - computeViewHash
 - ReplayViewer
 - Config
 - ProvisionalXpAtDeath.ts
-- SavedGamesPanel
+- RosterLevelBadge.test.ts
 - GameModeSelector
-- UnitPass
+- fx-pass/index.ts
 - TileRef
 - EntitySchema.ts
-- dependencies
+- GameModeSelector.ts
 - ResolvedCosmetic
 - Transport
 - ClanDonateDialog
-- DesktopRelease.ts
+- ref_child_process
 - InventoryModal.ts
 - SAMRadiusPass
 - PackedUnitUpdates.ts
 - TransformHandler
 - NameBoxCalculatorPerf.ts
 - InlineCheckout
-- Transport.ts
-- MotionPlanResolver
+- PlayerPanelKick.test.ts
+- FrameNormalizer.ts
 - issue-lifecycle/github.ts
 - ProfileShare
 - BuildPreviewControllerPerf.ts
@@ -133,17 +134,16 @@
 - rules.ts
 - scripts
 - Telemetry.ts
-- UserSettingModal
+- UserSettings
 - PlayerLike
 - responseHasLinkedIdentity
 - FakePlayer
-- uploadFrameData
+- SpiralRibbonPass
 - client.js
-- .renderGameplaySettings
+- .dispose
 - rules
-- GraphicsAdvancedSettings.ts
+- SettingColor
 - ClanDonationsView.ts
-- AttackImpl
 - Map Data
 - TranslationSystem.test.ts
 - PlayerStatsTreeView
@@ -153,35 +153,35 @@
 - ProfileCard.ts
 - env
 - map_generator.go
-- GameServer.ts
+- IntentAuthorization.test.ts
 - GameInfoView
 - MutableAlliance
 - ReplayPlayerView
 - env
 - SavedGamesApi.ts
-- RankedCheckin.ts
+- Privilege.ts
 - lib.ts
 - SendResourceModal
-- LeaderboardTribeTable
+- TribeStatsView
 - ResolvedCosmetic
-- SaleCountdown
+- LobbyCard.ts
 - HomepagePromos
 - WinModalProvisionalXp.test.ts
-- .putGameConfig
+- HostLobbyModal
 - PlayerRow
-- WinModal
+- WinModalXp.test.ts
 - ReplayFrameBuilder
 - ViverseSDK
 - EffectsGrid
 - AdGatekeeper
 - ZbEncodeError
 - steps
-- BinaryWriter
+- .putGameConfig
 - FriendsList.ts
 - TribesPanel.ts
-- benchmark/run.ts
+- pathfinding.ts
 - TerrainPass.ts
-- FeaturedStream.ts
+- testGameConfig
 - labyrinth/manifest.json
 - AdForensics.ts
 - PlayerStatsTree.ts
@@ -190,19 +190,19 @@
 - AtlasMap
 - PerformanceOverlay
 - Matchmaking.test.ts
-- .ticks
-- SinglePlayerModal.ts
+- GhostPreviewData
+- GameConfigHelpers.ts
 - with
 - GlobalDomTeardown.test.ts
-- JoinLobbyModal.ts
+- RankedCheckin.ts
 - choppingblock/manifest.json
 - madagascar/manifest.json
 - ClanModal
 - DiffPlayerUpdatePerf.ts
-- ref_fs
+- MapManifest.ts
 - CosmeticSchemas.ts
 - PlayerStats
-- PlayerGameHistoryView.ts
+- AdminBotRoutes.ts
 - babelmandebstrait/manifest.json
 - baikal/manifest.json
 - baikalnukewars/manifest.json
@@ -230,9 +230,9 @@
 - straitofhormuz/manifest.json
 - surrounded/manifest.json
 - taiwanstrait/manifest.json
-- .width
-- ReplayProcessor.ts
-- FeaturedStream
+- GameMap
+- ReplayTypes.ts
+- FeaturedStream.ts
 - SubscriptionPanel
 - properties
 - TurnstileToken.ts
@@ -249,7 +249,7 @@
 - warshipwarship/manifest.json
 - world4000/manifest.json
 - resources/maps/world/manifest.json
-- PokiSDK
+- ReachabilityGating.test.ts
 - LazyCosmeticGrids.test.ts
 - updates
 - africa/manifest.json
@@ -293,12 +293,12 @@
 - world10000/manifest.json
 - worldinverted/manifest.json
 - PlayerGameHistoryView
-- renderTroops
+- ContinueGameModal
 - WaterNukeRebuildPerf.ts
-- SnapshotReader
+- .player
 - codegen.go
 - properties
-- SettingsTheme
+- GraphicsAdvancedSettings
 - shared/package.json
 - achiran/manifest.json
 - amazonriver/manifest.json
@@ -357,6 +357,7 @@
 - yellowsea/manifest.json
 - yenisei/manifest.json
 - zealandia/manifest.json
+- GameImpl
 - LobbyPresetControls
 - LangSelector
 - Client
@@ -390,9 +391,9 @@
 - vietnam/info.json
 - SnapshotCodec.ts
 - CreatorCodePanel.test.ts
-- StreamingNow
+- split-packages/run.ts
 - DesktopPresence.ts
-- MessageType
+- PlayerID
 - LayerBoundaries.test.ts
 - deploy
 - with
@@ -408,7 +409,7 @@
 - items
 - LocalServer.ts
 - debug/Layout.ts
-- FrameNormalizer.ts
+- ModalRouter.ts
 - AbstractGraph
 - SinglePlayerModal
 - GeneratorLogger
@@ -463,12 +464,12 @@
 - issue-lifecycle/package.json
 - pr-gate/package.json
 - TerraNulliusImpl
-- .x
-- StreamsFeed.ts
+- game.mjs
+- DesktopRelease.ts
 - PokiBridge.ts
 - MarketingConsentToast
 - MenuMusic.test.ts
-- SteamLinkModal.test.ts
+- SteamLink.ts
 - zbin — compact binary serialization for zod schemas
 - Pathfinding Tests
 - big_plains/manifest.json
@@ -562,17 +563,17 @@
 - yangtzeriver/info.json
 - yenisei/info.json
 - sortImports
-- .buildUnit
+- MatchmakingModal
 - SettingNumber
-- StreamsFeed
-- MinHeap
+- ClanBrowseView.ts
+- CosmeticPreviewModal
 - Packages
-- tick-trace.ts
+- PackedUnitUpdateDecoder
 - PurchaseButton
 - PreviewAnimationTicker
-- AbstractGraphBuilder
-- MultiTabDetector
-- GoogleTag.ts
+- UsernamePanel
+- MultiTabModal
+- ClanStatsBreakdown.ts
 - EquippedCosmeticsRow.ts
 - JoinLobbyModal
 - env
@@ -584,29 +585,29 @@
 - world10000/info.json
 - worldinverted/info.json
 - zealandia/info.json
-- OtherUnitType
+- bootstrap
 - engine-api/package.json
 - engine-lib/package.json
 - TerrainSearchMap
-- .mountPlayer
+- TroubleshootingModal
 - resources/manifest.json
 - MapConsistency.test.ts
-- DeleteAccountDialog
+- state
 - StructureIconsLayerLookupPerf.ts
-- AllianceRequestImpl
-- ReplayTypes.ts
+- AccountModalProgression.test.ts
+- EventCollector.ts
 - SettingsModal
 - range.sh
 - with
 - didierfrance/info.json
 - dyslexdria/info.json
 - milkyway/info.json
-- Game Architecture
+- CopyButton
 - GoldRateTracker
 - UserSettingModal.graphics.test.ts
-- HostLobbyModal.ts
+- HostLobbyModalWinThreshold.test.ts
 - FriendsList.notifications.test.ts
-- state
+- HelpModal
 - processMap
 - build-deploy.sh script
 - /release <branch>
@@ -625,10 +626,10 @@
 - tutorial/info.json
 - PlayPageTopBar.test.ts
 - zbin/package.json
-- AllianceRequest
-- GameStartAlertController
-- TwitchPlayer
-- FakePlayer
+- GameMetrics
+- GameHealth
+- GameStatsModal
+- ModalRouter
 - /release-notes <range>
 - commits.sh
 - jobs
@@ -646,14 +647,14 @@
 - engine/tsconfig.json
 - Slot
 - DesktopNavBar
-- StreamsFeed.test.ts
+- TokenLoginModal
 - MobileNavBar
-- ProfileMenuModal
-- SinglePlayerModalSavedGame.test.ts
+- ProgressionModals.test.ts
+- GameXpRewards.test.ts
 - MockTransport
 - RelationSmiley.ts
 - client/vite-env.d.ts
-- AnalyticsRecord
+- BannedModal
 - cherry-pick-milestone.yml
 - steps
 - engine-lib/tsconfig.json
@@ -666,8 +667,8 @@
 - pr-gate/tsconfig.json
 - Divider
 - NewsBox.ts
-- ModalRouter
-- ApiSchemas.ts
+- ProfileGameStatsNavigation.test.ts
+- Auth.ts
 - Authentication & Authorization Flow
 - env
 - on
@@ -684,16 +685,17 @@
 - MessageCategory
 - BFS
 - PR Gate
-- FluentSlider
+- GraphicsOverrides
 - DifficultyDisplay
 - SharedStyles.ts
-- PastGameXpCard
-- .loadLanguage
-- PokiSDK.test.ts
+- Progression.ts
+- ClientTickPerf.ts
+- LeaderboardModal
 - ClanModalTestUtils.ts
 - TradeTrainGolden.test.ts
 - generate.ts
 - ProgressionApi.ts
+- AttackingTroopsController
 - update.sh
 - new-contribution-template-clean.md
 - new-contribution-template-examples.md
@@ -705,7 +707,12 @@
 - items
 - special_team_count
 - 🎮 Running the Game
+- ColumnPicker
+- HeadsUpMessage
+- UsernameInput.test.ts
 - NavUtilityIcons.notifications.test.ts
+- RankedType
+- AdmittedLobbies.ts
 - FakeWarship
 - Matchmaking integration harnesses
 - Pathfinding Playground
@@ -714,7 +721,9 @@
 - PULL_REQUEST_TEMPLATE.md
 - format
 - custom_tribes
+- PlayerProfilePage.test.ts
 - id
+- SettingKeybind
 - x
 - shared/tsconfig.json
 - zbin/tsconfig.json
@@ -732,22 +741,66 @@
 - glsl.d.ts
 - server/README.md
 - github.com/openfrontio/OpenFrontIO/map-generator
-- FrameEncoder.ts
-- LobbyPlayerView.levelBadge.test.ts
+- ConfirmDialog
+- .patchTerrain
+- InGamePromo
+- IOSAddToHomeScreenBanner
 - CLAUDE.md
 - TerritoryProbe
-- RailAdapter
-- ToggleInputCard.ts
+- .isWater
+- ToggleInputCard
+- MapDetails
+- ClanBoostDialog.test.ts
 - AnalyzeCpuProfile.ts
+- buildAssetHashes.ts
 - RenderDesktopDescriptor.test.ts
-- GameMapLoader.ts
-- showInGameAlert
-- DeployIdentity.test.ts
-- SettingToggle
+- SteamUserHeader.ts
+- CreatorCode.ts
+- FetchGameMapLoader
 - Cosmetics.ts
-- AllocationSampler
-- SteamHandoffModal
+- FrameProfiler
+- DeployIdentity.test.ts
+- LinkResult.test.ts
+- SettingToggle
+- run-openfront/SKILL.md
+- OButton
+- ClanCard
+- CustomCurrencyCard
+- DifficultyInfo.ts
+- ModalTabRow.test.ts
+- MainLayout
+- FakeIntersectionObserver
+- FakeIntersectionObserver
+- FakeIntersectionObserver
 - PackedMotionPlanKind
+- SinglePlayerModalUserMe.test.ts
+- FakeWebSocket
+- UsernameClaimPrefill.test.ts
+- FakeWebSocket
+- UpdateRestartPolicy.test.ts
+- MockGameView
+- HeapSnapshotSummary.ts
+- .trainType
+- intToUnitType
+- NationName.test.ts
+- HeapSnapshotRetainers.ts
+- .hasNukeState
+- .hasSamUpgrade
+- .hasTrainStation
+- .hasTransportShipState
+- .hasWarshipState
+- .isActive
+- .lastOwnerID
+- .loaded
+- .nukeTargetedBySam
+- .ownerID
+- .reachedTarget
+- .targetable
+- .transportIsRetreating
+- .underConstruction
+- .warshipIsInCombat
+- .warshipStateState
+- .warshipVeterancy
 
 ## God Nodes (most connected - your core abstractions)
 1. `translateText()` - 994 edges
@@ -775,8 +828,13 @@
 
 ## Import Cycles
 - 2-file cycle: `src/client/ClanModal.ts -> src/client/PlayerProfileModal.ts -> src/client/ClanModal.ts`
-- 2-file cycle: `src/client/GameModeSelector.ts -> src/client/Main.ts -> src/client/GameModeSelector.ts`
 - 2-file cycle: `src/client/components/clan/ClanShared.ts -> src/client/components/clan/ClanStatsBreakdown.ts -> src/client/components/clan/ClanShared.ts`
+- 2-file cycle: `src/client/GameModeSelector.ts -> src/client/Main.ts -> src/client/GameModeSelector.ts`
+- 2-file cycle: `packages/engine/src/game/AllianceRequestImpl.ts -> packages/engine/src/game/GameImpl.ts -> packages/engine/src/game/AllianceRequestImpl.ts`
+- 2-file cycle: `packages/engine/src/game/GameImpl.ts -> packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/GameImpl.ts`
+- 2-file cycle: `packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/UnitImpl.ts -> packages/engine/src/game/PlayerImpl.ts`
+- 2-file cycle: `packages/engine/src/game/AttackImpl.ts -> packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/AttackImpl.ts`
+- 2-file cycle: `packages/engine/src/execution/EmojiExecution.ts -> packages/engine/src/execution/nation/NationEmojiBehavior.ts -> packages/engine/src/execution/EmojiExecution.ts`
 - 2-file cycle: `src/client/ClientGameRunner.ts -> src/client/Transport.ts -> src/client/ClientGameRunner.ts`
 - 2-file cycle: `src/client/hud/layers/RadialMenu.ts -> src/client/hud/layers/RadialMenuElements.ts -> src/client/hud/layers/RadialMenu.ts`
 - 2-file cycle: `src/client/hud/layers/ChatIntegration.ts -> src/client/hud/layers/RadialMenuElements.ts -> src/client/hud/layers/ChatIntegration.ts`
@@ -785,65 +843,68 @@
 - 2-file cycle: `src/client/view/GameView.ts -> src/client/view/UnitView.ts -> src/client/view/GameView.ts`
 - 2-file cycle: `src/client/view/PlayerView.ts -> src/client/view/UnitView.ts -> src/client/view/PlayerView.ts`
 - 2-file cycle: `packages/shared/src/CosmeticSchemas.ts -> packages/shared/src/WireSchemas.ts -> packages/shared/src/CosmeticSchemas.ts`
-- 2-file cycle: `packages/engine/src/game/GameImpl.ts -> packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/GameImpl.ts`
-- 2-file cycle: `packages/engine/src/game/AllianceRequestImpl.ts -> packages/engine/src/game/GameImpl.ts -> packages/engine/src/game/AllianceRequestImpl.ts`
-- 2-file cycle: `packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/UnitImpl.ts -> packages/engine/src/game/PlayerImpl.ts`
-- 2-file cycle: `packages/engine/src/game/AttackImpl.ts -> packages/engine/src/game/PlayerImpl.ts -> packages/engine/src/game/AttackImpl.ts`
-- 2-file cycle: `packages/engine/src/execution/EmojiExecution.ts -> packages/engine/src/execution/nation/NationEmojiBehavior.ts -> packages/engine/src/execution/EmojiExecution.ts`
 - 2-file cycle: `packages/engine/src/game/RailNetwork.ts -> packages/engine/src/game/RailNetworkImpl.ts -> packages/engine/src/game/RailNetwork.ts`
 - 2-file cycle: `packages/engine/src/game/Game.ts -> packages/engine/src/game/Stats.ts -> packages/engine/src/game/Game.ts`
 - 2-file cycle: `packages/engine/src/game/Game.ts -> packages/engine/src/game/RailNetwork.ts -> packages/engine/src/game/Game.ts`
 - 2-file cycle: `packages/engine/src/execution/TrainExecution.ts -> packages/engine/src/game/TrainStation.ts -> packages/engine/src/execution/TrainExecution.ts`
 
-## Communities (743 total, 80 thin omitted)
+## Communities (798 total, 114 thin omitted)
 
-### Community 0 - "AccountModal.ts"
-Cohesion: 0.03
-Nodes (43): LOGIN_ERROR_KEYS, SetVisibilityResult, sendMagicLink(), AccountSettingsPanel, PRIVACY_SETTINGS, PrivacyField, UserMePlayer, UserMeUser (+35 more)
+### Community 0 - "AccountSettingsPanel"
+Cohesion: 0.08
+Nodes (9): sendMagicLink(), AccountSettingsPanel, UserMePlayer, UserMeUser, copiedLobbyLink(), copyToClipboardMock, redirectDomainFor(), setBootstrapConfig() (+1 more)
 
 ### Community 1 - "Payments.ts"
-Cohesion: 0.06
-Nodes (39): PaymentsCheckoutResponseSchema, PaymentsProvider, PaymentsCheckoutRequest, PaymentsCheckoutResult, awaitSteamAuthorization(), belongsToOrder(), checkoutError(), createInlinePaymentIntent() (+31 more)
+Cohesion: 0.05
+Nodes (42): PaymentsCheckoutRequest, completeCosmeticPurchaseReturn(), CosmeticPurchaseReturnActions, handlePurchaseReturn(), PurchaseReturnActions, awaitSteamAuthorization(), belongsToOrder(), checkoutError() (+34 more)
 
-### Community 2 - "GameTypes.ts"
-Cohesion: 0.01
-Nodes (304): AllianceInfo, AllPlayers, Difficulty, Easy, Hard, Impossible, Medium, GameMode (+296 more)
-
-### Community 3 - "GameImpl.ts"
+### Community 2 - "Cell"
 Cohesion: 0.02
-Nodes (204): Migration, Versioned, zInt(), zNum(), zPlayerRef(), zRandom(), zRef(), zTile() (+196 more)
+Nodes (120): Cell, Relation, Distrustful, Friendly, Hostile, Neutral, Structures, boundingBoxCenter() (+112 more)
+
+### Community 3 - "GameTypes.ts"
+Cohesion: 0.02
+Nodes (328): MapPos, MAX_UPGRADE_AMOUNT, MESSAGE_TYPE_CATEGORIES, Nation, PlayerInfo, PlayerInteraction, PlayerType, Bot (+320 more)
 
 ### Community 4 - "showToast"
-Cohesion: 0.04
-Nodes (64): ClanJoinRequest, ClanMember, approveClanRequest(), banClanMember(), clanFetch(), ClanMemberOrder, ClanMemberSort, demoteMember() (+56 more)
+Cohesion: 0.07
+Nodes (41): ClanJoinRequest, ClanMember, ClanMemberOrder, ClanMemberSort, fetchClanMembers(), fetchClanRequests(), renderLoadingSpinner(), ClanManageView (+33 more)
 
 ### Community 5 - "ClientEnv"
-Cohesion: 0.02
-Nodes (82): A non-`open` server stops offering ranked matches too (OPE-469), A pinned page is never "outdated", `latest`: the one switch, Opening a game at its server's version, Server list v2: the API picks the server, the page comes from the CDN, The server list, The static page: booting with no server of its own, Why (+74 more)
+Cohesion: 0.04
+Nodes (55): A non-`open` server stops offering ranked matches too (OPE-469), A pinned page is never "outdated", `latest`: the one switch, Opening a game at its server's version, Per topology, Roadmap (what lands where), Server list v2: the API picks the server, the page comes from the CDN, The one thing a feed cannot say: nothing at all (+47 more)
 
 ### Community 6 - ".config"
 Cohesion: 0.01
-Nodes (74): Gold, TerraNullius, ConquestUpdate, NukeType, assertNever(), DonateGoldExecution, attackedBy(), BotScanner (+66 more)
+Nodes (107): AllPlayers, Gold, TerraNullius, ConquestUpdate, NukeType, wouldNukeBreakAlliance(), euclDistFN(), PseudoRandom (+99 more)
 
-### Community 7 - "AStarWaterHierarchical"
-Cohesion: 0.13
-Nodes (6): distSort(), distSortUnit(), closestTile(), AbstractNode, AStarWaterHierarchical, SourceResolver
+### Community 7 - ".player"
+Cohesion: 0.03
+Nodes (87): AllianceRejectExecution, RecomputeRailClusterExecution, setupTeammates(), assignAlternatingLandTiles(), attack(), setupAssist(), setupCityRich(), setupEndToEnd() (+79 more)
 
 ### Community 8 - "Unit"
 Cohesion: 0.02
-Nodes (35): TransportShipState, DefensePostExecution, FactoryExecution, NukeExecution, PortExecution, WeightedPort, SAMLauncherExecution, SAMTargetingSystem (+27 more)
+Nodes (19): TransportShipState, CityExecution, DefensePostExecution, MirvExecution, MissileSiloExecution, NukeExecution, PortExecution, SAMLauncherExecution (+11 more)
 
 ### Community 10 - "GameView"
-Cohesion: 0.02
-Nodes (141): Decisions taken, Task 3: Client: landmark markers and info card, AllianceRequestReplyUpdate, BrokeAllianceUpdate, UnitIncomingUpdate, LANDMARK_TROOP_BONUS, renderNumber(), EventBus (+133 more)
+Cohesion: 0.01
+Nodes (239): Task 3: Client: landmark markers and info card, BuildableAttacks, bulkCost(), maxBulkAmount(), NUKE_BULK_STEPS, STRUCTURE_BULK_STEPS, AllianceRequestReplyUpdate, BrokeAllianceUpdate (+231 more)
 
 ### Community 11 - "Main.ts"
 Cohesion: 0.03
-Nodes (127): RenewalPushedBy, context(), AdmiralFn, AdmiralMeasureResult, applyGamTargeting(), loadAdmiral(), onAdmiralMeasured(), Window (+119 more)
+Nodes (107): isSteamGrant(), context(), AdmiralFn, AdmiralMeasureResult, applyGamTargeting(), loadAdmiral(), onAdmiralMeasured(), Window (+99 more)
+
+### Community 12 - "SnapshotWriter"
+Cohesion: 0.06
+Nodes (13): Versioned, NoOpExecution, playerInfoData(), airPathFinderState(), asStepper(), parabolaState(), restoreStationStepper(), stationStepperState() (+5 more)
+
+### Community 13 - "StatsImpl"
+Cohesion: 0.08
+Nodes (3): OtherUnitType, _bigint(), StatsImpl
 
 ### Community 14 - "LobbyTeamView"
-Cohesion: 0.13
-Nodes (3): ClientInfo, LobbyTeamView, sameBadge()
+Cohesion: 0.08
+Nodes (11): ClientInfo, LobbyTeamView, sameBadge(), Theme, BADGE, cardRows(), getUserMe, LevelBadgeEl (+3 more)
 
 ### Community 15 - "EngineConfig"
 Cohesion: 0.04
@@ -851,31 +912,27 @@ Nodes (3): within(), EngineConfig, terrainAttackBase()
 
 ### Community 16 - "InputHandler.ts"
 Cohesion: 0.02
-Nodes (103): BuildMenus, Emoji, flattenedEmojiTable, GameEvent, DividerSpacing, EMPTY_ID_SET, ghostRailPathsEqual(), isGhostDataEqual() (+95 more)
+Nodes (110): Emoji, flattenedEmojiTable, GameEvent, DividerSpacing, EmojiSection, emojiSections, FAVORITE_SLOTS, favoriteKeyLabel() (+102 more)
 
 ### Community 17 - "AudioMixer.ts"
 Cohesion: 0.03
-Nodes (59): GraphicsPresets, ActiveSound, AudioMixer, BUDGET, CATEGORY_TRIM, DROP_NEWEST, initAudioMixer(), perceptualGain() (+51 more)
+Nodes (61): howler, clientDevice(), Platform, ActiveSound, AudioMixer, BUDGET, CATEGORY_TRIM, DROP_NEWEST (+53 more)
 
 ### Community 18 - "PlayerView"
 Cohesion: 0.02
-Nodes (30): PlayerActions, ClientGameRunner, ChatModal, recordGoldRates(), PlayerModerationModal, emptyPlayerActions(), ownLevelBadgeFrom(), PlayerPanel (+22 more)
+Nodes (23): PlayerActions, PlayerProfile, AllianceView, ClientGameRunner, WarshipSelectionController, ChatModal, PlayerInfoOverlay, emptyPlayerActions() (+15 more)
 
 ### Community 19 - "GameServer"
 Cohesion: 0.03
-Nodes (45): Expected result, GameServer.ts — testing & refactor plan, Out of scope, Phase 1 — Characterization tests for uncovered paths, Phase 3 — Extract pure modules (lowest risk first), Phase 4 — Roster, Phase 6 — Lifecycle state machine, Principles (+37 more)
+Nodes (32): Diagnosis, Expected result, GameServer.ts — testing & refactor plan, Out of scope, Phase 1 — Characterization tests for uncovered paths, Phase 3 — Extract pure modules (lowest risk first), Phase 4 — Roster, Phase 6 — Lifecycle state machine (+24 more)
 
 ### Community 20 - "RenderSettings"
 Cohesion: 0.03
-Nodes (50): DynamicInstanceBuffer, GLResult, GLUnavailableError, initGL(), REQUIRED_TEXTURE_SIZE, computeCellSize(), CoordinateGridPass, FalloutBloomPass (+42 more)
+Nodes (42): DynamicInstanceBuffer, BorderScatterPass, computeCellSize(), CoordinateGridPass, FalloutBloomPass, FalloutLightPass, ActiveAttackRing, LightmapPass (+34 more)
 
 ### Community 21 - "types/index.ts"
 Cohesion: 0.03
-Nodes (112): maxHealthWithVeterancy(), classifyOwner(), extractNukeTelegraphs(), TELEGRAPH_ENEMY, TELEGRAPH_FRIENDLY, TELEGRAPH_SELF, computePlayerStatus(), ComputePlayerStatusOptions (+104 more)
-
-### Community 22 - "BaseModal"
-Cohesion: 0.05
-Nodes (9): BannedModal, OModal, BaseModal, language, layOut(), tabRow(), tabs, TestInlineModal (+1 more)
+Nodes (104): NukeExplosionAttributes, classifyOwner(), extractNukeTelegraphs(), TELEGRAPH_ENEMY, TELEGRAPH_FRIENDLY, TELEGRAPH_SELF, computePlayerStatus(), ComputePlayerStatusOptions (+96 more)
 
 ### Community 23 - ".emit"
 Cohesion: 0.02
@@ -883,319 +940,327 @@ Nodes (42): AllianceExpiredUpdate, AllianceExtensionUpdate, AttackUpdate, Displa
 
 ### Community 24 - "Schemas.ts"
 Cohesion: 0.02
-Nodes (93): AllianceExtensionIntent, AllianceExtensionIntentSchema, AllianceRejectIntent, AllianceRejectIntentSchema, AllianceRequestIntent, AllianceRequestIntentSchema, AllPlayersStatsSchema, AttackIntent (+85 more)
+Nodes (118): AllianceExtensionIntent, AllianceExtensionIntentSchema, AllianceRejectIntent, AllianceRejectIntentSchema, AllianceRequestIntent, AllianceRequestIntentSchema, AllPlayersStatsSchema, AttackIntent (+110 more)
 
 ### Community 25 - "ProfileProgression.ts"
 Cohesion: 0.04
-Nodes (57): PublicProgress, PublicProgressSchema, TrackFlare, ensureProfileProgressionStyles(), formatProgressDate(), loadRewardTrack(), MilestoneRun, milestoneRuns() (+49 more)
-
-### Community 26 - "ClientGameRunner.ts"
-Cohesion: 0.03
-Nodes (43): GroupTokenEvent, PlayerCosmeticRefs, createClientGame(), createWebGLView(), joinLobby(), LobbyConfig, showErrorModal(), GameHealth (+35 more)
+Nodes (58): PublicProgress, PublicProgressSchema, TrackFlare, ensureProfileProgressionStyles(), formatProgressDate(), loadRewardTrack(), MilestoneRun, milestoneRuns() (+50 more)
 
 ### Community 27 - "GameMapType"
 Cohesion: 0.01
-Nodes (151): GameMapType, Achiran, Aegean, Africa, Alps, AmazonRiver, Antarctica, ArchipelagoSea (+143 more)
+Nodes (152): GameMapType, Achiran, Aegean, Africa, Alps, AmazonRiver, Antarctica, ArchipelagoSea (+144 more)
 
-### Community 28 - "BinaryReader"
-Cohesion: 0.13
-Nodes (8): BinaryReader, parseChunk(), readMisc(), readTileRuns(), ReplayReader, readEntityDelta(), readEntityFull(), MiscUpdates
+### Community 28 - "ReplayPlayback"
+Cohesion: 0.10
+Nodes (9): Changing the format, Code, How a replay is made, Replays, Storage, Trying it locally, parseChunk(), ReplayRules (+1 more)
 
 ### Community 29 - "GameUpdates.ts"
 Cohesion: 0.01
-Nodes (215): As built, Review Focus, Task 1: Landmark map data: schema, loader, and the 7 maps, Task 2: Engine: landmark bonus while held, EmojiMessage, GameMapSize, Compact, Normal (+207 more)
+Nodes (283): As built, Before/after tick check, Commit plan, Target layout, Engine changes, ColoredTeams, Difficulty, Easy (+275 more)
 
 ### Community 30 - "vitest"
 Cohesion: 0.04
-Nodes (107): Phase 0 — Test infrastructure (no production changes), GameType, Private, Public, Singleplayer, ADMIN_BOT_CLIENT_ID, PoolConfigSchema, replayWinner() (+99 more)
+Nodes (90): Phase 0 — Test infrastructure (no production changes), GameType, Private, Public, Singleplayer, ADMIN_BOT_CLIENT_ID, ClientMessage, PartialGameRecord (+82 more)
+
+### Community 31 - "PlayerImpl"
+Cohesion: 0.04
+Nodes (5): minInt(), DisconnectSnapshot, createGameUpdatesMap(), Donation, PlayerImpl
 
 ### Community 32 - "Worker.ts"
-Cohesion: 0.03
-Nodes (92): formatPlayerDisplayName(), maps, TokenPayload, ClientDeviceSchema, ClientPlatform, ClientPlatformSchema, decodeClientMessage(), express (+84 more)
+Cohesion: 0.05
+Nodes (46): TokenPayload, ClientDeviceSchema, ClientPlatformSchema, ServerErrorMessage, express, ip-anonymize, bannedWords, buildDataset() (+38 more)
 
 ### Community 33 - "MapRenderer"
-Cohesion: 0.02
-Nodes (30): How it works / in-game gotchas, BuildableUnit, computeNukeBlastCounts(), listNukeBreakAlliance(), mountWebGLFrameLoop(), DoomsdayClockPanel, OvertimePanel, BuildPreviewController (+22 more)
-
-### Community 34 - "RadialMenuElements.ts"
 Cohesion: 0.03
-Nodes (61): BuildableAttacks, bulkCost(), maxBulkAmount(), NUKE_BULK_STEPS, STRUCTURE_BULK_STEPS, backIcon, CenterButtonState, CloseRadialMenuEvent (+53 more)
+Nodes (29): BuildableUnit, computeNukeBlastCounts(), listNukeBreakAlliance(), createClientGame(), mountWebGLFrameLoop(), BuildPreviewController, collectThreateningSams(), findBestSilo() (+21 more)
 
-### Community 35 - "PlayerInfoOverlay.ts"
-Cohesion: 0.03
-Nodes (49): Nukes, allianceIcon, boatIcon, breakAllianceIcon, chatIcon, cityIcon, distSortUnitWorld(), emojiIcon (+41 more)
+### Community 34 - "RadialMenu"
+Cohesion: 0.08
+Nodes (7): forwardClickToLayerBelow(), RadialMenu, resolveColor(), MenuElement, getSvgAspectRatio(), makeMenu(), showMenu()
+
+### Community 35 - "PlayerIcons.ts"
+Cohesion: 0.05
+Nodes (28): Nukes, DoomsdayClockPanel, OvertimePanel, ALLIANCE_REQUEST_ICON_ID, allianceRequestBlackIcon, allianceRequestWhiteIcon, CROWN_ICON_ID, crownIcon (+20 more)
 
 ### Community 36 - "OnboardingOverlay.ts"
-Cohesion: 0.04
-Nodes (35): EXPAND_TURNS, OnboardingOverlay, Target, TOUCH_TEXT, VIEW_X, VIEW_Y, TutorialPanel, ATTACK_TARGETS (+27 more)
+Cohesion: 0.03
+Nodes (36): ControlPanel, EXPAND_TURNS, OnboardingOverlay, Target, TOUCH_TEXT, VIEW_X, VIEW_Y, TutorialPanel (+28 more)
 
 ### Community 37 - "WireSchemas.ts"
 Cohesion: 0.02
-Nodes (113): GameStartInfoSchema, ArchivedPlayerStatsSchema, replacer(), AnalyticsRecordSchema, ArchivedAnalyticsRecordSchema, ArchivedPlayerRecordSchema, ClientAnalyticsRecord, ClientHashMessage (+105 more)
+Nodes (113): GameStartInfoSchema, sanitizeLobbyLabel(), AnalyticsRecordSchema, ArchivedAnalyticsRecordSchema, ArchivedPlayerRecordSchema, ClientAnalyticsRecord, ClientHashMessage, ClientHashSchema (+105 more)
 
-### Community 38 - "GameMap.ts"
-Cohesion: 0.01
-Nodes (188): Target layout, GameMap, PlayerBuildable, Structures, TeamGameSpawnAreas, ReadonlyTileSet, UnitLike, NukeBlastParams (+180 more)
+### Community 38 - "PathFinder.ts"
+Cohesion: 0.03
+Nodes (66): AbstractEdge, Cluster, AbstractGraphAStarConfig, AStar, AStarConfig, AStarRail, AStarWater, AStarWaterConfig (+58 more)
 
 ### Community 39 - "GPURenderer"
 Cohesion: 0.02
-Nodes (27): Adding a new pass, Asset pipeline, CLAUDE.md — `src/client/render/`, Directory map, FrameData contract, Pass conventions, Pipeline, BorderComputePass (+19 more)
+Nodes (13): FrameData contract, BorderComputePass, BorderStampPass, CrosshairPass, DefenseCoveragePass, MapLayerPass, NightCompositePass, StructurePass (+5 more)
 
-### Community 41 - "UserSettings"
-Cohesion: 0.06
-Nodes (12): getPlayerCosmeticsRefs(), RandomNameStyle, clampVolume(), getDefaultKeybinds(), loadoutSlotName(), parseLoadout(), UserSettings, readCosmeticVisibility() (+4 more)
+### Community 40 - "FfaRatingPanel.ts"
+Cohesion: 0.05
+Nodes (40): FfaGameRatingResponse, PublicFfaRating, fetchPublicPlayerProfile(), changeColor(), ensureFfaRatingPanelStyles(), FFA_RATING_MIN_HUMANS, FfaRatingPanel, FfaRatingPanelView (+32 more)
+
+### Community 41 - ".renderOverlays"
+Cohesion: 0.04
+Nodes (10): Directory map, NukeTrajectoryPass, SelectionBoxPass, SelectionEntry, SpawnCenter, createUnitVao(), flickerHashByte(), UnitPass (+2 more)
 
 ### Community 42 - "MapPlaylist.ts"
-Cohesion: 0.06
-Nodes (34): PublicGameModifiers, RankedType, ClanWars, FreeForAll, OneVOne, TwoVTwo, GameConfigSchema, TeamCountConfig (+26 more)
+Cohesion: 0.08
+Nodes (23): PublicGameModifiers, TeamCountConfig, SAM_CONSTRUCTION_TICKS, ScheduledPublicGameType, getMapLandTiles(), DEFAULT_MAP_WEIGHT, DOOMSDAY_ROTATION_SPEEDS, log (+15 more)
 
 ### Community 43 - "name-pass/index.ts"
-Cohesion: 0.03
-Nodes (48): buildEmojiLookup(), buildGlyphTables(), buildKernTable(), GlyphTables, parseAtlasData(), RawMsdfAtlas, buildCursorTex(), buildGlyphMetricsTex() (+40 more)
+Cohesion: 0.04
+Nodes (45): buildEmojiLookup(), buildGlyphTables(), buildKernTable(), GlyphTables, parseAtlasData(), RawMsdfAtlas, buildCursorTex(), buildGlyphMetricsTex() (+37 more)
 
 ### Community 44 - "WebGLFrameBuilder.ts"
 Cohesion: 0.04
-Nodes (59): colord@^2.9.3, findEffect(), isTrailEffect(), NukeExplosionAttributes, decodePatternData(), PlayerCosmetics, colord, Render settings (+51 more)
+Nodes (60): colord@^2.9.3, findEffect(), isTrailEffect(), StructuresEffectAttributes, TrailEffectAttributes, PlayerCosmetics, colord, Adding a new pass (+52 more)
 
 ### Community 45 - "ApiSchemas.ts"
 Cohesion: 0.02
-Nodes (102): ADMIN_ROLES, BareClaim, BareClaimSchema, ClaimAllRewardsResponseSchema, ClaimRewardHeldResponseSchema, ClaimRewardResponseSchema, CurrencyBalancesSchema, DiscordUserSchema (+94 more)
+Nodes (145): ADMIN_ROLES, BareClaim, BareClaimSchema, ClaimAllRewardsResponse, ClaimAllRewardsResponseSchema, ClaimRewardHeldResponseSchema, ClaimRewardResponseSchema, CurrencyBalancesSchema (+137 more)
 
 ### Community 47 - "ServerEnv"
-Cohesion: 0.03
-Nodes (91): API-side (closed source, not a PR here) — matchmaking DO key, Decisions (settled 2026-09-08), Design summary, Future (discussed, not built), Multi-Server Architecture — Implementation Plan, PR 1 — Widen game-ID validation to `{8,10}` (land early, soak), PR 2 — Absorb #5164: pin tabs to their deployment, drain, version gate, PR 3 — Loud close on worker-ID mismatch (live bug, independent) (+83 more)
+Cohesion: 0.02
+Nodes (124): Phase 2 — Inject the hidden dependencies, API-side (closed source, not a PR here) — matchmaking DO key, Decisions (settled 2026-09-08), Design summary, Future (discussed, not built), Multi-Server Architecture — Implementation Plan, PR 1 — Widen game-ID validation to `{8,10}` (land early, soak), PR 2 — Absorb #5164: pin tabs to their deployment, drain, version gate (+116 more)
 
 ### Community 48 - "LobbyCoordinatorClient.ts"
 Cohesion: 0.02
-Nodes (80): Phase 2 — Inject the hidden dependencies, LOBBY_QUEUE_CUTOFF_MS, MAX_HOSTED_LOBBIES, PublicGameInfoSchema, PublicGameType, PublicGameTypeSchema, PublicLobbyMessage, SCHEDULED_PUBLIC_GAME_TYPES (+72 more)
+Nodes (81): dotenv@^17.4.2, ClientPlatform, LOBBY_QUEUE_CUTOFF_MS, MAX_HOSTED_LOBBIES, PublicGameInfoSchema, PublicGameTypeSchema, PublicLobbyMessage, SCHEDULED_PUBLIC_GAME_TYPES (+73 more)
 
-### Community 49 - "ClientMsgRateLimiter.ts"
-Cohesion: 0.28
-Nodes (5): ClientBucket, ClientMsgRateLimiter, RateLimitResult, CLIENT_A, CLIENT_B
+### Community 49 - "SocketIngress.ts"
+Cohesion: 0.08
+Nodes (23): decodeClientMessageUnvalidated(), ClientBucket, ClientMsgRateLimiter, RateLimitResult, Gatekeeper, guardGatekeeper(), IntentObservation, loadGatekeeper() (+15 more)
 
-### Community 50 - "NationStructureBehavior.ts"
-Cohesion: 0.04
-Nodes (31): CITIES_BEFORE_SAVING, DENSITY_STRUCTURE_TYPES, FACTORY_COASTAL_RATIO_MULTIPLIER, HIGH_GOLD_STRUCTURE_COOLDOWN_TICKS, INCOME_STRUCTURE_SAVING_WEIGHT, MAX_UPGRADES_AT_ONCE, NationStructureBehaviorSnapshot, NEIGHBOR_SCRATCH (+23 more)
+### Community 50 - "UsernameInput"
+Cohesion: 0.06
+Nodes (8): GamePortalName, formatClaimDate(), resolveVerifiedDefaultCohort(), UsernameInput, validateClanTag(), mountWithPersona(), mountOnPortal(), { showInGameConfirm }
 
 ### Community 52 - "UnitDisplay"
-Cohesion: 0.10
-Nodes (6): PlayerBuildableUnitType, PendingConfirmation, BuildItemDisplay, UnitDisplay, highlightTypesForUnit(), isForwardedTouchClick()
+Cohesion: 0.07
+Nodes (14): BuildMenus, PlayerBuildableUnitType, PendingConfirmation, BuildItemDisplay, UnitDisplay, highlightTypesForUnit(), isForwardedTouchClick(), ToggleStructureEvent (+6 more)
 
 ### Community 53 - "GameImpl.ts"
 Cohesion: 0.02
-Nodes (104): Commit plan, Engine changes, Cell, ColoredTeams, Duos, Team, HumansVsNations, Nation (+96 more)
+Nodes (105): Task 2: Engine: landmark bonus while held, AllianceInfo, PlayerBuildable, TeamGameSpawnAreas, TerrainType, Highland, Impassable, Mountain (+97 more)
 
 ### Community 54 - "GameXpPanel.ts"
-Cohesion: 0.05
-Nodes (44): GameXpEligible, GameXpFlare, GameXpReward, Caption, ClaimState, DIFFERENCE_KEYS, easeOut(), endPosition() (+36 more)
-
-### Community 56 - "GraphicsAdvancedSettings"
 Cohesion: 0.06
-Nodes (4): detailValue(), GraphicsAdvancedSettings, sliderValue(), GraphicsOverrides
+Nodes (31): GameXpEligible, Caption, ClaimState, DIFFERENCE_KEYS, easeOut(), endPosition(), finalLineValues(), GameXpPanel (+23 more)
+
+### Community 55 - "AccountModal"
+Cohesion: 0.06
+Nodes (7): AccountModal, loadPrestigeFlow(), fetchPlayerById(), ffaSummaryFromMe(), consumeLoginResult(), KNOWN_RESULTS, LoginResult
+
+### Community 57 - "DesktopShell.ts"
+Cohesion: 0.03
+Nodes (70): getDesktopSessionState(), barSource(), DesktopStatusBar, Footer, DESKTOP_STEP_KEYS, LIMITED_NOTES, LIMITED_SECTIONS, SAFARI_NOTES (+62 more)
 
 ### Community 58 - "StoreModal.test.ts"
-Cohesion: 0.07
-Nodes (25): Promotion, SaleBanner, saleCoversEverything(), activateVariant(), affiliatePattern, atom, blue, card() (+17 more)
+Cohesion: 0.05
+Nodes (30): clockUntil(), SaleCountdown, saleEndsIn(), broadcast, settle(), signInPrompt(), steamOnly, tribesPanel() (+22 more)
 
 ### Community 59 - "WorkerMessages.ts"
-Cohesion: 0.05
-Nodes (70): @openfront/engine@0.0.0, HumanDisconnects, HumanStatsSnapshot, PlayerBorderTiles, PlayerProfile, ErrorUpdate, GameUpdateViewData, MapFiles (+62 more)
+Cohesion: 0.04
+Nodes (70): @openfront/engine@0.0.0, HumanDisconnects, HumanStatsSnapshot, PlayerBorderTiles, SnapshotHeader, AttackClusteredPositionsMessage, AttackClusteredPositionsResultMessage, BaseWorkerMessage (+62 more)
 
-### Community 60 - "DoomsdayClockExecution.test.ts"
-Cohesion: 0.08
-Nodes (17): doomsdayClockRequiredTiles(), doomsdayClockRotQuota(), doomsdayClockTroopFloor(), ROT_NOISE_SCALE, DoomsdayClockExecution, isRankedTeamGame(), WinCheckExecution, checkWithTiles() (+9 more)
+### Community 60 - "WinCheckExecution"
+Cohesion: 0.14
+Nodes (6): isRankedTeamGame(), WinCheckExecution, checkWithTiles(), rankedFfaGame(), setup2v2(), setupClanWars()
 
 ### Community 61 - "ClanApi.ts"
-Cohesion: 0.03
-Nodes (73): RowLevelFields, ClanBan, ClanBanSchema, ClanBansResponse, ClanBansResponseSchema, ClanBoostPurchaseResponseSchema, ClanBoostStatusSchema, ClanBoostTierSchema (+65 more)
+Cohesion: 0.04
+Nodes (75): RowLevelFields, ClanBan, ClanBanSchema, ClanBansResponse, ClanBansResponseSchema, ClanBoostPurchaseResponseSchema, ClanBoostStatusSchema, ClanBoostTierSchema (+67 more)
 
 ### Community 62 - "src/index.ts"
-Cohesion: 0.04
-Nodes (47): ClanTagSchema, inRange(), LEVEL_BADGE_MAX_LEVEL, LEVEL_BADGE_MAX_PRESTIGE, LevelBadge, packLevelBadge(), unpackLevelBadge(), ClientDevice (+39 more)
+Cohesion: 0.07
+Nodes (18): MAX_MAPPING_SIZE, ZbContext, ZbTable, zb, ZbMethods, Fuzz, FuzzSchema, IDS (+10 more)
 
 ### Community 63 - "DetailedGameViewModal.ts"
-Cohesion: 0.02
-Nodes (79): PublicGameInfo, PublicGames, adoptUnscopedProfiles(), compare(), DEFAULT_FILTER_PROFILE_KEY, DEFAULT_FILTERS, deleteFilterProfile(), emptyProfiles() (+71 more)
+Cohesion: 0.05
+Nodes (46): PublicGameInfo, adoptUnscopedProfiles(), compare(), DEFAULT_FILTER_PROFILE_KEY, DEFAULT_FILTERS, deleteFilterProfile(), emptyProfiles(), FILTER_PROFILES_KEY (+38 more)
 
 ### Community 64 - "client/ServerList.ts"
-Cohesion: 0.03
-Nodes (142): Per topology, The one thing a feed cannot say: nothing at all, The ranked queue is keyed by site (infra #738), What the client does (`src/client/ServerList.ts`, `src/core/ServerList.ts`), Who may be told to update, and when (OPE-430), CommitSchema, commitsMatch(), isCommitLike() (+134 more)
+Cohesion: 0.05
+Nodes (75): CommitSchema, commitsMatch(), isCommitLike(), isSiteLike(), LetterSchema, lettersForBuild(), ownLetterIn(), pathNamesGame() (+67 more)
 
 ### Community 65 - "LegendCeremony.ts"
 Cohesion: 0.07
 Nodes (26): GameXpPanelState, Beat, BEAT_ORDER, BEATS, formatDate(), LEGEND_CEREMONY_MS, LEGEND_IDLE_MS, LEGEND_LANDED_MS (+18 more)
 
-### Community 66 - "game.mjs"
-Cohesion: 0.04
-Nodes (55): BASE_URL, gotoHome(), launch(), openSoloModal(), attack(), clickWorld(), findSpawnTile(), openRadialMenu() (+47 more)
+### Community 66 - "driver.mjs"
+Cohesion: 0.09
+Nodes (18): BASE_URL, gotoHome(), launch(), openSoloModal(), Gotchas, c, joinCountReaches(), joins() (+10 more)
 
 ### Community 67 - "StatsColumns.ts"
-Cohesion: 0.05
-Nodes (40): StatsTable, allianceIcon, atomBombIcon, cityIcon, claimIcon, defensePostIcon, factoryIcon, goldCoinIcon (+32 more)
+Cohesion: 0.04
+Nodes (55): ALIGNMENT_CLASS, PlacedRow, StatsRow, StatsTable, allianceIcon, atomBombIcon, cityIcon, claimIcon (+47 more)
 
 ### Community 68 - "components/LevelBadge.ts"
-Cohesion: 0.04
-Nodes (87): XpBreakdown, finalLineValues(), arcPath(), awaitingLarge, badgeDefs(), Chip, chipGeometry(), DefsHost (+79 more)
+Cohesion: 0.05
+Nodes (55): arcPath(), awaitingLarge, badgeDefs(), Chip, chipGeometry(), DefsHost, defsHosts, DIGITS (+47 more)
 
 ### Community 69 - "CosmeticPreviewRenderer"
-Cohesion: 0.03
-Nodes (13): CosmeticRenderCanvas, Camera, FxPass, railDirection(), railExtremity(), RailroadPass, StructurePass, renderDpr() (+5 more)
+Cohesion: 0.04
+Nodes (8): CosmeticRenderCanvas, Camera, initGL(), FxPass, renderDpr(), readRenderer(), CosmeticPreviewRenderer, CosmeticPreviewMode
 
-### Community 70 - ".inSpawnPhase"
-Cohesion: 0.03
-Nodes (18): GameRightSidebar, HeadsUpMessage, InGamePromo, MultiTabModal, ShowReplayPanelEvent, ShowSettingsModalEvent, PauseGameIntentEvent, showToast() (+10 more)
+### Community 70 - "WinModal"
+Cohesion: 0.04
+Nodes (11): FfaRatingGame, ffaRatingGameOf(), viewerHasFfaRating(), GameLeftSidebar, GameRightSidebar, ShowReplayPanelEvent, loadFfaRatingPanel(), loadGameXpPanel() (+3 more)
 
 ### Community 71 - "getUserMe"
-Cohesion: 0.05
-Nodes (18): ClaimRewardResponse, isRewardClaimable(), Reward, getUserMe(), invalidateUserMe(), RewardsChangedDetail, RewardsPanel, claimRewards() (+10 more)
+Cohesion: 0.06
+Nodes (15): ClaimRewardResponse, isRewardClaimable(), Reward, claimAllRewards(), claimReward(), invalidateUserMe(), RewardsPanel, claimRewards() (+7 more)
 
 ### Community 72 - "ClanBoostDialog"
-Cohesion: 0.06
-Nodes (19): ClanBoostStatus, ClanBoostTier, buyClanBoost(), fetchClanBoostStatus(), CapIcon, ClanBoostDialog, formatDuration(), formatHours() (+11 more)
+Cohesion: 0.09
+Nodes (10): ClanBoostStatus, ClanBoostTier, buyClanBoost(), fetchClanBoostStatus(), ClanBoostDialog, formatDuration(), formatHours(), CurrencyDisplay (+2 more)
 
 ### Community 73 - "package.json"
-Cohesion: 0.04
-Nodes (74): devDependencies, canvas@^3.2.3, concurrently@^9.2.4, cross-env@^10.1.0, d3@^7.9.0, husky@^9.1.7, jsdom@^29.1.1, lint-staged@^16.4.0 (+66 more)
+Cohesion: 0.02
+Nodes (116): dependencies, dompurify@^3.4.13, ejs@^5.0.2, express@^5.2.1, howler@^2.2.4, intl-messageformat@^11.2.3, ip-anonymize@^0.1.0, jose@^6.2.3 (+108 more)
 
 ### Community 74 - "StatsSchemas.ts"
-Cohesion: 0.06
-Nodes (60): ALLIANCE_INDEX_BROKEN_BY_OTHER, ALLIANCE_INDEX_EXPIRED, ALLIANCE_INDEX_FORMED, ALLIANCE_INDEX_HELD_TO_END, ALLIANCE_INDEX_LONGEST_HELD, ALLIANCE_INDEX_PEAK_CONCURRENT, AtLeastOneNumber, AtLeastOneNumberSchema (+52 more)
+Cohesion: 0.05
+Nodes (65): ALLIANCE_INDEX_BROKEN_BY_OTHER, ALLIANCE_INDEX_EXPIRED, ALLIANCE_INDEX_FORMED, ALLIANCE_INDEX_HELD_TO_END, ALLIANCE_INDEX_LONGEST_HELD, ALLIANCE_INDEX_PEAK_CONCURRENT, ArchivedPlayerStatsSchema, AtLeastOneNumber (+57 more)
 
 ### Community 75 - "Store.ts"
-Cohesion: 0.07
-Nodes (16): alignPurchaseRows(), currentPrice(), groupCosmeticVariants(), saleHasEnded(), priceStringToCents(), COSMETICS_SUB_TABS, CosmeticsSubTab, flashGroup() (+8 more)
+Cohesion: 0.06
+Nodes (19): CosmeticPack, CosmeticPreviewBubble, isPreviewableCosmetic(), PackContentsDialog, alignPurchaseRows(), activeSale(), ResolvedCosmetic, COSMETICS_SUB_TABS (+11 more)
 
 ### Community 76 - "PublicAssetManifest.ts"
-Cohesion: 0.06
-Nodes (54): assertSafeAssetSegment(), buildAssetUrl(), encodeAssetPath(), isAbsoluteUrl(), normalizeAssetPath(), safeDecodeAssetSegment(), rewriteAssetsForCdn(), buildPublicAssetManifest() (+46 more)
+Cohesion: 0.05
+Nodes (62): mrmime@^2.0.1, @tailwindcss/vite@^4.2.4, vite@^8.0.16, vite-plugin-html@^3.2.2, assertSafeAssetSegment(), buildAssetUrl(), encodeAssetPath(), isAbsoluteUrl() (+54 more)
 
 ### Community 77 - "ProvisionalProgress.ts"
-Cohesion: 0.05
-Nodes (77): GameXpFetchResult, applyGameXp(), changeOf(), checkedRecently(), CheckedSchema, emitChanged(), firstGameXp(), isOwnAccount() (+69 more)
+Cohesion: 0.06
+Nodes (64): GameXpFetchResult, applyGameXp(), changeOf(), checkedRecently(), CheckedSchema, emitChanged(), firstGameXp(), isOwnAccount() (+56 more)
 
 ### Community 78 - "NavNotificationsStore"
 Cohesion: 0.17
 Nodes (3): FriendEntry, NavNotificationsStore, normalizedVersion()
 
 ### Community 79 - "PlayerGameHistoryView.ts"
-Cohesion: 0.12
-Nodes (9): ClanGame, formatDayHeader(), ClanGameHistoryCache, ClanGameHistoryView, FILTER_TABS, FilterKey, linkIcon, replayIcon (+1 more)
+Cohesion: 0.16
+Nodes (4): ClanGame, dayKey(), groupByDay(), ClanGameHistoryView
 
 ### Community 80 - "ReplayStore.ts"
-Cohesion: 0.09
-Nodes (22): PackedEventLists, packEvents(), readTiles(), unpackEvents(), writeTiles(), REPLAY_VERSION, ReplayData, ReplayEvents (+14 more)
+Cohesion: 0.06
+Nodes (31): gunzipInBrowser(), gzipInBrowser(), pipe(), PackedEventLists, REPLAY_VERSION, ReplayData, processInBrowser(), ProcessingHandlers (+23 more)
 
-### Community 81 - "ScriptedGame.ts"
-Cohesion: 0.07
-Nodes (47): createGameRunnerFromSnapshot(), readSnapshotHeader(), SNAPSHOT_FORMAT_VERSION, EXEC_TYPE_BY_PROTO, execTypesIn(), firstUnseenLiveType(), playReference(), Reference (+39 more)
+### Community 81 - "GameUpdateType"
+Cohesion: 0.06
+Nodes (46): GameUpdateType, AllianceExpired, AllianceExtension, AllianceRequest, AllianceRequestReply, BonusEvent, BrokeAlliance, ConquestEvent (+38 more)
 
 ### Community 82 - "MapPicker"
-Cohesion: 0.11
-Nodes (11): MapCategory, MapInfo, getFavoriteMaps(), starIcon(), toggleFavoriteMap(), validMaps, featuredMaps, MapPicker (+3 more)
+Cohesion: 0.15
+Nodes (3): MapCategory, MapInfo, MapPicker
 
 ### Community 83 - "ClientRenderPipelinePerf.test.ts"
 Cohesion: 0.05
-Nodes (43): BenchmarkOptions, BenchmarkResult, buildLightUnitMap(), BuildPreviewFixture, calcSubDataBytes(), calcTexBytes(), computePercentile(), createBufferStubs() (+35 more)
+Nodes (45): PointLightPass, PointLightSmoothingHarness, BenchmarkOptions, BenchmarkResult, buildLightUnitMap(), BuildPreviewFixture, calcSubDataBytes(), calcTexBytes() (+37 more)
 
 ### Community 84 - "EffectPreview.ts"
 Cohesion: 0.06
-Nodes (45): StructuresEffectAttributes, TrailEffectAttributes, ATOM_BOMB, Band, BORDER_COLOR, dotRand(), effectPaint(), EffectScene (+37 more)
+Nodes (43): ATOM_BOMB, Band, BORDER_COLOR, dotRand(), effectPaint(), EffectScene, FLICKER, FLICKER_MID (+35 more)
 
 ### Community 85 - "TransportReconnect.test.ts"
 Cohesion: 0.09
-Nodes (16): fromGame(), gameLoad(), Handler, page, Poki, acceptAfter(), acceptAndTalk(), acceptThenReject() (+8 more)
+Nodes (15): fromGame(), gameLoad(), Handler, page, Poki, acceptAfter(), acceptAndTalk(), acceptThenReject() (+7 more)
 
-### Community 86 - "UserMeResponse"
-Cohesion: 0.03
-Nodes (74): JoinUsernameSchema, MAX_USERNAME_LENGTH, MIN_USERNAME_LENGTH, RENDERABLE_NAME_CHAR_RE, RENDERABLE_NAME_CHARS, RENDERABLE_NAME_HAS_ALNUM_RE, UsernameSchema, ANON_WORDS (+66 more)
+### Community 86 - "UsernameInput.ts"
+Cohesion: 0.08
+Nodes (47): JoinUsernameSchema, MAX_USERNAME_LENGTH, MIN_USERNAME_LENGTH, RENDERABLE_NAME_CHAR_RE, RENDERABLE_NAME_CHARS, RENDERABLE_NAME_HAS_ALNUM_RE, UsernameSchema, ANON_WORDS (+39 more)
 
 ### Community 87 - "computeViewHash"
 Cohesion: 0.20
 Nodes (5): computeViewHash(), Fnv32, jsonReplacer(), computeViewHash(), Fnv32
 
 ### Community 88 - "ReplayViewer"
-Cohesion: 0.02
-Nodes (24): Changing the format, Code, How a replay is made, Replays, Storage, Trying it locally, MapLayer, MapLayerPass (+16 more)
+Cohesion: 0.03
+Nodes (20): PlayerStatic, NukeImpactEvent, Processing, CameraGestures, clamp(), midpoint(), ReplayCamera, timelineFrames() (+12 more)
 
 ### Community 89 - "Config"
 Cohesion: 0.04
-Nodes (7): Config, BarPass, makeRenderer(), stub, calls, failures, cfg()
+Nodes (11): Config, maxHealthWithVeterancy(), computeAllianceClusters(), find(), union(), extractAttackRings(), BarPass, openPlayback() (+3 more)
 
 ### Community 90 - "ProvisionalXpAtDeath.ts"
 Cohesion: 0.08
 Nodes (50): GameXpResponse, ProgressionConfig, XpRules, XpRulesSchema, projectProgress(), computeXp(), DailyXpState, ffaOutlasted() (+42 more)
 
-### Community 91 - "SavedGamesPanel"
-Cohesion: 0.17
-Nodes (3): SavedGame, SavedGamesPanel, SavedGameError
+### Community 91 - "RosterLevelBadge.test.ts"
+Cohesion: 0.07
+Nodes (38): ClanTagSchema, inRange(), LEVEL_BADGE_MAX_LEVEL, LEVEL_BADGE_MAX_PRESTIGE, LevelBadge, packLevelBadge(), unpackLevelBadge(), ClientDevice (+30 more)
 
 ### Community 92 - "GameModeSelector"
-Cohesion: 0.04
-Nodes (16): GameModeSelector, lobbyFeedSuspended(), whenModalLoaded(), PublicLobbySocket, ServerListStatus, ABNORMAL_CLOSE, countsMessage(), drainedMessage() (+8 more)
+Cohesion: 0.07
+Nodes (15): PublicGames, getRandomWorkerPath(), PublicLobbySocket, ServerListStatus, ABNORMAL_CLOSE, countsMessage(), drainedMessage(), FakeWebSocket (+7 more)
 
-### Community 93 - "UnitPass"
+### Community 93 - "fx-pass/index.ts"
 Cohesion: 0.05
-Nodes (7): FxAttackRingPass, FxShockwavePass, FxSpritePass, buildOptional(), flickerHashByte(), UnitPass, SmoothingHarness
+Nodes (18): FxAttackRingPass, ActiveShockwave, calculateExplosionDurationMs(), FxShockwavePass, OCTAGON_VERTS, RGB, WHITE, FxSpritePass (+10 more)
 
 ### Community 94 - "TileRef"
 Cohesion: 0.01
-Nodes (30): TileRef, PlayerID, TerrainType, Highland, Impassable, Mountain, Ocean, Plains (+22 more)
+Nodes (49): `CDN_BASE` format, Flow, Game Architecture, Intents, Simulation Architecture, Static Assets / CDN, TileRef, SpawnArea (+41 more)
 
 ### Community 95 - "EntitySchema.ts"
-Cohesion: 0.05
-Nodes (32): ALLIANCE, ATTACK, ATTACKS, BOOL, COUNTER, DecodeCtx, diffFields(), EMOJI (+24 more)
+Cohesion: 0.03
+Nodes (74): FALLOUT_BIT, AllianceData, AttackData, EmojiData, BinaryReader, decoder, BinaryWriter, encoder (+66 more)
 
-### Community 96 - "dependencies"
-Cohesion: 0.04
-Nodes (56): dependencies, compression@^1.8.1, dompurify@^3.4.13, dotenv@^17.4.2, ejs@^5.0.2, express@^5.2.1, howler@^2.2.4, intl-messageformat@^11.2.3 (+48 more)
+### Community 96 - "GameModeSelector.ts"
+Cohesion: 0.07
+Nodes (15): canJoinTrustedLobby(), viewerIsSignedIn(), multiplayerAllowedForSession(), GameModeSelector, joinIsGateable(), lobbyFeedSuspended(), multiplayerAllowedForBackend(), reportMultiplayerRefusal() (+7 more)
 
 ### Community 97 - "ResolvedCosmetic"
-Cohesion: 0.10
-Nodes (3): Cosmetics, resolvedToPlayerPattern(), InventoryModal
+Cohesion: 0.09
+Nodes (3): getPlayerCosmeticsRefs(), InventoryModal, equipSample()
 
 ### Community 98 - "Transport"
-Cohesion: 0.05
-Nodes (12): Intent, ServerMessage, LocalServer, poolRedirectLatch(), Transport, makeGameStartInfo(), makeServer(), startServer() (+4 more)
+Cohesion: 0.10
+Nodes (4): Intent, poolRedirectLatch(), Transport, makeTransport()
 
 ### Community 99 - "ClanDonateDialog"
 Cohesion: 0.12
 Nodes (12): ClanCurrencyType, balanceToBigInt(), ClanDonateDialog, alertText(), amountInput(), currencyButton(), donateButton(), donateToClan (+4 more)
 
-### Community 100 - "DesktopRelease.ts"
-Cohesion: 0.05
-Nodes (38): Roadmap item 4 in detail: the publish pipeline, Two hostnames per deployment, ALLOWED_ROOTS, asMapping(), buildDescriptor(), BuildOpts, clearDesktopReleaseCache(), getDescriptor() (+30 more)
+### Community 100 - "ref_child_process"
+Cohesion: 0.07
+Nodes (24): file(), __dirname, SCRIPT, files, __dirname, extractFlagLatestBlock(), Result, runFlagLatest() (+16 more)
 
 ### Community 101 - "InventoryModal.ts"
-Cohesion: 0.05
-Nodes (34): Flag, Skin, InventoryCategory, InventoryLoadoutBar, InventoryLoadoutEntry, completeCosmeticPurchaseReturn(), countryFlag(), OwnershipState (+26 more)
+Cohesion: 0.06
+Nodes (32): InventoryCategory, InventoryLoadoutBar, InventoryLoadoutEntry, resolvedToPlayerPattern(), countryFlag(), OwnershipState, ACTIVE_LOADOUT_KEY, CROWN_KEY (+24 more)
 
 ### Community 102 - "SAMRadiusPass"
 Cohesion: 0.11
 Nodes (10): COLOR_ALLY, COLOR_ENEMY, COLOR_SELF, compareIntervalStart(), computeUncoveredArcs(), Interval, mergeIntervals(), normalizeAngle() (+2 more)
 
 ### Community 103 - "PackedUnitUpdates.ts"
-Cohesion: 0.03
-Nodes (50): intToTrainType(), intToUnitType(), OFFSET_HEALTH, OFFSET_ID, OFFSET_LAST_POS, OFFSET_LEVEL, OFFSET_MARKED_FOR_DELETION, OFFSET_NUKE_WAIT_TICKS (+42 more)
+Cohesion: 0.07
+Nodes (27): OFFSET_HEALTH, OFFSET_ID, OFFSET_LAST_POS, OFFSET_LEVEL, OFFSET_MARKED_FOR_DELETION, OFFSET_NUKE_WAIT_TICKS, OFFSET_PACKED_A, OFFSET_PACKED_B (+19 more)
 
 ### Community 104 - "TransformHandler"
-Cohesion: 0.08
-Nodes (7): LandmarkOverlay, mapInput(), loadAllSprites(), Camera + input, TransformHandler, hoverCard(), markers()
+Cohesion: 0.04
+Nodes (19): How it works / in-game gotchas, Decisions taken, LANDMARK_TROOP_BONUS, renderNumber(), goldCoinIcon, buildPlayerStatsSummary(), formatPerGame(), statsSection() (+11 more)
 
 ### Community 105 - "NameBoxCalculatorPerf.ts"
-Cohesion: 0.06
-Nodes (47): calculateBoundingBox(), SpawnTimerExecution, assignRectangle(), cachedHeights, cachedStack, calculateFontSize(), createGrid(), ensureBufferSize() (+39 more)
+Cohesion: 0.09
+Nodes (46): assignRectangle(), cachedHeights, cachedStack, calculateFontSize(), createGrid(), ensureBufferSize(), findLargestInscribedRectangle(), findLargestInscribedRectangleLegacy() (+38 more)
 
 ### Community 106 - "InlineCheckout"
-Cohesion: 0.07
-Nodes (21): @stripe/stripe-js@9.15.0, @stripe/stripe-js, InlineCheckout, TierListingRail, tierListingRail(), paymentsProvider(), PurchaseRequest, getStripe() (+13 more)
+Cohesion: 0.08
+Nodes (21): @stripe/stripe-js, InlineCheckout, InlineCheckoutConfig, TierListingRail, tierListingRail(), paymentsProvider(), PurchaseRequest, getStripe() (+13 more)
 
-### Community 107 - "Transport.ts"
-Cohesion: 0.04
-Nodes (32): EventConstructor, ReportReason, actionButton(), ActionButtonProps, ButtonVariant, getButtonStyles(), kickIcon, shieldIcon (+24 more)
+### Community 107 - "PlayerPanelKick.test.ts"
+Cohesion: 0.06
+Nodes (15): GameConfigPatch, actionButton(), ActionButtonProps, ButtonVariant, getButtonStyles(), kickIcon, PlayerModerationModal, shieldIcon (+7 more)
 
-### Community 108 - "MotionPlanResolver"
-Cohesion: 0.14
-Nodes (6): asUint32(), GridMotionPlan, MotionPlanResolver, PlannedUnits, TrainMotionPlan, grid()
+### Community 108 - "FrameNormalizer.ts"
+Cohesion: 0.09
+Nodes (18): FrameNormalizer, miscUpdatesOf(), snapshotPlayer(), UPDATE_TYPE_ROUTING, VIEW_DATA_ROUTING, applyPackedAttackTroops(), applyPackedPlayerStats(), applyUnitUpdateInPlace() (+10 more)
 
 ### Community 109 - "issue-lifecycle/github.ts"
 Cohesion: 0.13
@@ -1207,15 +1272,15 @@ Nodes (16): ACTIONS, chatIcon, discordShareText(), linkIcon, ProfileShare, RING_
 
 ### Community 111 - "BuildPreviewControllerPerf.ts"
 Cohesion: 0.06
-Nodes (39): baselineTargets, BenchmarkTarget, benchOptions, ColumnWidths, computeColumnWidths(), ControllerInternals, createBenchmarkFixture(), createControllerDependencies() (+31 more)
+Nodes (41): jsdom@^29.1.1, jsdom, baselineTargets, BenchmarkTarget, benchOptions, ColumnWidths, computeColumnWidths(), createBenchmarkFixture() (+33 more)
 
 ### Community 112 - "PrestigeFlow"
 Cohesion: 0.05
-Nodes (34): PrestigeResponse, Progress, ensureCeremonyStyles(), Honeycomb, honeycomb(), honeycombs, renderHoneycomb(), Beat (+26 more)
+Nodes (37): PrestigeResponse, Progress, ensureCeremonyStyles(), Honeycomb, honeycomb(), honeycombs, renderHoneycomb(), Beat (+29 more)
 
 ### Community 113 - "LeaderboardPlayerList.ts"
-Cohesion: 0.02
-Nodes (69): FfaGameRatingResponse, PlayerLeaderboardEntry, PublicFfaRating, RankedLeaderboardEntry, RankedLeaderboardResponse, changeColor(), ensureFfaRatingPanelStyles(), FFA_RATING_MIN_HUMANS (+61 more)
+Cohesion: 0.04
+Nodes (36): PlayerLeaderboardEntry, RankedLeaderboardEntry, RankedLeaderboardResponse, hasLinkedIdentity(), fetchFfaRankLeaderboard(), fetchFfaRankPosition(), fetchPlayerLeaderboard(), isPageBoundsMessage() (+28 more)
 
 ### Community 114 - "NavAccountMenu.ts"
 Cohesion: 0.05
@@ -1223,7 +1288,7 @@ Nodes (22): iconCard, iconGear, iconLogOut, iconShare, iconTag, iconUser, MenuIt
 
 ### Community 115 - "RewardTrack"
 Cohesion: 0.11
-Nodes (4): FlareCosmeticView, arrow(), ensureRewardTrackStyles(), RewardTrack
+Nodes (4): FlareCosmeticView, arrow(), RewardTrack, stripPercent()
 
 ### Community 116 - "rules.ts"
 Cohesion: 0.12
@@ -1234,40 +1299,36 @@ Cohesion: 0.05
 Nodes (41): scripts, build-dev, build-prod, dev, dev:all, dev:host, dev:prod, dev:staging (+33 more)
 
 ### Community 118 - "Telemetry.ts"
-Cohesion: 0.08
-Nodes (34): @grafana/faro-web-sdk@^2.12.0, @grafana/faro-web-sdk, Percentiles, percentiles(), calledFromBundle(), DROPPED_EVENTS, environmentName(), errorSamplingRate() (+26 more)
+Cohesion: 0.10
+Nodes (30): @grafana/faro-web-sdk@^2.12.0, @grafana/faro-web-sdk, calledFromBundle(), DROPPED_EVENTS, environmentName(), errorSamplingRate(), EVENT_RATES, eventsSent (+22 more)
 
-### Community 119 - "UserSettingModal"
-Cohesion: 0.04
-Nodes (23): desktopDisplay(), DesktopDisplayBounds, DesktopDisplayBridge, DesktopDisplayInfo, DesktopDisplayMode, DesktopDisplayPrefs, DesktopDisplayPrefsPatch, DesktopDisplaySnapshot (+15 more)
+### Community 119 - "UserSettings"
+Cohesion: 0.01
+Nodes (92): Capturable Landmarks Implementation Plan, Global Constraints, Review Focus, Task 1: Landmark map data: schema, loader, and the 7 maps, MapLayer, TerrainMapData, SelectOption, SettingSelect (+84 more)
 
 ### Community 121 - "responseHasLinkedIdentity"
-Cohesion: 0.05
-Nodes (22): DiscordUser, hasLinkedIdentity(), isSteamPrimaryUser(), responseHasLinkedIdentity(), DiscordUserHeader, NotLoggedInWarning, NavAccountElements, navAccountInstances() (+14 more)
+Cohesion: 0.03
+Nodes (31): DiscordUser, UserMeResponse, isSteamPrimaryUser(), responseHasLinkedIdentity(), AccountSettingsModal, ChangeUsernameModal, DiscordUserHeader, NotLoggedInWarning (+23 more)
 
 ### Community 122 - "FakePlayer"
 Cohesion: 0.07
 Nodes (7): FakeGame, FakePlayer, rotGame(), sdConfig(), teamGame(), twoPlayerGame(), warshipGame()
 
-### Community 123 - "uploadFrameData"
-Cohesion: 0.12
-Nodes (5): RibbonState, SpiralRibbon, FrameUploadTarget, uploadFrameData(), SpiralRibbonPass
-
 ### Community 124 - "client.js"
 Cohesion: 0.15
 Nodes (36): clearPoints(), COMPARISON_COLORS, findNodeAtPosition(), getPointAtPosition(), handleMapClick(), handleTransportClick(), hidePathInfo(), hideWelcomeScreen() (+28 more)
+
+### Community 125 - ".dispose"
+Cohesion: 0.07
+Nodes (3): mipLevels(), SkinAtlasArray, PreviewTerritoryPass
 
 ### Community 126 - "rules"
 Cohesion: 0.05
 Nodes (36): categories, correctness, nursery, pedantic, perf, restriction, style, suspicious (+28 more)
 
-### Community 127 - "GraphicsAdvancedSettings.ts"
-Cohesion: 0.10
-Nodes (13): SettingColor, ambientSliderToValue(), ambientValueToSlider(), COSMETIC_CATEGORIES, CosmeticCategory, COSMETICS_SHOW_FROM_LABELS, falloffToUnitGlowSlider(), NUKE_COLOR_DEFAULT (+5 more)
-
 ### Community 128 - "ClanDonationsView.ts"
 Cohesion: 0.07
-Nodes (18): ClanDonation, ClanDonationPeriod, ClanDonor, checkClanTagOwnership(), fetchClanDonationLeaderboard(), fetchClanDonations(), fetchClanExists(), ClanDonationsView (+10 more)
+Nodes (16): ClanDonation, checkClanTagOwnership(), fetchClanDonationLeaderboard(), fetchClanDonations(), fetchClanExists(), ClanDonationsView, CurrencyFilter, DonationsMode (+8 more)
 
 ### Community 130 - "Map Data"
 Cohesion: 0.06
@@ -1285,17 +1346,13 @@ Nodes (4): PlayerRecentStats, PlayerStatsGameMode, PlayerStatsLeaf, PlayerStatsT
 Cohesion: 0.09
 Nodes (20): RankType, Atoms, ConqueredGold, ConquestBots, ConquestHumans, ConquestNations, Hydros, Lifetime (+12 more)
 
-### Community 134 - "PlayerProfileModal.ts"
-Cohesion: 0.08
-Nodes (8): isVerifiedUsername(), PlayerProfile, PlayerName, splitAccountUsername(), usernameText(), verifiedBadge(), PlayerProfileModal, renderToHost()
-
 ### Community 135 - "AllPlayersStats"
 Cohesion: 0.10
-Nodes (16): WinUpdate, AllPlayersStats, Winner, ReplayedWinner, ClientSendWinnerMessage, LiveStats, GameEndUpdate, GameEnd (+8 more)
+Nodes (15): AllPlayersStats, Winner, ReplayedWinner, ClientSendWinnerMessage, LiveStats, GameEndUpdate, GameEnd, LiveStatsVote (+7 more)
 
 ### Community 136 - "ProfileCard.ts"
 Cohesion: 0.08
-Nodes (11): ensureProfileCardStyles(), flourishAllowed(), isEmbedded(), PLAYED_OPEN_KEYS_KEPT, playedOpenKeys, ProfileCard, ProfileCardProgress, Pulse (+3 more)
+Nodes (14): ensureProfileCardStyles(), flourishAllowed(), isEmbedded(), PLAYED_OPEN_KEYS_KEPT, playedOpenKeys, ProfileCard, ProfileCardProgress, Pulse (+6 more)
 
 ### Community 137 - "env"
 Cohesion: 0.06
@@ -1305,109 +1362,121 @@ Nodes (34): ADDITIONAL_VERSION_TAG, ADMIN_BOT_API_KEY, API_KEY, CDN_BASE, DEPLOY
 Cohesion: 0.15
 Nodes (30): CombinedBinaryHeader, Coord, GeneratorArgs, LoggerFromContext(), convertToWebP(), createCombinedBinary(), createMapThumbnail(), createMiniMap() (+22 more)
 
-### Community 139 - "GameServer.ts"
-Cohesion: 0.05
-Nodes (54): Diagnosis, Phase 5 — Message ingress and intent dispatch, GameConfigPatch, Tribe, TribeSchema, adjustForTeams(), ClientReportMessage, ClientSendLiveStatsMessage (+46 more)
+### Community 139 - "IntentAuthorization.test.ts"
+Cohesion: 0.14
+Nodes (15): Phase 5 — Message ingress and intent dispatch, hostCheatsEnabled(), authorizeIntent(), IntentActor, IntentGameState, IntentOutcome, actor(), admin (+7 more)
 
 ### Community 140 - "GameInfoView"
 Cohesion: 0.10
-Nodes (5): GameEndInfo, fetchGameById(), Ranking, GameInfoLoadedDetail, GameInfoView
+Nodes (6): AnalyticsRecord, GameEndInfo, hasPlayed(), Ranking, GameInfoLoadedDetail, GameInfoView
+
+### Community 141 - "MutableAlliance"
+Cohesion: 0.11
+Nodes (3): AllianceRequestImpl, Alliance, MutableAlliance
 
 ### Community 143 - "env"
 Cohesion: 0.06
 Nodes (33): ADMIN_BOT_API_KEY, API_KEY, CDN_BASE, DEPLOY_TARGETS_DEV, DEPLOYMENT_ID, ENV, ENVIRONMENT, FARO_COLLECTOR_URL (+25 more)
 
 ### Community 144 - "SavedGamesApi.ts"
-Cohesion: 0.11
-Nodes (25): SavedGameSchema, SavedGamesListResponseSchema, HTMLElementTagNameMap, savedGameIdFrom(), savedGameShareUrl(), authedFetch(), deleteSavedGame(), downloadSavedGame() (+17 more)
+Cohesion: 0.07
+Nodes (29): SavedGame, SavedGameSchema, SavedGamesListResponseSchema, HTMLElementTagNameMap, LoadSavedGameDetail, savedGameIdFrom(), savedGameShareUrl(), SavedGamesPanel (+21 more)
 
-### Community 145 - "RankedCheckin.ts"
-Cohesion: 0.05
-Nodes (39): ReservedClanTagsResponseSchema, PlayerColor, PlayerCrown, PlayerEffect, winston, log, startPolling(), ClanTagResolution (+31 more)
+### Community 145 - "Privilege.ts"
+Cohesion: 0.04
+Nodes (40): CosmeticsSchema, DefaultPattern, FREE_COSMETIC_FLARES, PatternDataSchema, decodePatternData(), PatternDecoder, PlayerColor, PlayerCosmeticRefs (+32 more)
 
 ### Community 146 - "lib.ts"
-Cohesion: 0.04
-Nodes (74): The codemod, typescript@^7.0.2, typescript, args, EXPECTED, git(), problems, show() (+66 more)
+Cohesion: 0.05
+Nodes (49): The codemod, typescript@^7.0.2, typescript, args, EXPECTED, git(), problems, show() (+41 more)
 
-### Community 148 - "LeaderboardTribeTable"
-Cohesion: 0.08
-Nodes (13): TribeLeaderboardEntry, TribeLeaderboardResponse, TribeStatsResponse, fetchTribeLeaderboard(), fetchTribeLeaderboardPage(), fetchTribeStats(), formatWindowDate(), LeaderboardTribeTable (+5 more)
+### Community 148 - "TribeStatsView"
+Cohesion: 0.23
+Nodes (3): TribeStatsResponse, fetchTribeStats(), TribeStatsView
 
 ### Community 149 - "ResolvedCosmetic"
-Cohesion: 0.03
-Nodes (41): CosmeticPack, Pack, Pattern, Subscription, CosmeticCard, CosmeticCardState, CosmeticInfo, rarityColors (+33 more)
+Cohesion: 0.04
+Nodes (47): GameXpFlare, ColorPalette, Flag, Pack, Pattern, Skin, CosmeticCard, CosmeticCardState (+39 more)
+
+### Community 150 - "LobbyCard.ts"
+Cohesion: 0.07
+Nodes (21): follow(), hideFloatingTooltip(), showFloatingTooltip(), customInfoIcon(), fitsByContain(), lobbyCard(), LobbyCardOptions, mapAspectRatios (+13 more)
 
 ### Community 151 - "HomepagePromos"
-Cohesion: 0.14
-Nodes (3): HomepagePromos, pageIsOpen(), menuChromeIsTornDown()
+Cohesion: 0.13
+Nodes (3): HomepagePromos, pageIsOpen(), reportEvent()
 
 ### Community 152 - "WinModalProvisionalXp.test.ts"
 Cohesion: 0.11
 Nodes (27): aliveGame(), BREAKDOWN, CONFIG, currentLevel(), END_BREAKDOWN, endGame(), endServerXp(), endSnapshot() (+19 more)
 
-### Community 153 - ".putGameConfig"
+### Community 153 - "HostLobbyModal"
 Cohesion: 0.05
-Nodes (8): isValidGameID(), ListLobbyOptions, HostLobbyModal, parseBoundedFloatFromInput(), parseBoundedIntegerFromInput(), toOptionalNumber(), getSecondsUntilServerTimestamp(), getServerNow()
+Nodes (6): isValidGameID(), ListLobbyOptions, HostLobbyModal, preventDisallowedKeys(), hostModal(), presenceMocks
 
 ### Community 154 - "PlayerRow"
 Cohesion: 0.12
 Nodes (4): PlayerInfo, PlayerRow, basePlayer, RowOptions
 
-### Community 155 - "WinModal"
-Cohesion: 0.07
-Nodes (15): FfaRatingGame, loadGameXpPanel(), WinModal, resolveXpAccount(), fetchProgressionConfig(), PendingGameKind, anonymous, eligible() (+7 more)
+### Community 155 - "WinModalXp.test.ts"
+Cohesion: 0.13
+Nodes (10): fetchProgressionConfig(), anonymous, eligible(), finishReveal(), { getUserMe, invalidateUserMe, fetchProgressionConfig, isLoggedIn }, panel(), reaching(), settle() (+2 more)
 
 ### Community 156 - "ReplayFrameBuilder"
-Cohesion: 0.05
-Nodes (18): computeAllianceClusters(), find(), union(), extractAttackRings(), RailroadCache, SpiralTrails, TrailManager, InflateFn (+10 more)
+Cohesion: 0.06
+Nodes (15): RailroadCache, SpiralTrails, TrailManager, ReplayFrame, ReplayFrameBuilder, sameIDs(), withoutEmojis(), ReplayTerrain (+7 more)
 
 ### Community 157 - "ViverseSDK"
-Cohesion: 0.11
+Cohesion: 0.09
 Nodes (6): hostMatches(), readSession(), ViverseSDK, viverseSDK, WrapperReply, writeSession()
 
 ### Community 159 - "AdGatekeeper"
 Cohesion: 0.12
-Nodes (7): AdblockState, AdGatekeeper, adGatekeeper, AdGatekeeperOptions, Listener, persistBlock(), readPersistedBlock()
+Nodes (8): AdblockState, AdGatekeeper, adGatekeeper, AdGatekeeperOptions, Listener, persistBlock(), readPersistedBlock(), DestroyUnitsResult
 
 ### Community 160 - "ZbEncodeError"
 Cohesion: 0.10
-Nodes (45): ZbEncodeError, arrayCodec(), attach(), bigintCodec, boolByteCodec, codecFor(), constCodec(), decodeContract() (+37 more)
+Nodes (44): ZbEncodeError, arrayCodec(), attach(), bigintCodec, boolByteCodec, codecFor(), constCodec(), defOf() (+36 more)
 
 ### Community 161 - "steps"
 Cohesion: 0.07
 Nodes (26): DRY_RUN, GITHUB_TOKEN, PR_NUMBER, name, runs-on, steps, timeout-minutes, jobs (+18 more)
-
-### Community 162 - "BinaryWriter"
-Cohesion: 0.10
-Nodes (17): decoder, BinaryWriter, encoder, unzigzag(), zigzag(), FrameEncoder, jsonReplacer(), writeMisc() (+9 more)
 
 ### Community 163 - "FriendsList.ts"
 Cohesion: 0.11
 Nodes (21): FriendRequestsResponse, FriendRequestsResponseSchema, FriendsListResponse, FriendsListResponseSchema, SendFriendRequestResponse, SendFriendRequestResponseSchema, extractPublicIdFromUrl(), FriendsList (+13 more)
 
 ### Community 164 - "TribesPanel.ts"
-Cohesion: 0.09
-Nodes (12): GetMyTribeNamesResponse, TribeName, PurchaseTribeNameResult, DISPLAY_STATE, STATE_META, TribeDisplayState, TribesPanel, broadcast (+4 more)
+Cohesion: 0.08
+Nodes (9): GetMyTribeNamesResponse, TribeName, boostTribeName(), getMyTribeNames(), PurchaseTribeNameResult, TribesPanel, {
+  purchaseTribeName,
+  boostTribeName,
+  getMyTribeNames,
+  getUserMe,
+  invalidateUserMe,
+  fetchCosmetics,
+  showInGameConfirm,
+}, tribe (+1 more)
 
-### Community 165 - "benchmark/run.ts"
-Cohesion: 0.13
-Nodes (25): AdapterResults, main(), printTableFooter(), printTableHeader(), printTableRow(), printUsage(), runBenchmark(), TABLE_HEADERS (+17 more)
+### Community 165 - "pathfinding.ts"
+Cohesion: 0.06
+Nodes (59): compression@^1.8.1, compression, AdapterResults, main(), printTableFooter(), printTableHeader(), printTableRow(), printUsage() (+51 more)
 
 ### Community 166 - "TerrainPass.ts"
-Cohesion: 0.15
+Cohesion: 0.18
 Nodes (8): buildTerrainRowSpans(), PendingRect, TerrainRowSpansResult, TerrainPass, buildTerrainRGBA(), encodeTerrainTile(), TerrainColorOverrides, TerrainRect
 
-### Community 167 - "FeaturedStream.ts"
-Cohesion: 0.20
-Nodes (9): Corner, CORNER_CLASS, cornerFromCenter(), isCoarsePointer(), isOffFrame(), TwitchGlobal, TwitchPlayerCtor, Window (+1 more)
+### Community 167 - "testGameConfig"
+Cohesion: 0.08
+Nodes (22): GameInfo, LobbyClient, NameVisibility, startGame(), FakeWebSocket, handshake(), teamConfig(), makeClient() (+14 more)
 
 ### Community 168 - "labyrinth/manifest.json"
 Cohesion: 0.08
 Nodes (25): additionalNations, categories, id, map, map16x, height, num_land_tiles, width (+17 more)
 
 ### Community 169 - "AdForensics.ts"
-Cohesion: 0.16
-Nodes (22): AdOnPage, creativeAttributes(), describeAd(), findEscapedAds(), findStrayAdFrames(), frameOrigin(), idString(), newestByUnit (+14 more)
+Cohesion: 0.09
+Nodes (28): AdOnPage, creativeAttributes(), describeAd(), findEscapedAds(), findStrayAdFrames(), frameOrigin(), idString(), newestByUnit (+20 more)
 
 ### Community 170 - "PlayerStatsTree.ts"
 Cohesion: 0.05
@@ -1418,16 +1487,20 @@ Cohesion: 0.09
 Nodes (17): DoomsdayClockSpeed, cardClass(), DIFFICULTY_ICON, DIFFICULTY_OPTIONS, ENABLES_ICON, GameConfigSettings, HOST_CHEATS_ICON, MAP_ICON (+9 more)
 
 ### Community 172 - "ClanDetailView"
-Cohesion: 0.09
-Nodes (5): ClanInfo, fetchClanDetail(), ClanCard, ClanDetailView, formatBoostRemaining()
+Cohesion: 0.14
+Nodes (3): ClanInfo, fetchClanDetail(), ClanDetailView
 
 ### Community 175 - "Matchmaking.test.ts"
 Cohesion: 0.04
-Nodes (33): APP_REJECTION_MAX, APP_REJECTION_MIN, CLOSE_REASONS, CloseCode, CloseReason, isCloseReason(), isTerminalClose(), PersistentIdSchema (+25 more)
+Nodes (35): UserMeResponseSchema, APP_REJECTION_MAX, APP_REJECTION_MIN, CLOSE_REASONS, CloseCode, CloseReason, isCloseReason(), isTerminalClose() (+27 more)
 
-### Community 177 - "SinglePlayerModal.ts"
-Cohesion: 0.07
-Nodes (16): listedMaps, MEDAL_COLORS, MEDAL_ORDER, LoadSavedGameDetail, GameStartingModal, DEFAULT_OPTIONS, MIDGAME_AD_DEADLINE_MS, SavedGameLoadError (+8 more)
+### Community 176 - "GhostPreviewData"
+Cohesion: 0.08
+Nodes (8): QUAD_VERTS, statusAtlasUrl, railDirection(), railExtremity(), RailroadPass, GhostPreviewData, RailroadPassHarness, measureFrames()
+
+### Community 177 - "GameConfigHelpers.ts"
+Cohesion: 0.12
+Nodes (5): getBotsForCompactMap(), getNationsForCompactMap(), getUpdatedDisabledUnits(), parseBoundedFloatFromInput(), sliderToNationsConfig()
 
 ### Community 178 - "with"
 Cohesion: 0.08
@@ -1437,9 +1510,9 @@ Nodes (23): jobs, stale, name, on, schedule, pull-requests, cron, permissions (+
 Cohesion: 0.11
 Nodes (14): vitest-canvas-mock@^1.1.4, vitest-canvas-mock, drained, order, disconnects, HTMLElementTagNameMap, lateUpdates, LEAK_DELAY_MS (+6 more)
 
-### Community 180 - "JoinLobbyModal.ts"
-Cohesion: 0.13
-Nodes (22): RANK_TYPE_LABEL_KEYS, hasMapDetails(), DEFAULT_TITLE_CLASS, terrainMapFileLoader, DISABLED_UNIT_KEYS, disabledUnitsBox(), FLAT_SETTING_TAG, formatGameType() (+14 more)
+### Community 180 - "RankedCheckin.ts"
+Cohesion: 0.09
+Nodes (17): log, startPolling(), PrivilegeRefresher, createClanWarsGame(), MatchmakingAssignmentSchema, RANKED_MODES, RANKED_PAUSED_LOG, RANKED_RESUMED_LOG (+9 more)
 
 ### Community 181 - "choppingblock/manifest.json"
 Cohesion: 0.08
@@ -1454,24 +1527,24 @@ Cohesion: 0.11
 Nodes (3): ClanModal, isListTab(), ProfileOrigin
 
 ### Community 184 - "DiffPlayerUpdatePerf.ts"
-Cohesion: 0.08
-Nodes (35): allianceArrayEqual(), attackArrayMembershipEqual(), diffPlayerUpdate(), emojiArrayEqual(), numberArrayEqual(), packAttackTroopDeltas(), stringArrayEqual(), stringSetEqual() (+27 more)
+Cohesion: 0.10
+Nodes (25): allianceArrayEqual(), attackArrayMembershipEqual(), diffPlayerUpdate(), emojiArrayEqual(), numberArrayEqual(), packAttackTroopDeltas(), stringArrayEqual(), stringSetEqual() (+17 more)
 
-### Community 185 - "ref_fs"
-Cohesion: 0.04
-Nodes (44): Coordinates, CustomTribeSchema, featuredRankRule, LandmarkSchema, LayerPlacement, ListedModifierKey, MapInfoSchema, mapInfoShape (+36 more)
+### Community 185 - "MapManifest.ts"
+Cohesion: 0.08
+Nodes (25): Coordinates, CustomTribeSchema, featuredRankRule, LandmarkSchema, LayerPlacement, ListedModifierKey, MapInfoSchema, mapInfoShape (+17 more)
 
 ### Community 186 - "CosmeticSchemas.ts"
 Cohesion: 0.04
-Nodes (69): ColorPalette, ColorPaletteSchema, CosmeticNameSchema, CosmeticPackItem, CosmeticPackItemSchema, CosmeticPackSchema, CosmeticSchema, CrownSchema (+61 more)
+Nodes (66): ColorPaletteSchema, CosmeticNameSchema, CosmeticPackItem, CosmeticPackItemSchema, CosmeticPackSchema, CosmeticSchema, CrownSchema, Effect (+58 more)
 
 ### Community 187 - "PlayerStats"
 Cohesion: 0.11
-Nodes (15): boatUnits, bombUnits, otherUnits, PlayerStats, BUILDING_ORDER, buildingUnits, PlayerStatsTable, StatsRow (+7 more)
+Nodes (14): boatUnits, bombUnits, otherUnits, PlayerStats, BUILDING_ORDER, buildingUnits, PlayerStatsTable, StatsRow (+6 more)
 
-### Community 188 - "PlayerGameHistoryView.ts"
-Cohesion: 0.08
-Nodes (19): PlayerGameModeFilter, PlayerGameTypeFilter, DayGroup, dayKey(), formatAbsoluteTime(), groupByDay(), MONTH_KEYS, formatGameType() (+11 more)
+### Community 188 - "AdminBotRoutes.ts"
+Cohesion: 0.09
+Nodes (20): IntentSchema, LobbyAccentSchema, applyListing(), fail(), lobbyResponse(), parseCreateGameRequest(), ParsedCreateGame, registerAdminBotRoutes() (+12 more)
 
 ### Community 189 - "babelmandebstrait/manifest.json"
 Cohesion: 0.09
@@ -1514,8 +1587,8 @@ Cohesion: 0.17
 Nodes (14): DOOMSDAY_CLOCK_SPEEDS, doomsdayClockDrain(), DoomsdayClockDrainConfig, DoomsdayClockFloorConfig, DoomsdayClockProfile, DoomsdayClockWaveState, doomsdayClockWaveState(), drainCurveFraction() (+6 more)
 
 ### Community 200 - "ZbDecodeError"
-Cohesion: 0.20
-Nodes (5): decodeSnapshotValue(), ByteReader, ZbDecodeError, lazyCodec(), readCount()
+Cohesion: 0.19
+Nodes (6): decodeSnapshotValue(), ByteReader, ZbDecodeError, decodeContract(), lazyCodec(), readCount()
 
 ### Community 201 - "aegean/manifest.json"
 Cohesion: 0.09
@@ -1577,25 +1650,29 @@ Nodes (21): categories, id, map, map16x, height, num_land_tiles, width, map4x (+
 Cohesion: 0.09
 Nodes (21): categories, id, map, map16x, height, num_land_tiles, width, map4x (+13 more)
 
-### Community 216 - ".width"
-Cohesion: 0.13
-Nodes (4): WaterManager, BFSGrid, expectMagnitudesMatchOracle(), scratchMagnitudes()
+### Community 216 - "GameMap"
+Cohesion: 0.04
+Nodes (18): GameMap, hexDistFN(), isInIsometricTile(), isometricDistFN(), manhattanDistFN(), rectDistFN(), boundingBoxTiles(), distSort() (+10 more)
 
-### Community 217 - "ReplayProcessor.ts"
+### Community 217 - "ReplayTypes.ts"
 Cohesion: 0.05
-Nodes (52): ConnectMessage, loadMapFiles(), mapFilesTransfer(), decompressGameRecord(), generateSingleplayerGameID(), GameRecord, WireGameStartInfo, WireGameStartInfoSchema (+44 more)
+Nodes (73): ConnectMessage, generateSingleplayerGameID(), GameRecord, WireGameStartInfo, ReplayReader, EncoderOptions, StreamingEncoder, EncodeCtx (+65 more)
+
+### Community 218 - "FeaturedStream.ts"
+Cohesion: 0.04
+Nodes (34): LiveStream, StreamsFeed, StreamsFeedSchema, getStreams(), compactViewportQuery(), isCompactViewport(), formatViewers(), StreamingNow (+26 more)
 
 ### Community 219 - "SubscriptionPanel"
-Cohesion: 0.16
-Nodes (3): isSteamGrant(), renewalPushedBy(), SubscriptionPanel
+Cohesion: 0.08
+Nodes (14): giftSubscriptionOf(), isGrantedSubscription(), paidSubscriptionOf(), RenewalPushedBy, renewalPushedBy(), subscriptionsOf(), UserSubscription, RenewalPushed (+6 more)
 
 ### Community 220 - "properties"
 Cohesion: 0.12
 Nodes (17): description, minLength, type, description, minLength, type, description, type (+9 more)
 
 ### Community 221 - "TurnstileToken.ts"
-Cohesion: 0.10
-Nodes (22): admitted, key(), rememberAdmitted(), wasAdmitted(), getPersistentID(), getPersistentIDFromLocalStorage(), getTurnstileToken(), Window (+14 more)
+Cohesion: 0.16
+Nodes (14): getTurnstileToken(), Window, requestTurnstileToken(), resolveTurnstileToken(), TURNSTILE_LOAD_FAILED_CODE, TURNSTILE_TIMEOUT_CODE, TURNSTILE_TOKEN_TIMEOUT_MS, TURNSTILE_TOKEN_TTL_MS (+6 more)
 
 ### Community 222 - "hardening.test.ts"
 Cohesion: 0.10
@@ -1649,9 +1726,13 @@ Nodes (20): categories, featured_rank, forced_modifiers, id, layers, map, map16x
 Cohesion: 0.09
 Nodes (21): categories, featured_rank, forced_modifiers, id, landmarks, layers, map, map16x (+13 more)
 
+### Community 235 - "ReachabilityGating.test.ts"
+Cohesion: 0.07
+Nodes (12): loadModal(), joinPublicLobbyDuringBootAuth(), mocks, ReplayViewer, spyOnMatchmakingModal(), advancePastRetryCooldown(), confirmOutage(), { lobbiesCallbackRef } (+4 more)
+
 ### Community 236 - "LazyCosmeticGrids.test.ts"
-Cohesion: 0.09
-Nodes (12): callbacks, canObserveNear(), NearCallback, observeNear(), sharedObserver(), ListState, ProgressiveList, Watched (+4 more)
+Cohesion: 0.06
+Nodes (13): CosmeticPreview, callbacks, canObserveNear(), NearCallback, observeNear(), sharedObserver(), ListState, ProgressiveList (+5 more)
 
 ### Community 237 - "updates"
 Cohesion: 0.10
@@ -1817,17 +1898,17 @@ Nodes (19): additionalNations, categories, id, layers, map, map16x, height, num_
 Cohesion: 0.10
 Nodes (19): additionalNations, categories, id, map, map16x, height, num_land_tiles, width (+11 more)
 
-### Community 279 - "renderTroops"
+### Community 278 - "PlayerGameHistoryView"
 Cohesion: 0.09
-Nodes (4): renderTroops(), ControlPanel, isForwardedClick(), ContinueGameModal
+Nodes (6): FfaRatingGameDelta, PublicPlayerGame, fetchPublicPlayerGames(), PlayerGameHistoryView, FakeIntersectionObserver, renderHistory()
 
 ### Community 280 - "WaterNukeRebuildPerf.ts"
 Cohesion: 0.13
 Nodes (16): currentDir, finalizes, findSpan(), header, initialBuild, lastRootSpan(), mirvTargets, queueCrater() (+8 more)
 
-### Community 281 - "SnapshotReader"
+### Community 281 - ".player"
 Cohesion: 0.05
-Nodes (10): readVersioned(), SnapshotError, MirvExecution, QuickChatExecution, newPlayerInfo(), readPlayerInfo(), decodeRoot(), restoreGame() (+2 more)
+Nodes (3): BoatRetreatExecution, PauseExecution, UpgradeStructureExecution
 
 ### Community 282 - "codegen.go"
 Cohesion: 0.16
@@ -1837,9 +1918,9 @@ Nodes (10): generateEnJSON(), generateMapsTS(), loadMapInfos(), parseCustomTribe
 Cohesion: 0.09
 Nodes (23): description, prefixItems, type, description, type, exclusiveMinimum, maximum, type (+15 more)
 
-### Community 284 - "SettingsTheme"
-Cohesion: 0.10
-Nodes (11): ThemeSettings, ColorAllocator, minDeltaE(), selectDistinctColorIndex(), buildTeamPalettes(), createThemes(), generateTeamColors(), SettingsTheme (+3 more)
+### Community 284 - "GraphicsAdvancedSettings"
+Cohesion: 0.13
+Nodes (3): GraphicsAdvancedSettings, sliderValue(), unitGlowSliderToFalloff()
 
 ### Community 285 - "shared/package.json"
 Cohesion: 0.14
@@ -2074,28 +2155,28 @@ Cohesion: 0.11
 Nodes (18): categories, id, map, map16x, height, num_land_tiles, width, map4x (+10 more)
 
 ### Community 345 - "LangSelector"
-Cohesion: 0.12
-Nodes (5): desktopSteamLocale(), LangSelector, defaultLocale(), resolvedDefaultLanguage(), makeSelector()
+Cohesion: 0.11
+Nodes (5): flattenTranslations(), LangSelector, defaultLocale(), resolvedDefaultLanguage(), makeSelector()
 
 ### Community 346 - "Client"
-Cohesion: 0.04
-Nodes (35): Paths on a `/v/<commit>/` page, tempTokenLogin(), JoinLobbyResult, loadModal(), Client, DocumentEventMap, setInGameSignal(), MatchmakingMode (+27 more)
+Cohesion: 0.08
+Nodes (20): Paths on a `/v/<commit>/` page, JoinLobbyResult, Client, setInGameSignal(), GroupTokenTracker, classicReplayHref(), openReplayViewer(), replayViewerHref() (+12 more)
 
 ### Community 347 - "HomepagePromos.test.ts"
-Cohesion: 0.15
-Nodes (4): slot(), dockFlex(), joinLobby(), resize()
+Cohesion: 0.13
+Nodes (7): displacedAdDisplay, hideMenuChrome(), menuChromeIsTornDown(), restoreMenuChrome(), dockFlex(), joinLobby(), resize()
 
 ### Community 348 - "PokiSDK.ts"
-Cohesion: 0.11
-Nodes (8): isPokiHost(), keepPokiParams(), loadSdkScript(), PokiApi, pokiSDK, readSession(), Window, writeSession()
+Cohesion: 0.06
+Nodes (13): PortalUser, isPokiHost(), keepPokiParams(), loadSdkScript(), PokiApi, PokiSDK, pokiSDK, readSession() (+5 more)
 
 ### Community 349 - "Players"
 Cohesion: 0.11
 Nodes (17): API Usage, Clan Leaderboard, Clan Map History, Clan Sessions, Clan stats, Clans, Games, Get Game Info (+9 more)
 
 ### Community 350 - "AtlasMap.ts"
-Cohesion: 0.13
-Nodes (23): decodeArc(), formatNumber(), largeEnough(), main(), OUT, Point, project(), projection (+15 more)
+Cohesion: 0.14
+Nodes (22): decodeArc(), formatNumber(), largeEnough(), main(), OUT, Point, project(), projection (+14 more)
 
 ### Community 351 - "close"
 Cohesion: 0.11
@@ -2107,10 +2188,10 @@ Nodes (17): additionalNations, author, categories, description, forced_modifiers
 
 ### Community 353 - "TrainStation"
 Cohesion: 0.02
-Nodes (42): Before/after tick check, GameUpdate, ReachableStation, TrainExecution, TrainStationExecution, RailNetwork, createRailNetwork(), GhostPathsCacheEntry (+34 more)
+Nodes (45): ReachableStation, TrainExecution, TrainStationExecution, RailNetwork, createRailNetwork(), GhostPathsCacheEntry, GhostRailNetworkState, GhostRailroad (+37 more)
 
 ### Community 354 - "ByteWriter"
-Cohesion: 0.19
+Cohesion: 0.15
 Nodes (4): ByteWriter, Codec, mappedCodec(), countBytes()
 
 ### Community 355 - "didier/manifest.json"
@@ -2162,8 +2243,8 @@ Cohesion: 0.11
 Nodes (17): categories, id, map, map16x, height, num_land_tiles, width, map4x (+9 more)
 
 ### Community 367 - "ClanMemberSearchPagination.test.ts"
-Cohesion: 0.10
-Nodes (15): ClanTransferView, clan, createDetailView(), createManageView(), createTransferView(), enterSearch(), member(), MEMBER_VIEW_CASES (+7 more)
+Cohesion: 0.09
+Nodes (16): transferLeadership(), ClanTransferView, clan, createDetailView(), createManageView(), createTransferView(), enterSearch(), member() (+8 more)
 
 ### Community 368 - "review"
 Cohesion: 0.12
@@ -2198,20 +2279,24 @@ Cohesion: 0.24
 Nodes (7): encodeSnapshotValue(), SnapshotByteWriter, SnapshotCodecError, textEncoder, TYPED_ARRAYS, TypedArray, typedArrayKind()
 
 ### Community 376 - "CreatorCodePanel.test.ts"
-Cohesion: 0.09
-Nodes (19): SetCreatorCodeResult, CreatorBinding, CreatorChangedDetail, CreatorCodePanel, UserMePlayer, consumeCreatorCodePath(), normalizeCreatorCodeInput(), parseCreatorCodePath() (+11 more)
+Cohesion: 0.10
+Nodes (14): clearCreatorCode(), SetCreatorCodeResult, CreatorBinding, CreatorChangedDetail, CreatorCodePanel, UserMePlayer, normalizeCreatorCodeInput(), creator() (+6 more)
+
+### Community 377 - "split-packages/run.ts"
+Cohesion: 0.12
+Nodes (23): packageOf(), rel(), specifierFor(), args, changed, clauseText(), dryRun, Edit (+15 more)
 
 ### Community 378 - "DesktopPresence.ts"
 Cohesion: 0.22
 Nodes (5): bridge(), DesktopPresence, desktopPresence, PresenceBridge, PresenceState
 
-### Community 379 - "MessageType"
-Cohesion: 0.08
-Nodes (25): MessageType, ALLIANCE_ACCEPTED, ALLIANCE_BROKEN, ALLIANCE_EXPIRED, ALLIANCE_REJECTED, ALLIANCE_REQUEST, ATTACK_CANCELLED, ATTACK_FAILED (+17 more)
+### Community 379 - "PlayerID"
+Cohesion: 0.04
+Nodes (31): MessageType, ALLIANCE_ACCEPTED, ALLIANCE_BROKEN, ALLIANCE_EXPIRED, ALLIANCE_REJECTED, ALLIANCE_REQUEST, ATTACK_CANCELLED, ATTACK_FAILED (+23 more)
 
 ### Community 380 - "LayerBoundaries.test.ts"
-Cohesion: 0.14
-Nodes (22): oxc-parser, ALLOWED, ALLOWLIST, ENGINE_NPM, ENGINE_SIDE, HOMEPAGE_RENDER_SETTINGS, homepageOnDemandImports(), packageOf() (+14 more)
+Cohesion: 0.12
+Nodes (24): oxc-transform@^0.154.0, oxc-parser, oxc-transform, ALLOWED, ALLOWLIST, ENGINE_NPM, ENGINE_SIDE, HOMEPAGE_RENDER_SETTINGS (+16 more)
 
 ### Community 381 - "deploy"
 Cohesion: 0.12
@@ -2262,20 +2347,24 @@ Cohesion: 0.15
 Nodes (17): description, items, type, items, additionalProperties, required, description, items (+9 more)
 
 ### Community 393 - "LocalServer.ts"
-Cohesion: 0.12
-Nodes (9): ReplayPanel, ReplaySpeedChangeEvent, SPEED_ORDER, defaultReplaySpeedMultiplier, ReplaySpeedMultiplier, fast, fastest, normal (+1 more)
+Cohesion: 0.08
+Nodes (14): ReplayPanel, ReplaySpeedChangeEvent, LocalServer, SPEED_ORDER, defaultReplaySpeedMultiplier, ReplaySpeedMultiplier, fast, fastest (+6 more)
 
 ### Community 394 - "debug/Layout.ts"
-Cohesion: 0.15
-Nodes (19): lil-gui@^0.21.0, lil-gui, ConfigProp, DebugNode, folder(), FolderNode, createDebugGui(), buildTree() (+11 more)
+Cohesion: 0.09
+Nodes (20): lil-gui@^0.21.0, lil-gui, FluentSlider, ConfigProp, DebugNode, folder(), FolderNode, createDebugGui() (+12 more)
 
-### Community 395 - "FrameNormalizer.ts"
-Cohesion: 0.15
-Nodes (18): FrameNormalizer, miscUpdatesOf(), snapshotPlayer(), UPDATE_TYPE_ROUTING, VIEW_DATA_ROUTING, applyPackedAttackTroops(), applyPackedPlayerStats(), applyUnitUpdateInPlace() (+10 more)
+### Community 395 - "ModalRouter.ts"
+Cohesion: 0.09
+Nodes (12): modalRouter, PathRouteParser, RegistryEntry, RoutableModal, FakeGameInfoView, ModalShell, copyToClipboardMock, FakeGameInfoView (+4 more)
+
+### Community 396 - "AbstractGraph"
+Cohesion: 0.07
+Nodes (4): AbstractGraph, AbstractGraphBuilder, AbstractGraphAStar, MinHeap
 
 ### Community 397 - "SinglePlayerModal"
-Cohesion: 0.06
-Nodes (5): loadAchievementEligibleMaps(), SinglePlayerModal, withDeadline(), getRandomMapType(), nationsConfigToSlider()
+Cohesion: 0.07
+Nodes (5): loadAchievementEligibleMaps(), SavedGameLoadError, SinglePlayerModal, withDeadline(), getRandomMapType()
 
 ### Community 398 - "GeneratorLogger"
 Cohesion: 0.14
@@ -2478,16 +2567,16 @@ Cohesion: 0.16
 Nodes (13): dependencies, @octokit/rest@^21.0.2, tsx@^4.21.0, description, engines, node, npm, @octokit/rest (+5 more)
 
 ### Community 449 - "TerraNulliusImpl"
-Cohesion: 0.29
-Nodes (6): Gotchas found while researching, Implementation: single-PR package split for #1701, Open questions, Scope and exit criteria, Tooling changes the move forces, Verification gates
+Cohesion: 0.15
+Nodes (7): Gotchas found while researching, Implementation: single-PR package split for #1701, Open questions, Scope and exit criteria, Tooling changes the move forces, Verification gates, TerraNulliusImpl
 
-### Community 450 - ".x"
-Cohesion: 0.18
-Nodes (7): hexDistFN(), isInIsometricTile(), isometricDistFN(), manhattanDistFN(), rectDistFN(), boundingBoxTiles(), getParabolaControlPoints()
+### Community 450 - "game.mjs"
+Cohesion: 0.13
+Nodes (17): attack(), clickWorld(), findSpawnTile(), openRadialMenu(), panTo(), spawn(), startSoloGame(), waitForGameReady() (+9 more)
 
-### Community 451 - "StreamsFeed.ts"
-Cohesion: 0.22
-Nodes (7): formatViewers(), EMPTY_FEED, Listener, streamsFeed, watchUrl(), getStreams, getStreams
+### Community 451 - "DesktopRelease.ts"
+Cohesion: 0.11
+Nodes (20): Roadmap item 4 in detail: the publish pipeline, Two hostnames per deployment, ALLOWED_ROOTS, asMapping(), buildDescriptor(), BuildOpts, clearDesktopReleaseCache(), getDescriptor() (+12 more)
 
 ### Community 452 - "PokiBridge.ts"
 Cohesion: 0.21
@@ -2495,15 +2584,15 @@ Nodes (13): AdStarted, call(), connectPokiBridge(), getURLParam(), isPokiBridged
 
 ### Community 453 - "MarketingConsentToast"
 Cohesion: 0.14
-Nodes (3): MarketingConsentToast, Consent, { setMarketingConsent }
+Nodes (4): setMarketingConsent(), MarketingConsentToast, Consent, { setMarketingConsent }
 
 ### Community 454 - "MenuMusic.test.ts"
 Cohesion: 0.18
 Nodes (9): howlInstances, lastVolume(), MockHowl, realAdd, registered, setVolumeLocked(), themes(), volumeWrites() (+1 more)
 
-### Community 455 - "SteamLinkModal.test.ts"
-Cohesion: 0.16
-Nodes (12): answerSteamLinkConflictMock, fetchSteamLinkTicketMock, getUserMeMock, invalidateUserMeMock, isLoggedInMock, makeUserMe(), reachCodeConfirm(), reachConfirmation() (+4 more)
+### Community 455 - "SteamLink.ts"
+Cohesion: 0.06
+Nodes (47): RFC-9110, answerSteamLinkConflict(), AnswerSteamLinkConflictResult, fetchSteamLinkConflict(), fetchSteamLinkTicket(), isSteamLinkHash(), isStringOrNull(), isValidSteamLinkCode() (+39 more)
 
 ### Community 456 - "zbin — compact binary serialization for zod schemas"
 Cohesion: 0.15
@@ -2694,8 +2783,8 @@ Cohesion: 0.18
 Nodes (13): items, minItems, type, items, type, enum, type, categories (+5 more)
 
 ### Community 505 - "AtlasMap.test.ts"
-Cohesion: 0.08
-Nodes (7): mapPlayerCounts(), MapDetails, MapStats, mapStats(), MapDisplay, loadCachedManifest(), render()
+Cohesion: 0.07
+Nodes (19): listedMaps, maps, mapPlayerCounts(), MapStats, mapStats(), MapDisplay, getFavoriteMaps(), starIcon() (+11 more)
 
 ### Community 506 - "NavNotificationsController.ts"
 Cohesion: 0.14
@@ -2873,37 +2962,41 @@ Nodes (11): author, categories, id, location, lat, lon, name, nations (+3 more)
 Cohesion: 0.15
 Nodes (12): ignorePatterns, printWidth, $schema, sortImports, groups, ignoreCase, newlinesBetween, order (+4 more)
 
-### Community 551 - "StreamsFeed"
-Cohesion: 0.39
-Nodes (3): StreamsFeed, isFeedFresh(), StreamsFeedPoller
+### Community 549 - "MatchmakingModal"
+Cohesion: 0.13
+Nodes (5): MatchmakingModal, lastCall(), lastUrl(), mocks, openWith()
+
+### Community 551 - "ClanBrowseView.ts"
+Cohesion: 0.17
+Nodes (11): ClanBrowseFilter, ClanBrowseResponse, ClanBrowseSort, clanBrowseSeed(), fetchClans(), browseFilterOptions, browseSortOptions, BrowseState (+3 more)
 
 ### Community 553 - "Packages"
 Cohesion: 0.23
 Nodes (12): Architecture, CDN / Static Assets, Packages, Simulation Flow (Intent → Execution), atan2(), atanUnit(), exp(), f64 (+4 more)
 
-### Community 554 - "tick-trace.ts"
-Cohesion: 0.19
-Nodes (12): feed(), GAMES, main(), parseArgs(), recordGame(), RECORDS_DIR, ROOT, sha() (+4 more)
-
 ### Community 555 - "PurchaseButton"
-Cohesion: 0.08
-Nodes (8): Product, ConfirmDialog, InsufficientCurrencyDialog, isOnSale(), PurchaseButton, renderPrice(), InsufficientCurrency, PurchaseResult
+Cohesion: 0.17
+Nodes (5): Product, isOnSale(), PurchaseButton, renderPrice(), PurchaseResult
 
 ### Community 556 - "PreviewAnimationTicker"
-Cohesion: 0.08
-Nodes (29): RailroadDestructionUpdate, computeRailTiles(), railDirection(), railExtremity(), RailroadAnim, RailTile, RailType, BOTTOM_LEFT (+21 more)
-
-### Community 559 - "GoogleTag.ts"
 Cohesion: 0.14
-Nodes (8): resetAdForensics(), GoogleTag, GptSlot, PubAdsService, SlotRenderEndedEvent, Window, placeFrame(), ttxOverlay()
+Nodes (16): loadPreviewMap(), appendTrailSegment(), at(), bresenhamLine(), createBaseUnitState(), MIRV_WARHEAD_TARGETS, PreviewAnimationTicker, buildPreviewMap() (+8 more)
+
+### Community 557 - "UsernamePanel"
+Cohesion: 0.16
+Nodes (4): PutUsernameResponse, UpdateUsernameResult, UsernamePanel, showToastAfterReload()
+
+### Community 559 - "ClanStatsBreakdown.ts"
+Cohesion: 0.14
+Nodes (8): RANKED_BREAKDOWN_KEYS, TEAM_BREAKDOWN_KEYS, renderWLBarRow(), ClanStatsBreakdown, hasGames(), labelForSubKey(), LEVEL_LEFT_PAD, SubKey
 
 ### Community 560 - "EquippedCosmeticsRow.ts"
-Cohesion: 0.05
-Nodes (24): DefaultPattern, PatternDecoder, PlayerPattern, PlayerSkin, CosmeticBackground, EquippedCosmeticsRow, rarityRing, DEFAULT_PRIMARY (+16 more)
+Cohesion: 0.11
+Nodes (11): isNukeExplosionEffect(), EquippedCosmeticsRow, rarityRing, EquippedCosmetic, equippedCosmetics(), EquippedCosmeticType, keyForEquippedPattern(), matchesStoreItem() (+3 more)
 
 ### Community 561 - "JoinLobbyModal"
 Cohesion: 0.07
-Nodes (7): GameInfo, JoinLobbyModal, alertMocks, lobbyModal(), presenceMocks, renderConfig(), trackingModal()
+Nodes (6): JoinLobbyModal, alertMocks, lobbyModal(), presenceMocks, renderConfig(), trackingModal()
 
 ### Community 562 - "env"
 Cohesion: 0.18
@@ -2941,6 +3034,10 @@ Nodes (10): additionalNations, author, categories, description, id, name, nation
 Cohesion: 0.18
 Nodes (10): categories, id, location, lat, lon, name, nations, $schema (+2 more)
 
+### Community 571 - "bootstrap"
+Cohesion: 0.16
+Nodes (12): claimGameClientReload(), loadGameClient(), prefetchGameClient(), initLayout(), prefetchModals(), bootstrap(), installCtrlWheelZoomBlocker(), installDoubleTapZoomBlocker() (+4 more)
+
 ### Community 572 - "engine-api/package.json"
 Cohesion: 0.22
 Nodes (10): dependencies, @openfront/zbin@0.0.0, zod@^4.4.2, exports, @openfront/zbin, zod, name, private (+2 more)
@@ -2953,9 +3050,9 @@ Nodes (10): dependencies, @openfront/engine-api@0.0.0, zod@^4.4.2, exports, @ope
 Cohesion: 0.18
 Nodes (5): SearchMapTileType, Land, Shore, Water, TerrainSearchMap
 
-### Community 575 - ".mountPlayer"
-Cohesion: 0.26
-Nodes (5): compactViewportQuery(), isCompactViewport(), featuredStream(), loadTwitchSdk(), broadcastKey()
+### Community 575 - "TroubleshootingModal"
+Cohesion: 0.13
+Nodes (9): TroubleshootingModal, BrowserInfo, collectGraphicsDiagnostics(), GPUInfo, GraphicsDiagnostics, PerformanceInfo, PowerInfo, RendererType (+1 more)
 
 ### Community 576 - "resources/manifest.json"
 Cohesion: 0.18
@@ -2965,13 +3062,25 @@ Nodes (10): dir, display, display_override, icons, id, lang, name, orientation (
 Cohesion: 0.13
 Nodes (11): allMapKeys, EN_JSON, EN_JSON_META_KEYS, MAP_GEN_MAPS, mapsById, NationEntry, PREVIEW_FOLDER_EXCEPTIONS, readInfoJson() (+3 more)
 
+### Community 578 - "state"
+Cohesion: 0.05
+Nodes (7): ClanMyRequestsView, DeleteAccountDialog, PurchaseNudgeModal, SteamWishlist, ReplayControls, { isOnCrazyGames, isDesktopShell }, state
+
 ### Community 579 - "StructureIconsLayerLookupPerf.ts"
 Cohesion: 0.18
 Nodes (10): benchmark@^2.1.4, benchmark, activeLookupIds, canUpgradeIds, inactiveLookupIds, rendersArray, rendersMap, results (+2 more)
 
-### Community 582 - "ReplayTypes.ts"
-Cohesion: 0.15
-Nodes (17): EventCollector, EncoderOptions, StreamingEncoder, EncodeCtx, ConstructionStartEvent, DeadUnitEvent, DEFAULT_KEYFRAME_INTERVAL, EncodedChunk (+9 more)
+### Community 580 - "AccountModalProgression.test.ts"
+Cohesion: 0.12
+Nodes (13): CardEl, claimRewardMock, fetchPlayerByIdMock, fetchPublicPlayerProgressMock, getUserMeMock, ModalShell, openOnProgression(), OWN_PROGRESS (+5 more)
+
+### Community 582 - "EventCollector.ts"
+Cohesion: 0.08
+Nodes (25): RailroadDestructionUpdate, computeRailTiles(), railDirection(), railExtremity(), RailroadAnim, RailTile, RailType, BOTTOM_LEFT (+17 more)
+
+### Community 583 - "SettingsModal"
+Cohesion: 0.07
+Nodes (8): defaultSaveName(), SettingsModal, ShowSettingsModalEvent, api, identity, open(), SNAPSHOT, TestMenu
 
 ### Community 584 - "range.sh"
 Cohesion: 0.40
@@ -2993,17 +3102,13 @@ Nodes (9): additionalNations, author, categories, description, id, name, nations
 Cohesion: 0.20
 Nodes (9): author, categories, description, display_name, id, name, nations, $schema (+1 more)
 
-### Community 589 - "Game Architecture"
-Cohesion: 0.29
-Nodes (6): `CDN_BASE` format, Flow, Game Architecture, Intents, Simulation Architecture, Static Assets / CDN
+### Community 589 - "CopyButton"
+Cohesion: 0.13
+Nodes (6): CopyButton, copyToClipboardMock, FakePlayerStatsTreeView, fetchPublicPlayerProfileMock, ModalShell, statsTree
 
-### Community 591 - "UserSettingModal.graphics.test.ts"
-Cohesion: 0.11
-Nodes (3): GraphicsPresetSelector, GraphicsPresetTools, resetGraphicsSettings()
-
-### Community 592 - "HostLobbyModal.ts"
-Cohesion: 0.09
-Nodes (18): LobbyInfoEvent, deleteLobbyPreset(), LOBBY_PRESETS_KEY, LobbyPreset, LobbyPresetConfig, LobbyPresetConfigSchema, LobbyPresetSchema, matchesPresetName() (+10 more)
+### Community 590 - "GoldRateTracker"
+Cohesion: 0.19
+Nodes (4): GoldRateTracker, goldRateTracker, GoldSample, Sample
 
 ### Community 593 - "FriendsList.notifications.test.ts"
 Cohesion: 0.22
@@ -3015,10 +3120,6 @@ Nodes (7): {
   nextFriendRequestsSeq,
   publishFriendRequests,
 }, FriendsElement, mount(), newerRequest, otherAccountRequest, pendingRequest, settle()
-
-### Community 594 - "state"
-Cohesion: 0.05
-Nodes (6): ClanMyRequestsView, CopyButton, IOSAddToHomeScreenBanner, HelpModal, matchMediaDescriptor, state
 
 ### Community 595 - "processMap"
 Cohesion: 0.14
@@ -3088,6 +3189,14 @@ Nodes (8): author, categories, hidden, id, name, nations, $schema, translation_k
 Cohesion: 0.25
 Nodes (8): dependencies, zod@^4.4.2, exports, zod, name, private, type, version
 
+### Community 613 - "GameMetrics"
+Cohesion: 0.17
+Nodes (5): GameMetrics, Percentiles, percentiles(), reportMeasurement(), reportMeasurement
+
+### Community 614 - "GameHealth"
+Cohesion: 0.22
+Nodes (7): GameHealth, GameHealthContext, GameHealthState, baseline(), createHealth(), frames(), healthy
+
 ### Community 617 - "/release-notes <range>"
 Cohesion: 0.25
 Nodes (7): 1. Pick the range and run the script, 2. Patch block, 3. Major body (`.0` beta), Author names, Don't, Output, /release-notes <range>
@@ -3141,8 +3250,8 @@ Cohesion: 0.25
 Nodes (7): compilerOptions, lib, types, exclude, extends, include, ../../tsconfig.base.json
 
 ### Community 630 - "IdentityTokenCard"
-Cohesion: 0.07
-Nodes (13): getIdentityTokenAudiences(), ButtonSize, ButtonVariant, ButtonWidth, IconPosition, OButton, IdentityTokenCard, styledSelect() (+5 more)
+Cohesion: 0.13
+Nodes (6): createIdentityToken(), getIdentityTokenAudiences(), getServedConfig(), IdentityTokenCard, mockAudiences, mockCreate
 
 ### Community 631 - "engine/tsconfig.json"
 Cohesion: 0.25
@@ -3152,13 +3261,21 @@ Nodes (7): compilerOptions, lib, types, exclude, extends, include, ../../tsconfi
 Cohesion: 0.25
 Nodes (8): Slot, Ally, Attack, Back, Boat, Build, Delete, Info
 
-### Community 634 - "StreamsFeed.test.ts"
-Cohesion: 0.29
-Nodes (5): StreamsFeedSchema, getServedConfig(), getStreams(), entry, getStreamsMock
+### Community 636 - "ProgressionModals.test.ts"
+Cohesion: 0.17
+Nodes (11): cardState(), eligibleXp, FakeGameInfoView, FakePlayerStatsTreeView, {
+  getUserMe,
+  fetchPublicPlayerProfile,
+  fetchPublicPlayerProgress,
+  fetchMyGameXp,
+  pollGameXp,
+  isLoggedIn,
+  crazyGamesSDK,
+}, idle(), me, ModalShell (+3 more)
 
-### Community 637 - "SinglePlayerModalSavedGame.test.ts"
-Cohesion: 0.29
-Nodes (5): api, dialogs, header(), SNAPSHOT, worker
+### Community 637 - "GameXpRewards.test.ts"
+Cohesion: 0.22
+Nodes (11): GameXpReward, { claimReward, getUserMe, invalidateUserMe, fetchCosmetics, catalog }, FakeCosmeticPreview, firebird, game(), milestone(), mount(), reward() (+3 more)
 
 ### Community 639 - "RelationSmiley.ts"
 Cohesion: 0.25
@@ -3186,7 +3303,7 @@ Nodes (6): compilerOptions, lib, types, extends, include, ../../../../tsconfig.b
 
 ### Community 646 - "translateText"
 Cohesion: 0.01
-Nodes (135): assetUrl(), getAssetManifest(), getCdnBase(), dompurify, howler, lit, ChangeUsernameModal, Ban (+127 more)
+Nodes (213): isVerifiedUsername(), TribeLeaderboardEntry, TribeLeaderboardResponse, assetUrl(), getAssetManifest(), getCdnBase(), dompurify, lit (+205 more)
 
 ### Community 647 - "Lemon Drizzle Cake"
 Cohesion: 0.29
@@ -3209,16 +3326,16 @@ Cohesion: 0.29
 Nodes (6): compilerOptions, paths, exclude, extends, include, ../../tsconfig.json
 
 ### Community 653 - "NewsBox.ts"
-Cohesion: 0.14
-Nodes (11): NewsItem, getNews(), filterNewsByPlatform(), getDismissedIds(), getVisibleNewsItems(), NewsBox, saveDismissedIds(), typeLabelColors (+3 more)
+Cohesion: 0.10
+Nodes (15): NewsItem, Cosmetics, Promotion, getNews(), filterNewsByPlatform(), getDismissedIds(), getVisibleNewsItems(), NewsBox (+7 more)
 
-### Community 654 - "ModalRouter"
+### Community 654 - "ProfileGameStatsNavigation.test.ts"
+Cohesion: 0.09
+Nodes (8): closeMobileSidebar(), initNavigation(), Mountable, copyToClipboardMock, FakeGameInfoView, FakeIntersectionObserver, FakePlayerStatsTreeView, ModalShell
+
+### Community 655 - "Auth.ts"
 Cohesion: 0.03
-Nodes (39): fetchClanGames(), ModalRouter, modalRouter, PathRouteParser, RegistryEntry, RoutableModal, closeMobileSidebar(), initNavigation() (+31 more)
-
-### Community 655 - "ApiSchemas.ts"
-Cohesion: 0.02
-Nodes (167): RFC-9110, ClaimAllRewardsResponse, FfaRankLeaderboardResponse, FfaRankLeaderboardResponseSchema, FfaRankPositionResponseSchema, IdentityTokenAudiencesResponseSchema, IdentityTokenResponse, IdentityTokenResponseSchema (+159 more)
+Nodes (83): PR 5 — Per-game routing in the client (the seam PR 2 built), TokenPayloadSchema, base64urlToUuid(), uuidToBase64url(), JwksSchema, cancelSubscription(), changeSubscriptionTier(), deleteAccount() (+75 more)
 
 ### Community 656 - "Authentication & Authorization Flow"
 Cohesion: 0.33
@@ -3284,17 +3401,17 @@ Nodes (6): Gate logic (first match wins), Known limitations, Local testing, PR G
 Cohesion: 0.36
 Nodes (5): documentStylesSheet(), populate(), queue, repopulate(), StrictSheet
 
-### Community 675 - "PastGameXpCard"
-Cohesion: 0.13
-Nodes (9): GameXpResponseSchema, PastGameXpCard, PastGameXpView, render(), levelUp, milestone, noLevelUp, q() (+1 more)
+### Community 675 - "Progression.ts"
+Cohesion: 0.07
+Nodes (35): XpBreakdown, levelBadgeAccent(), RankStyle, DEFAULT_BOOST_COLORS, PastGameXpCard, PastGameXpView, xpBar(), xpBonusText() (+27 more)
 
-### Community 677 - "PokiSDK.test.ts"
-Cohesion: 0.25
-Nodes (3): FakePoki, reload(), WrapperMessage
+### Community 676 - "ClientTickPerf.ts"
+Cohesion: 0.22
+Nodes (13): CpuProfile, CpuProfileNode, main(), Options, parseArgs(), printReport(), quantile(), startViteServer() (+5 more)
 
 ### Community 678 - "ClanModalTestUtils.ts"
 Cohesion: 0.08
-Nodes (28): badgeTextFor(), bodyTextFor(), FakeIntersectionObserver, mockFetch(), mountView(), okPage(), renderGame(), typeLabelFor() (+20 more)
+Nodes (35): fetchClanGames(), DetailReturnTab, LIST_TABS, ListTab, View, ClanGameHistoryCache, badgeTextFor(), bodyTextFor() (+27 more)
 
 ### Community 679 - "TradeTrainGolden.test.ts"
 Cohesion: 0.33
@@ -3305,8 +3422,12 @@ Cohesion: 0.18
 Nodes (13): currentFile, generateScenarioContent(), generateScenarioForMap(), GenerationOptions, main(), mapsDirectory, pathfindingDir, Port (+5 more)
 
 ### Community 682 - "ProgressionApi.ts"
-Cohesion: 0.04
-Nodes (40): FfaGameRatingResponseSchema, PrestigeResponseSchema, FfaGameRatingFetchResult, pollFfaGameRating(), PollFfaGameRatingOptions, GameStatsModal, loadPastGameXpCard(), RECENT_GAME_MS (+32 more)
+Cohesion: 0.06
+Nodes (31): FfaGameRatingResponseSchema, GameXpResponseSchema, PrestigeResponseSchema, ProgressionConfigSchema, fetchMyFfaGameRating(), FfaGameRatingFetchResult, pollFfaGameRating(), PollFfaGameRatingOptions (+23 more)
+
+### Community 683 - "AttackingTroopsController"
+Cohesion: 0.22
+Nodes (5): alignClusterOrder(), AttackingTroopsController, Slot, AttackTroopLabel, slot()
 
 ### Community 684 - "update.sh"
 Cohesion: 0.60
@@ -3352,9 +3473,21 @@ Nodes (5): special_team_count, description, maximum, minimum, type
 Cohesion: 0.40
 Nodes (5): Client Only, Connecting to staging or production backends, Development Mode, 🎮 Running the Game, Server Only
 
+### Community 697 - "UsernameInput.test.ts"
+Cohesion: 0.15
+Nodes (5): STEAM_GRANT_NOTICE_KEY, checkClanTagOwnership, getUserMe, invalidateUserMe, { showInGameAlert, showInGameConfirm }
+
 ### Community 698 - "NavUtilityIcons.notifications.test.ts"
 Cohesion: 0.40
 Nodes (4): { closeMobileSidebar, markVersionSeen, notificationState }, Mountable, openMenu(), trigger()
+
+### Community 699 - "RankedType"
+Cohesion: 0.24
+Nodes (8): RankedType, ClanWars, FreeForAll, OneVOne, TwoVTwo, consumeRequeueUrl(), requeueModeForRankedType(), requeueModeFromParam()
+
+### Community 700 - "AdmittedLobbies.ts"
+Cohesion: 0.24
+Nodes (8): admitted, key(), rememberAdmitted(), wasAdmitted(), getPersistentID(), getPersistentIDFromLocalStorage(), generateCryptoRandomUUID(), persistentID
 
 ### Community 702 - "Matchmaking integration harnesses"
 Cohesion: 0.40
@@ -3383,6 +3516,10 @@ Nodes (4): name, runs-on, timeout-minutes, format
 ### Community 708 - "custom_tribes"
 Cohesion: 0.50
 Nodes (4): items, type, anyOf, custom_tribes
+
+### Community 709 - "PlayerProfilePage.test.ts"
+Cohesion: 0.18
+Nodes (9): fetchPublicPlayerProfileMock, ModalShell, openFromHash(), openFromPath(), profile, settle(), TestPageModal, TestPopupModal (+1 more)
 
 ### Community 710 - "id"
 Cohesion: 0.50
@@ -3416,73 +3553,89 @@ Nodes (3): MAP_NAME, PORTS, ROUTES
 Cohesion: 0.50
 Nodes (4): width, exclusiveMinimum, maximum, type
 
-### Community 735 - "FrameEncoder.ts"
-Cohesion: 0.24
-Nodes (13): Chunk, FRAME_DELTA, FRAME_KEYFRAME, SEC_MISC, SEC_NAMES, SEC_PLAYERS, SEC_TERRAIN, SEC_TILES (+5 more)
-
-### Community 738 - "LobbyPlayerView.levelBadge.test.ts"
-Cohesion: 0.21
-Nodes (7): BADGE, cardRows(), getUserMe, LevelBadgeEl, pills(), playerRows(), tokens()
-
 ### Community 739 - "CLAUDE.md"
 Cohesion: 0.29
 Nodes (5): Commands, Key Files, Tech Stack, Testing Patterns, UI Text / i18n
 
-### Community 742 - "ToggleInputCard.ts"
-Cohesion: 0.15
-Nodes (5): InputCard, CARD_LABEL_CLASS, cardClass(), INPUT_CLASS, ToggleInputCard
+### Community 744 - "ClanBoostDialog.test.ts"
+Cohesion: 0.29
+Nodes (9): alertText(), buyButton(), buyClanBoost, fetchClanBoostStatus, flush(), open(), q(), status() (+1 more)
 
 ### Community 745 - "AnalyzeCpuProfile.ts"
 Cohesion: 0.20
 Nodes (8): byId, inclusiveByFn, p, parent, Profile, ProfileNode, rows, selfMicros
 
-### Community 746 - "RenderDesktopDescriptor.test.ts"
-Cohesion: 0.15
-Nodes (16): ALLOWED_ROOTS, AssetHash, hashDirectory(), hashSourceTree(), isOverlayServable(), main(), walk(), CLI (+8 more)
+### Community 746 - "buildAssetHashes.ts"
+Cohesion: 0.38
+Nodes (7): ALLOWED_ROOTS, AssetHash, hashDirectory(), hashSourceTree(), isOverlayServable(), main(), walk()
 
-### Community 751 - "GameMapLoader.ts"
-Cohesion: 0.08
-Nodes (22): Capturable Landmarks Implementation Plan, Global Constraints, MapManifest, TerrainMapData, FetchGameMapLoader, GameMapLoader, MapData, loadLayerImages() (+14 more)
+### Community 747 - "RenderDesktopDescriptor.test.ts"
+Cohesion: 0.22
+Nodes (9): CLI, __dirname, REPO_ROOT, run(), RunResult, stage(), STAGING_ENV, TEMPLATE_SHA (+1 more)
 
-### Community 752 - "showInGameAlert"
+### Community 749 - "CreatorCode.ts"
+Cohesion: 0.56
+Nodes (6): consumeCreatorCodePath(), parseCreatorCodePath(), PENDING_CREATOR_CODE_KEY, resumePendingCreatorCode(), stashPendingCreatorCode(), takePendingCreatorCode()
+
+### Community 751 - "FetchGameMapLoader"
+Cohesion: 0.11
+Nodes (11): FetchGameMapLoader, MapData, __dirname, __filename, mapDirName(), readMapFile(), resourcesDir, staticDir (+3 more)
+
+### Community 752 - "Cosmetics.ts"
 Cohesion: 0.03
-Nodes (53): UserSubscription, AccountSettingsModal, openSubscriptionPortal(), CustomCurrencyCard, InlineCheckoutConfig, PlutoniumIcon, UNENTITLED_STATUSES, grantedDaysRemaining() (+45 more)
+Nodes (76): Crown, Subscription, getUserMe(), balanceOutcome(), broadcastFreshUserMe(), cosmeticPackRelationship(), cosmeticRelationship(), COSMETICS_FETCH_TIMEOUT_MS (+68 more)
 
 ### Community 754 - "DeployIdentity.test.ts"
 Cohesion: 0.32
 Nodes (7): __dirname, extractBlock(), failure(), Identity, Inputs, resolve(), SCRIPT
 
-### Community 760 - "Cosmetics.ts"
-Cohesion: 0.04
-Nodes (61): giftSubscriptionOf(), isGrantedSubscription(), paidSubscriptionOf(), subscriptionsOf(), CosmeticsSchema, Crown, FREE_COSMETIC_FLARES, describeFlareCosmetic() (+53 more)
+### Community 755 - "LinkResult.test.ts"
+Cohesion: 0.22
+Nodes (5): ConflictModal, account, alertMock, fetchSteamLinkConflictMock, loadModalMock
 
-### Community 767 - "SteamHandoffModal"
-Cohesion: 0.16
-Nodes (3): SteamHandoffModal, cancelLaunchMock, launchSteamJoinMock
+### Community 757 - "run-openfront/SKILL.md"
+Cohesion: 0.25
+Nodes (7): Drive a full game (WebGL, in-game interaction), Drive it (agent path), Prerequisites (one-time per machine, no sudo), Run (human path), Run the dev server, Test, Troubleshooting
+
+### Community 761 - "DifficultyInfo.ts"
+Cohesion: 0.25
+Nodes (3): DIFFICULTIES_WITH_NOTE, DIFFICULTY_TROOP_PERCENT, DifficultyInfo
+
+### Community 763 - "ModalTabRow.test.ts"
+Cohesion: 0.33
+Nodes (4): layOut(), tabRow(), tabs, TestInlineModal
 
 ### Community 768 - "PackedMotionPlanKind"
 Cohesion: 0.67
 Nodes (3): PackedMotionPlanKind, GridPathSet, TrainRailPathSet
 
+### Community 771 - "UsernameClaimPrefill.test.ts"
+Cohesion: 0.47
+Nodes (5): field(), fieldValue(), { getUser, updateUsername }, mount(), player()
+
+### Community 773 - "UpdateRestartPolicy.test.ts"
+Cohesion: 0.50
+Nodes (4): __dirname, extractPolicyBlock(), restartPolicyFor(), SCRIPT
+
 ## Knowledge Gaps
-- **333 isolated node(s):** `BOTTOM_LEFT`, `BOTTOM_RIGHT`, `HORIZONTAL`, `TOP_LEFT`, `TOP_RIGHT` (+328 more)
+- **333 isolated node(s):** `Atoms`, `ConqueredGold`, `ConquestBots`, `ConquestHumans`, `ConquestNations` (+328 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 10252 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **80 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **114 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `vitest` connect `vitest` to `AccountModal.ts`, `Payments.ts`, `GameTypes.ts`, `showToast`, `ClientEnv`, `GameView`, `Main.ts`, `ViverseSDK.test.ts`, `LobbyTeamView`, `InputHandler.ts`, `AudioMixer.ts`, `PlayerView`, `RenderSettings`, `types/index.ts`, `BaseModal`, `.emit`, `Schemas.ts`, `ProfileProgression.ts`, `ClientGameRunner.ts`, `GameUpdates.ts`, `Worker.ts`, `RadialMenuElements.ts`, `PlayerInfoOverlay.ts`, `OnboardingOverlay.ts`, `WireSchemas.ts`, `GameMap.ts`, `GPURenderer`, `UserSettings`, `Packages`, `PurchaseButton`, `WebGLFrameBuilder.ts`, `ApiSchemas.ts`, `name-pass/index.ts`, `GoogleTag.ts`, `EquippedCosmeticsRow.ts`, `JoinLobbyModal`, `ServerEnv`, `PreviewAnimationTicker`, `NationStructureBehavior.ts`, `GameImpl.ts`, `GameXpPanel.ts`, `ClientMsgRateLimiter.ts`, `LobbyCoordinatorClient.ts`, `DesktopUpdateStateSeeding.test.ts`, `StoreModal.test.ts`, `WorkerMessages.ts`, `DoomsdayClockExecution.test.ts`, `ClanApi.ts`, `src/index.ts`, `DetailedGameViewModal.ts`, `client/ServerList.ts`, `LegendCeremony.ts`, `components/LevelBadge.ts`, `CosmeticPreviewRenderer`, `.inSpawnPhase`, `getUserMe`, `ClanBoostDialog`, `package.json`, `StatsSchemas.ts`, `PublicAssetManifest.ts`, `ProvisionalProgress.ts`, `GoldRateTracker`, `HostLobbyModal.ts`, `FriendsList.notifications.test.ts`, `state`, `ScriptedGame.ts`, `EffectPreview.ts`, `TransportReconnect.test.ts`, `UserMeResponse`, `ClientRenderPipelinePerf.test.ts`, `Config`, `ProvisionalXpAtDeath.ts`, `GameModeSelector`, `UnitPass`, `TileRef`, `Transport`, `ClanDonateDialog`, `PlayPageTopBar.test.ts`, `InventoryModal.ts`, `DesktopRelease.ts`, `NameBoxCalculatorPerf.ts`, `InlineCheckout`, `Transport.ts`, `ProfileShare`, `PrestigeFlow`, `LeaderboardPlayerList.ts`, `NavAccountMenu.ts`, `rules.ts`, `IdentityTokenCard`, `Telemetry.ts`, `UserSettingModal`, `responseHasLinkedIdentity`, `StreamsFeed.test.ts`, `SinglePlayerModalSavedGame.test.ts`, `ClanDonationsView.ts`, `RankType`, `translateText`, `PlayerProfileModal.ts`, `ProfileCard.ts`, `AllPlayersStats`, `GameServer.ts`, `ModalRouter`, `ApiSchemas.ts`, `SavedGamesApi.ts`, `RankedCheckin.ts`, `LeaderboardTribeTable`, `ResolvedCosmetic`, `WinModalProvisionalXp.test.ts`, `PlayerRow`, `WinModal`, `AdGatekeeper`, `SharedStyles.ts`, `FriendsList.ts`, `PastGameXpCard`, `PokiSDK.test.ts`, `ClanModalTestUtils.ts`, `FeaturedStream.ts`, `TerrainPass.ts`, `TribesPanel.ts`, `ProgressionApi.ts`, `PlayerStatsTree.ts`, `Matchmaking.test.ts`, `SinglePlayerModal.ts`, `GlobalDomTeardown.test.ts`, `DiffPlayerUpdatePerf.ts`, `ref_fs`, `CosmeticSchemas.ts`, `NavUtilityIcons.notifications.test.ts`, `PlayerGameHistoryView.ts`, `PlayerStats`, `ZbDecodeError`, `NavUtilityIcons.quit.test.ts`, `MapPlaylist.ts`, `ReplayProcessor.ts`, `TurnstileToken.ts`, `hardening.test.ts`, `LobbyPlayerView.levelBadge.test.ts`, `RenderDesktopDescriptor.test.ts`, `LazyCosmeticGrids.test.ts`, `GameMapLoader.ts`, `showInGameAlert`, `DeployIdentity.test.ts`, `Cosmetics.ts`, `SteamHandoffModal`, `LangSelector`, `Client`, `HomepagePromos.test.ts`, `ClanMemberSearchPagination.test.ts`, `CreatorCodePanel.test.ts`, `DesktopPresence.ts`, `LayerBoundaries.test.ts`, `LocalServer.ts`, `StreamsFeed.ts`, `MarketingConsentToast`, `MenuMusic.test.ts`, `SteamLinkModal.test.ts`, `SettingSlider`, `AtlasMap.test.ts`, `NavNotificationsController.ts`?**
-  _High betweenness centrality (0.104) - this node is a cross-community bridge._
+- **Why does `vitest` connect `vitest` to `AccountSettingsPanel`, `Payments.ts`, `Cell`, `GameTypes.ts`, `showToast`, `ClientEnv`, `GameView`, `Main.ts`, `LobbyTeamView`, `InputHandler.ts`, `AudioMixer.ts`, `RenderSettings`, `types/index.ts`, `.emit`, `Schemas.ts`, `ProfileProgression.ts`, `GameHealthIndicators`, `GameUpdates.ts`, `Worker.ts`, `MapRenderer`, `OnboardingOverlay.ts`, `MatchmakingModal`, `WireSchemas.ts`, `GPURenderer`, `FfaRatingPanel.ts`, `.renderOverlays`, `Packages`, `name-pass/index.ts`, `PathFinder.ts`, `ApiSchemas.ts`, `PreviewAnimationTicker`, `ServerEnv`, `EquippedCosmeticsRow.ts`, `JoinLobbyModal`, `UsernameInput`, `WebGLFrameBuilder.ts`, `UnitDisplay`, `GameImpl.ts`, `GameXpPanel.ts`, `AccountModal`, `SocketIngress.ts`, `DesktopShell.ts`, `StoreModal.test.ts`, `bootstrap`, `WorkerMessages.ts`, `ClanApi.ts`, `src/index.ts`, `DetailedGameViewModal.ts`, `client/ServerList.ts`, `LegendCeremony.ts`, `state`, `AccountModalProgression.test.ts`, `components/LevelBadge.ts`, `WinModal`, `SettingsModal`, `ClanBoostDialog`, `package.json`, `StatsSchemas.ts`, `CosmeticPreviewRenderer`, `PublicAssetManifest.ts`, `ProvisionalProgress.ts`, `CopyButton`, `getUserMe`, `HostLobbyModalWinThreshold.test.ts`, `FriendsList.notifications.test.ts`, `GameUpdateType`, `HelpModal`, `EffectPreview.ts`, `TransportReconnect.test.ts`, `UsernameInput.ts`, `ClientRenderPipelinePerf.test.ts`, `Config`, `ProvisionalXpAtDeath.ts`, `RosterLevelBadge.test.ts`, `GameModeSelector`, `fx-pass/index.ts`, `TileRef`, `GameModeSelector.ts`, `ClanDonateDialog`, `PlayPageTopBar.test.ts`, `InventoryModal.ts`, `GameMetrics`, `GameHealth`, `TransformHandler`, `ref_child_process`, `InlineCheckout`, `NameBoxCalculatorPerf.ts`, `ProfileShare`, `PrestigeFlow`, `LeaderboardPlayerList.ts`, `NavAccountMenu.ts`, `rules.ts`, `IdentityTokenCard`, `UserSettings`, `Telemetry.ts`, `responseHasLinkedIdentity`, `TokenLoginModal`, `ProgressionModals.test.ts`, `GameXpRewards.test.ts`, `ClanDonationsView.ts`, `BannedModal`, `RankType`, `translateText`, `AllPlayersStats`, `ProfileCard.ts`, `IntentAuthorization.test.ts`, `ProfileGameStatsNavigation.test.ts`, `Auth.ts`, `SavedGamesApi.ts`, `ResolvedCosmetic`, `LobbyCard.ts`, `WinModalProvisionalXp.test.ts`, `HostLobbyModal`, `PlayerRow`, `WinModalXp.test.ts`, `ViverseSDK`, `AdGatekeeper`, `SharedStyles.ts`, `FriendsList.ts`, `TribesPanel.ts`, `Progression.ts`, `ClanModalTestUtils.ts`, `TerrainPass.ts`, `AdForensics.ts`, `ProgressionApi.ts`, `AttackingTroopsController`, `PlayerStatsTree.ts`, `Matchmaking.test.ts`, `GhostPreviewData`, `GlobalDomTeardown.test.ts`, `RankedCheckin.ts`, `DiffPlayerUpdatePerf.ts`, `MapManifest.ts`, `CosmeticSchemas.ts`, `NavUtilityIcons.notifications.test.ts`, `AdmittedLobbies.ts`, `PlayerStats`, `RankedType`, `AdminBotRoutes.ts`, `UsernameInput.test.ts`, `PlayerProfilePage.test.ts`, `ZbDecodeError`, `NavUtilityIcons.quit.test.ts`, `MapPlaylist.ts`, `FeaturedStream.ts`, `SubscriptionPanel`, `ConfirmDialog`, `TurnstileToken.ts`, `hardening.test.ts`, `ClanBoostDialog.test.ts`, `buildAssetHashes.ts`, `ReachabilityGating.test.ts`, `SteamUserHeader.ts`, `CreatorCode.ts`, `LazyCosmeticGrids.test.ts`, `FetchGameMapLoader`, `Cosmetics.ts`, `RenderDesktopDescriptor.test.ts`, `DeployIdentity.test.ts`, `LinkResult.test.ts`, `LobbyCoordinatorClient.ts`, `ModalTabRow.test.ts`, `SinglePlayerModalUserMe.test.ts`, `UsernameClaimPrefill.test.ts`, `UpdateRestartPolicy.test.ts`, `PlayerGameHistoryView`, `LangSelector`, `Client`, `HomepagePromos.test.ts`, `PokiSDK.ts`, `ClanMemberSearchPagination.test.ts`, `CreatorCodePanel.test.ts`, `DesktopPresence.ts`, `LayerBoundaries.test.ts`, `LocalServer.ts`, `ModalRouter.ts`, `GoldRateTracker`, `DesktopRelease.ts`, `MarketingConsentToast`, `MenuMusic.test.ts`, `SteamLink.ts`, `SettingSlider`, `AtlasMap.test.ts`, `NavNotificationsController.ts`?**
+  _High betweenness centrality (0.110) - this node is a cross-community bridge._
 - **Are the 5 inferred relationships involving `translateText()` (e.g. with `.initialize()` and `ClanDonationsView.test.ts`) actually correct?**
   _`translateText()` has 5 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `BOTTOM_LEFT`, `BOTTOM_RIGHT`, `HORIZONTAL` to the rest of the system?**
+- **What connects `Atoms`, `ConqueredGold`, `ConquestBots` to the rest of the system?**
   _333 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `AccountModal.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.026488329399423027 - nodes in this community are weakly interconnected._
-- **Why does `translateText()` connect `translateText` to `AccountModal.ts`, `Payments.ts`, `showToast`, `ClientEnv`, `GameView`, `Main.ts`, `LobbyTeamView`, `InputHandler.ts`, `AudioMixer.ts`, `PlayerView`, `RenderSettings`, `types/index.ts`, `BaseModal`, `.emit`, `ProfileProgression.ts`, `ClientGameRunner.ts`, `MapRenderer`, `RadialMenuElements.ts`, `PlayerInfoOverlay.ts`, `OnboardingOverlay.ts`, `WireSchemas.ts`, `UserSettings`, `PurchaseButton`, `ApiSchemas.ts`, `EquippedCosmeticsRow.ts`, `JoinLobbyModal`, `UnitDisplay`, `GameImpl.ts`, `GameXpPanel.ts`, `AccountModal`, `GraphicsAdvancedSettings`, `DesktopUpdateStateSeeding.test.ts`, `StoreModal.test.ts`, `ClanApi.ts`, `DetailedGameViewModal.ts`, `client/ServerList.ts`, `LegendCeremony.ts`, `DeleteAccountDialog`, `StatsColumns.ts`, `components/LevelBadge.ts`, `CosmeticPreviewRenderer`, `.inSpawnPhase`, `getUserMe`, `ClanBoostDialog`, `SettingsModal`, `Store.ts`, `PlayerGameHistoryView.ts`, `UserSettingModal.graphics.test.ts`, `HostLobbyModal.ts`, `state`, `MapPicker`, `UserMeResponse`, `ReplayViewer`, `SavedGamesPanel`, `GameModeSelector`, `ResolvedCosmetic`, `Transport`, `ClanDonateDialog`, `InventoryModal.ts`, `GameStartAlertController`, `TransformHandler`, `InlineCheckout`, `Transport.ts`, `ProfileShare`, `PrestigeFlow`, `LeaderboardPlayerList.ts`, `NavAccountMenu.ts`, `RewardTrack`, `IdentityTokenCard`, `UserSettingModal`, `responseHasLinkedIdentity`, `ProfileMenuModal`, `.renderGameplaySettings`, `GraphicsAdvancedSettings.ts`, `ClanDonationsView.ts`, `PlayerStatsTreeView`, `RankType`, `PlayerProfileModal.ts`, `ProfileCard.ts`, `GameInfoView`, `NewsBox.ts`, `ApiSchemas.ts`, `SavedGamesApi.ts`, `LeaderboardTribeTable`, `ResolvedCosmetic`, `.putGameConfig`, `PlayerRow`, `WinModal`, `ViverseSDK`, `EffectsGrid`, `FluentSlider`, `FriendsList.ts`, `PastGameXpCard`, `TribesPanel.ts`, `FeaturedStream.ts`, `PlayerStatsTree.ts`, `GameConfigSettings.ts`, `ClanDetailView`, `AtlasMap`, `ProgressionApi.ts`, `PerformanceOverlay`, `SinglePlayerModal.ts`, `JoinLobbyModal.ts`, `ClanModal`, `CosmeticSchemas.ts`, `PlayerStats`, `PlayerGameHistoryView.ts`, `ListLobbyDialog`, `FeaturedStream`, `SubscriptionPanel`, `TurnstileToken.ts`, `ToggleInputCard.ts`, `showInGameAlert`, `Cosmetics.ts`, `SteamHandoffModal`, `PlayerGameHistoryView`, `renderTroops`, `LobbyPresetControls`, `Client`, `AtlasMap.ts`, `CreatorCodePanel.test.ts`, `StreamingNow`, `LocalServer.ts`, `SinglePlayerModal`, `NavUtilityIcons`, `StreamsFeed.ts`, `MarketingConsentToast`, `AtlasMap.test.ts`, `LeaderboardClanTable`?**
+- **Should `AccountSettingsPanel` be split into smaller, more focused modules?**
+  _Cohesion score 0.08067226890756303 - nodes in this community are weakly interconnected._
+- **Why does `translateText()` connect `translateText` to `AccountSettingsPanel`, `Payments.ts`, `showToast`, `ClientEnv`, `GameView`, `Main.ts`, `LobbyTeamView`, `InputHandler.ts`, `AudioMixer.ts`, `PlayerView`, `RenderSettings`, `types/index.ts`, `BaseModal`, `.emit`, `ProfileProgression.ts`, `GameHealthIndicators`, `GameUpdates.ts`, `RadialMenu`, `PlayerIcons.ts`, `OnboardingOverlay.ts`, `WireSchemas.ts`, `MatchmakingModal`, `ClanBrowseView.ts`, `FfaRatingPanel.ts`, `CosmeticPreviewModal`, `PurchaseButton`, `UsernamePanel`, `MultiTabModal`, `ClanStatsBreakdown.ts`, `EquippedCosmeticsRow.ts`, `JoinLobbyModal`, `UsernameInput`, `UnitDisplay`, `GameXpPanel.ts`, `AccountModal`, `.graphicsOverrides`, `DesktopShell.ts`, `StoreModal.test.ts`, `ClanApi.ts`, `DetailedGameViewModal.ts`, `TroubleshootingModal`, `LegendCeremony.ts`, `state`, `StatsColumns.ts`, `components/LevelBadge.ts`, `CosmeticPreviewRenderer`, `WinModal`, `getUserMe`, `ClanBoostDialog`, `SettingsModal`, `Store.ts`, `CopyButton`, `PlayerGameHistoryView.ts`, `UserSettingModal.graphics.test.ts`, `MapPicker`, `UsernameInput.ts`, `ReplayViewer`, `GameModeSelector`, `GameModeSelector.ts`, `ResolvedCosmetic`, `Transport`, `ClanDonateDialog`, `InventoryModal.ts`, `GameStatsModal`, `TransformHandler`, `InlineCheckout`, `PlayerPanelKick.test.ts`, `ProfileShare`, `PrestigeFlow`, `LeaderboardPlayerList.ts`, `NavAccountMenu.ts`, `RewardTrack`, `IdentityTokenCard`, `UserSettings`, `responseHasLinkedIdentity`, `TokenLoginModal`, `ClanDonationsView.ts`, `BannedModal`, `PlayerStatsTreeView`, `RankType`, `PlayerProfileModal.ts`, `ProfileCard.ts`, `GameInfoView`, `NewsBox.ts`, `Auth.ts`, `SavedGamesApi.ts`, `Privilege.ts`, `TribeStatsView`, `ResolvedCosmetic`, `LobbyCard.ts`, `HostLobbyModal`, `PlayerRow`, `ViverseSDK`, `EffectsGrid`, `FriendsList.ts`, `Progression.ts`, `TribesPanel.ts`, `ClanModalTestUtils.ts`, `LeaderboardModal`, `PlayerStatsTree.ts`, `GameConfigSettings.ts`, `ClanDetailView`, `AtlasMap`, `PerformanceOverlay`, `Matchmaking.test.ts`, `GhostPreviewData`, `ClanModal`, `ColumnPicker`, `CosmeticSchemas.ts`, `PlayerStats`, `SettingKeybind`, `ListLobbyDialog`, `FeaturedStream.ts`, `SubscriptionPanel`, `ConfirmDialog`, `TurnstileToken.ts`, `.renderMapLayers`, `IOSAddToHomeScreenBanner`, `ToggleInputCard`, `ReachabilityGating.test.ts`, `SteamUserHeader.ts`, `LazyCosmeticGrids.test.ts`, `Cosmetics.ts`, `OButton`, `ClanCard`, `CustomCurrencyCard`, `DifficultyInfo.ts`, `PlayerGameHistoryView`, `ContinueGameModal`, `LobbyPresetControls`, `Client`, `AtlasMap.ts`, `ClanMemberSearchPagination.test.ts`, `CreatorCodePanel.test.ts`, `LocalServer.ts`, `debug/Layout.ts`, `SinglePlayerModal`, `NavUtilityIcons`, `MarketingConsentToast`, `SteamLink.ts`, `AtlasMap.test.ts`, `LeaderboardClanTable`?**
   _High betweenness centrality (0.071) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `Game` (e.g. with `Commit plan` and `Target layout`) actually correct?**
   _`Game` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Should `Payments.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05656565656565657 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.047107014848950336 - nodes in this community are weakly interconnected._
