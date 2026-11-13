@@ -10,6 +10,7 @@ import type { Controller } from "../../Controller";
 import type { TransformHandler } from "../../TransformHandler";
 import { translateText } from "../../Utils";
 import type { GameView, PlayerView } from "../../view";
+import { landmarkArt } from "../landmarkArt";
 
 /** Gold a held landmark pays per minute (10 ticks a second). */
 const GOLD_PER_MINUTE = renderNumber(LANDMARK_GOLD_PER_TICK * 600n);
@@ -21,8 +22,8 @@ const TROOP_PERCENT = Math.round(LANDMARK_TROOP_BONUS * 100);
 const PIN_GAP_PX = 6;
 /** Markers this far past the screen edge are still drawn, so they slide in. */
 const EDGE_PX = 40;
-/** The card's width (w-56), its gap to the screen edge, and the room it needs above a pin. */
-const CARD_W = 224;
+/** The card's width (w-72), its gap to the screen edge, and the room it needs above a pin. */
+const CARD_W = 288;
 const CARD_MARGIN = 8;
 const CARD_ROOM_PX = 150;
 /** Movement that turns a press on a pin into a map drag (InputHandler's threshold). */
@@ -172,6 +173,7 @@ export class LandmarkOverlay extends LitElement implements Controller {
   private renderCard(spot: Spot) {
     const landmark = this.game.landmarks()[spot.index];
     const owner = this.game.landmarkOwner(spot.index);
+    const art = landmarkArt(landmark.name);
     // Kept on screen: clamped sideways, and below the pin when there is no room above.
     const left = Math.min(
       Math.max(spot.x, CARD_W / 2 + CARD_MARGIN),
@@ -180,23 +182,35 @@ export class LandmarkOverlay extends LitElement implements Controller {
     const below = spot.y < CARD_ROOM_PX;
     return html`<div
       data-landmark-card
-      class="absolute pointer-events-none w-56 -translate-x-1/2 ${
+      class="absolute pointer-events-none flex w-72 items-center gap-3 -translate-x-1/2 ${
         below ? "" : "-translate-y-full"
       } rounded-xl bg-gray-900/95 px-4 py-3 text-white shadow-2xl ring-1 ring-white/10"
       style="left: ${left}px; top: ${
         below ? spot.y + CARD_MARGIN : spot.y - PIN_GAP_PX - 36
       }px"
     >
-      <div class="text-sm font-bold uppercase tracking-wider text-yellow-300">
-        ${landmark.name}
-      </div>
-      <div class="mt-1 text-sm text-white/80">${this.ownerLine(owner)}</div>
-      <div class="mt-2 space-y-0.5 text-xs font-semibold">
-        <div class="text-amber-300">
-          ${translateText("landmark.gold_bonus", { amount: GOLD_PER_MINUTE })}
+      ${
+        art
+          ? html`<div
+              data-landmark-art
+              class="size-16 shrink-0 rounded-lg bg-white/5 p-0.5"
+            >
+              ${art}
+            </div>`
+          : nothing
+      }
+      <div class="min-w-0">
+        <div class="text-sm font-bold uppercase tracking-wider text-yellow-300">
+          ${landmark.name}
         </div>
-        <div class="text-emerald-300">
-          ${translateText("landmark.troop_bonus", { percent: TROOP_PERCENT })}
+        <div class="mt-1 text-sm text-white/80">${this.ownerLine(owner)}</div>
+        <div class="mt-2 space-y-0.5 text-xs font-semibold">
+          <div class="text-amber-300">
+            ${translateText("landmark.gold_bonus", { amount: GOLD_PER_MINUTE })}
+          </div>
+          <div class="text-emerald-300">
+            ${translateText("landmark.troop_bonus", { percent: TROOP_PERCENT })}
+          </div>
         </div>
       </div>
     </div>`;

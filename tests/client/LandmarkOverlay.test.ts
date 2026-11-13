@@ -107,9 +107,14 @@ describe("LandmarkOverlay", () => {
   });
 
   it("keeps the card inside the screen near the left edge", async () => {
-    // The pin is at x = 105; a 224px card centred there would start at -7.
+    // The pin is at x = 105; a 288px card centred there would start at -39.
     const card = await hoverCard(mount(alice));
-    expect(parseFloat(card!.style.left)).toBeGreaterThanOrEqual(112 + 8);
+    expect(parseFloat(card!.style.left)).toBeGreaterThanOrEqual(144 + 8);
+  });
+
+  it("shows the landmark's pixel art in the card", async () => {
+    const card = await hoverCard(mount(alice));
+    expect(card!.querySelector("[data-landmark-art] svg")).not.toBeNull();
   });
 
   it("opens the card below the pin near the top edge", async () => {
