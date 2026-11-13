@@ -5,6 +5,7 @@ import {
 } from "@openfront/engine-api/game/GameTypes";
 import {
   AdditionalNation,
+  Landmark,
   MapFiles,
   MapLayer,
   MapMetadata,
@@ -20,6 +21,8 @@ export type TerrainMapData = {
   teamGameSpawnAreas?: TeamGameSpawnAreas;
   /** Map layers from the manifest, if any. */
   layers?: MapLayer[];
+  /** Capturable landmarks, in this game's map size. */
+  landmarks: Landmark[];
 };
 
 /**
@@ -72,6 +75,22 @@ export async function loadTerrainMap(files: MapFiles): Promise<TerrainMapData> {
     });
   }
 
+  const landmarks = (manifest.landmarks ?? []).map((l) => ({
+    name: l.name,
+    coordinates:
+      mapSize === GameMapSize.Compact
+        ? ([
+            Math.floor(l.coordinates[0] / 2),
+            Math.floor(l.coordinates[1] / 2),
+          ] as [number, number])
+        : l.coordinates,
+  }));
+  for (const { name, coordinates } of landmarks) {
+    if (!gameMap.isLand(gameMap.ref(coordinates[0], coordinates[1]))) {
+      throw new Error(`Map ${map}: landmark "${name}" is not on land`);
+    }
+  }
+
   // Scale spawn areas for compact maps
   let teamGameSpawnAreas = manifest.teamGameSpawnAreas;
   if (mapSize === GameMapSize.Compact && teamGameSpawnAreas) {
@@ -115,6 +134,7 @@ export async function loadTerrainMap(files: MapFiles): Promise<TerrainMapData> {
     miniGameMap: miniMap,
     teamGameSpawnAreas,
     layers,
+    landmarks,
   };
 }
 

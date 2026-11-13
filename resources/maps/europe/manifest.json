@@ -2,6 +2,48 @@
   "categories": ["featured", "continental", "europe"],
   "featured_rank": 2,
   "id": "Europe",
+  "landmarks": [
+    {
+      "name": "Eiffel Tower",
+      "coordinates": [1096, 913]
+    },
+    {
+      "name": "Colosseum",
+      "coordinates": [1511, 1188]
+    },
+    {
+      "name": "Big Ben",
+      "coordinates": [997, 812]
+    },
+    {
+      "name": "Stonehenge",
+      "coordinates": [927, 824]
+    },
+    {
+      "name": "Sagrada Familia",
+      "coordinates": [1093, 1205]
+    },
+    {
+      "name": "Acropolis",
+      "coordinates": [1965, 1347]
+    },
+    {
+      "name": "Neuschwanstein Castle",
+      "coordinates": [1442, 963]
+    },
+    {
+      "name": "Kremlin",
+      "coordinates": [2544, 628]
+    },
+    {
+      "name": "Brandenburg Gate",
+      "coordinates": [1551, 770]
+    },
+    {
+      "name": "Matterhorn",
+      "coordinates": [1316, 1025]
+    }
+  ],
   "map": {
     "height": 1672,
     "num_land_tiles": 2345907,

@@ -364,5 +364,47 @@
       "flag": "pt-azores"
     }
   ],
-  "themes": ["north_america"]
+  "themes": ["north_america"],
+  "landmarks": [
+    {
+      "name": "Statue of Liberty",
+      "coordinates": [1763, 805]
+    },
+    {
+      "name": "Golden Gate Bridge",
+      "coordinates": [864, 871]
+    },
+    {
+      "name": "Grand Canyon",
+      "coordinates": [1036, 900]
+    },
+    {
+      "name": "Niagara Falls",
+      "coordinates": [1672, 758]
+    },
+    {
+      "name": "Mount Rushmore",
+      "coordinates": [1212, 738]
+    },
+    {
+      "name": "Yellowstone",
+      "coordinates": [1074, 731]
+    },
+    {
+      "name": "Chichen Itza",
+      "coordinates": [1492, 1178]
+    },
+    {
+      "name": "Old Quebec",
+      "coordinates": [1810, 689]
+    },
+    {
+      "name": "Teotihuacan",
+      "coordinates": [1287, 1202]
+    },
+    {
+      "name": "Denali",
+      "coordinates": [308, 363]
+    }
+  ]
 }

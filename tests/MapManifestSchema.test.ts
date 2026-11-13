@@ -92,4 +92,51 @@ describe("Map schemas", () => {
       "teamGameSpawnAreas.2.0",
     ]);
   });
+
+  describe("landmarks", () => {
+    const base = () =>
+      JSON.parse(
+        fs.readFileSync(
+          path.join(ROOT, "resources/maps/aegean/manifest.json"),
+          "utf8",
+        ),
+      );
+    const issuePaths = (landmarks: unknown) =>
+      MapManifestSchema.safeParse({ ...base(), landmarks }).error?.issues.map(
+        (i) => i.path.join("."),
+      ) ?? [];
+
+    test("accepts landmarks inside the map", () => {
+      expect(
+        issuePaths([
+          { name: "A", coordinates: [1, 1] },
+          { name: "B", coordinates: [2, 2] },
+        ]),
+      ).toEqual([]);
+    });
+
+    test("rejects a landmark outside the map", () => {
+      expect(
+        issuePaths([{ name: "A", coordinates: [base().map.width, 0] }]),
+      ).toEqual(["landmarks.0.coordinates"]);
+    });
+
+    test("rejects two landmarks with the same name", () => {
+      expect(
+        issuePaths([
+          { name: "A", coordinates: [1, 1] },
+          { name: "A", coordinates: [2, 2] },
+        ]),
+      ).toEqual(["landmarks.1.name"]);
+    });
+
+    test("rejects two landmarks on the same tile", () => {
+      expect(
+        issuePaths([
+          { name: "A", coordinates: [1, 1] },
+          { name: "B", coordinates: [1, 1] },
+        ]),
+      ).toEqual(["landmarks.1.coordinates"]);
+    });
+  });
 });

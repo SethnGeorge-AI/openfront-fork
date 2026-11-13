@@ -55,7 +55,13 @@ async function loadMap(mapName: string): Promise<TerrainMapData> {
     manifest.map,
     fs.readFileSync(path.join(dir, "map.bin")),
   );
-  return { nations: [], additionalNations: [], gameMap, miniGameMap: gameMap };
+  return {
+    nations: [],
+    additionalNations: [],
+    gameMap,
+    miniGameMap: gameMap,
+    landmarks: [],
+  };
 }
 
 function spawnHuman(game: Game, id: string, x: number, y: number) {

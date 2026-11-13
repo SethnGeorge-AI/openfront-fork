@@ -379,5 +379,107 @@
       "alpha": 0.3,
       "nukeable": false
     }
+  ],
+  "landmarks": [
+    {
+      "name": "Great Pyramid of Giza",
+      "coordinates": [1148, 364]
+    },
+    {
+      "name": "Eiffel Tower",
+      "coordinates": [980, 249]
+    },
+    {
+      "name": "Colosseum",
+      "coordinates": [1040, 285]
+    },
+    {
+      "name": "Big Ben",
+      "coordinates": [966, 227]
+    },
+    {
+      "name": "Stonehenge",
+      "coordinates": [955, 229]
+    },
+    {
+      "name": "Kremlin",
+      "coordinates": [1183, 200]
+    },
+    {
+      "name": "Statue of Liberty",
+      "coordinates": [539, 295]
+    },
+    {
+      "name": "Golden Gate Bridge",
+      "coordinates": [270, 315]
+    },
+    {
+      "name": "Grand Canyon",
+      "coordinates": [327, 326]
+    },
+    {
+      "name": "Niagara Falls",
+      "coordinates": [514, 285]
+    },
+    {
+      "name": "Chichen Itza",
+      "coordinates": [463, 413]
+    },
+    {
+      "name": "Machu Picchu",
+      "coordinates": [558, 601]
+    },
+    {
+      "name": "Christ the Redeemer",
+      "coordinates": [723, 663]
+    },
+    {
+      "name": "Iguazu Falls",
+      "coordinates": [662, 681]
+    },
+    {
+      "name": "Victoria Falls",
+      "coordinates": [1119, 633]
+    },
+    {
+      "name": "Mount Kilimanjaro",
+      "coordinates": [1185, 546]
+    },
+    {
+      "name": "Petra",
+      "coordinates": [1173, 362]
+    },
+    {
+      "name": "Burj Khalifa",
+      "coordinates": [1287, 391]
+    },
+    {
+      "name": "Taj Mahal",
+      "coordinates": [1418, 380]
+    },
+    {
+      "name": "Mount Everest",
+      "coordinates": [1469, 375]
+    },
+    {
+      "name": "Great Wall of China",
+      "coordinates": [1534, 305]
+    },
+    {
+      "name": "Mount Fuji",
+      "coordinates": [1763, 319]
+    },
+    {
+      "name": "Angkor Wat",
+      "coordinates": [1567, 455]
+    },
+    {
+      "name": "Sydney Opera House",
+      "coordinates": [1825, 737]
+    },
+    {
+      "name": "Uluru",
+      "coordinates": [1722, 682]
+    }
   ]
 }

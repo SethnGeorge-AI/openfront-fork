@@ -17,6 +17,7 @@ export interface MapFiles {
 
 export type {
   AdditionalNation,
+  Landmark,
   LayerPlacement,
   MapLayer,
   MapManifest,

@@ -43,5 +43,39 @@
       "flag": "aus_tas"
     }
   ],
-  "themes": ["oceania"]
+  "themes": ["oceania"],
+  "landmarks": [
+    {
+      "name": "Sydney Opera House",
+      "coordinates": [1735, 996]
+    },
+    {
+      "name": "Uluru",
+      "coordinates": [876, 640]
+    },
+    {
+      "name": "Daintree Rainforest",
+      "coordinates": [1497, 257]
+    },
+    {
+      "name": "Twelve Apostles",
+      "coordinates": [1384, 1228]
+    },
+    {
+      "name": "Kakadu",
+      "coordinates": [963, 136]
+    },
+    {
+      "name": "Bungle Bungle Range",
+      "coordinates": [768, 322]
+    },
+    {
+      "name": "Pinnacles Desert",
+      "coordinates": [202, 877]
+    },
+    {
+      "name": "Cradle Mountain",
+      "coordinates": [1504, 1376]
+    }
+  ]
 }

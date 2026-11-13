@@ -57,6 +57,13 @@ export const NationSchema = z.strictObject({
     ),
 });
 
+export const LandmarkSchema = z.strictObject({
+  name: z.string().min(1),
+  coordinates: Coordinates.describe(
+    "Tile [x, y] on the normal-size map. Must be land.",
+  ),
+});
+
 export const MapLayerSchema = z.strictObject({
   id: z
     .string()
@@ -168,6 +175,35 @@ const mapInfoShape = {
     .record(z.string().regex(/^[0-9]+$/), z.array(SpawnAreaSchema).min(1))
     .optional()
     .describe("Spawn rectangles per team count."),
+  landmarks: z
+    .array(LandmarkSchema)
+    .superRefine((landmarks, ctx) => {
+      const names = new Set<string>();
+      const tiles = new Set<string>();
+      landmarks.forEach((l, i) => {
+        const tile = l.coordinates.join(",");
+        if (names.has(l.name)) {
+          ctx.addIssue({
+            code: "custom",
+            path: [i, "name"],
+            message: `duplicate landmark name "${l.name}"`,
+          });
+        }
+        if (tiles.has(tile)) {
+          ctx.addIssue({
+            code: "custom",
+            path: [i, "coordinates"],
+            message: `another landmark is already at [${tile}]`,
+          });
+        }
+        names.add(l.name);
+        tiles.add(tile);
+      });
+    })
+    .optional()
+    .describe(
+      "Capturable sites: whoever owns the tile gets bonus gold and troop growth.",
+    ),
   layers: z
     .array(MapLayerSchema)
     .refine((layers) => unique(layers.map((l) => l.id)), {
@@ -232,6 +268,7 @@ export const MapManifestSchema = z
       custom_tribes: (manifest.custom_tribes ?? []).filter(
         (t) => typeof t !== "string",
       ),
+      landmarks: manifest.landmarks ?? [],
     };
     for (const [group, entries] of Object.entries(groups)) {
       entries.forEach((entry, i) => {
@@ -262,6 +299,7 @@ export const MapManifestSchema = z
 export type MapManifest = z.infer<typeof MapManifestSchema>;
 export type MapMetadata = z.infer<typeof MapMetadataSchema>;
 export type Nation = z.infer<typeof NationSchema>;
+export type Landmark = z.infer<typeof LandmarkSchema>;
 export type AdditionalNation = Nation;
 export type MapLayer = z.infer<typeof MapLayerSchema>;
 export type LayerPlacement = MapLayer["placement"];

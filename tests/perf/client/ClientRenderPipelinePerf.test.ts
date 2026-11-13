@@ -1176,6 +1176,7 @@ export async function setupBuildPreviewFixture(): Promise<BuildPreviewFixture> {
       additionalNations: [],
       gameMap: game.map(),
       miniGameMap: game.miniMap(),
+      landmarks: [],
     },
     "human-client",
     "tester",

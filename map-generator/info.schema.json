@@ -271,6 +271,37 @@
         }
       }
     },
+    "landmarks": {
+      "description": "Capturable sites: whoever owns the tile gets bonus gold and troop growth.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "coordinates": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            ],
+            "description": "Tile [x, y] on the normal-size map. Must be land."
+          }
+        },
+        "required": ["name", "coordinates"],
+        "additionalProperties": false
+      }
+    },
     "layers": {
       "type": "array",
       "items": {

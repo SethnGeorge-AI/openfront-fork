@@ -2,6 +2,40 @@
   "categories": ["featured", "continental", "south_america"],
   "featured_rank": 4,
   "id": "SouthAmerica",
+  "landmarks": [
+    {
+      "name": "Machu Picchu",
+      "coordinates": [614, 1112]
+    },
+    {
+      "name": "Christ the Redeemer",
+      "coordinates": [1470, 1389]
+    },
+    {
+      "name": "Iguazu Falls",
+      "coordinates": [1148, 1493]
+    },
+    {
+      "name": "Angel Falls",
+      "coordinates": [912, 503]
+    },
+    {
+      "name": "Aconcagua",
+      "coordinates": [719, 1703]
+    },
+    {
+      "name": "Salar de Uyuni",
+      "coordinates": [774, 1325]
+    },
+    {
+      "name": "Nazca Lines",
+      "coordinates": [539, 1164]
+    },
+    {
+      "name": "Torres del Paine",
+      "coordinates": [688, 2184]
+    }
+  ],
   "map": {
     "height": 2376,
     "num_land_tiles": 1411064,

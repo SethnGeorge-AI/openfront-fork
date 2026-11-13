@@ -2,6 +2,40 @@
   "categories": ["featured", "continental", "africa"],
   "featured_rank": 6,
   "id": "Africa",
+  "landmarks": [
+    {
+      "name": "Great Pyramid of Giza",
+      "coordinates": [1372, 248]
+    },
+    {
+      "name": "Abu Simbel",
+      "coordinates": [1387, 475]
+    },
+    {
+      "name": "Mount Kilimanjaro",
+      "coordinates": [1542, 1154]
+    },
+    {
+      "name": "Victoria Falls",
+      "coordinates": [1220, 1557]
+    },
+    {
+      "name": "Table Mountain",
+      "coordinates": [1020, 2003]
+    },
+    {
+      "name": "Timbuktu",
+      "coordinates": [439, 632]
+    },
+    {
+      "name": "Lalibela",
+      "coordinates": [1591, 750]
+    },
+    {
+      "name": "Great Zimbabwe",
+      "coordinates": [1358, 1620]
+    }
+  ],
   "map": {
     "height": 2032,
     "num_land_tiles": 2183462,

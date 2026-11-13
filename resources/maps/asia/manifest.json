@@ -2,6 +2,48 @@
   "categories": ["featured", "continental", "asia"],
   "featured_rank": 5,
   "id": "Asia",
+  "landmarks": [
+    {
+      "name": "Great Wall of China",
+      "coordinates": [945, 600]
+    },
+    {
+      "name": "Forbidden City",
+      "coordinates": [1181, 601]
+    },
+    {
+      "name": "Taj Mahal",
+      "coordinates": [681, 748]
+    },
+    {
+      "name": "Mount Everest",
+      "coordinates": [797, 740]
+    },
+    {
+      "name": "Mount Fuji",
+      "coordinates": [1471, 663]
+    },
+    {
+      "name": "Angkor Wat",
+      "coordinates": [1011, 940]
+    },
+    {
+      "name": "Petra",
+      "coordinates": [120, 705]
+    },
+    {
+      "name": "Burj Khalifa",
+      "coordinates": [381, 767]
+    },
+    {
+      "name": "Mount Kinabalu",
+      "coordinates": [1169, 1054]
+    },
+    {
+      "name": "Petronas Towers",
+      "coordinates": [974, 1089]
+    }
+  ],
   "map": {
     "height": 1200,
     "num_land_tiles": 1079587,
