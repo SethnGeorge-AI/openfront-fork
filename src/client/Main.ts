@@ -527,10 +527,6 @@ class Client {
       tag: "single-player-modal",
       pageId: "page-single-player",
     });
-    modalRouter.register("ranked", {
-      tag: "ranked-modal",
-      pageId: "page-ranked",
-    });
     modalRouter.register("detailed-view", {
       tag: "detailed-view-modal",
       pageId: "page-detailed-view",

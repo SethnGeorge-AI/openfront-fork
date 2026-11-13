@@ -58,11 +58,9 @@ import { registerPlayerProfileRoute } from "./PlayerProfileRoute";
 import { resolveVerifiedJoin } from "./Privilege";
 
 import { loadGatekeeper } from "./Gatekeeper";
-import { MapPlaylist } from "./MapPlaylist";
 import { setNoStoreHeaders } from "./NoStoreHeaders";
 import { PrivilegeRefresher } from "./PrivilegeRefresher";
 import { getResourcesDir } from "./PublicAssetManifest";
-import { startRankedCheckinLoops } from "./RankedCheckin";
 import { rejoinOrClose } from "./Rejoin";
 import { ServerEnv } from "./ServerEnv";
 import { SingleplayerPresence } from "./SingleplayerPresence";
@@ -76,7 +74,6 @@ const log = logger.child({ comp: `w_${workerId}` });
 
 // The WebSocket server's max payload.
 const MAX_WEBSOCKET_PAYLOAD_BYTES = 1024 * 1024;
-const playlist = new MapPlaylist();
 
 export function clampApprovedUsername(username: string): string {
   return username.length > MAX_USERNAME_LENGTH
@@ -309,21 +306,8 @@ export async function startWorker() {
   const lobbyService = new WorkerLobbyService(server, wss, gm, log);
   const singleplayerPresence = new SingleplayerPresence();
 
-  setTimeout(
-    () => {
-      // The ranked loop follows the deployment-active flag the master pushes
-      // to this worker (OPE-469): a draining, standby or fenced server keeps
-      // the games it has but stops offering new matches.
-      startRankedCheckinLoops({
-        gm,
-        playlist,
-        workerId,
-        log,
-        isActive: () => lobbyService.isDeploymentActive(),
-      });
-    },
-    1000 + Math.random() * 2000,
-  );
+  // This fork has no ranked matchmaking: the ranked check-in loops are not
+  // started (they need OpenFront's closed API).
 
   if (ServerEnv.otelEnabled()) {
     initWorkerMetrics(gm, lobbyService, singleplayerPresence);
