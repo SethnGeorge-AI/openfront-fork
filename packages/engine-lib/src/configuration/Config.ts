@@ -12,6 +12,7 @@ import { GameConfig } from "@openfront/engine-api/Schemas";
 import { pow } from "../DetMath";
 import { DoomsdayClockSpeed } from "../game/DoomsdayClock";
 import { assertNever } from "../Util";
+import { requiredCapitalTier } from "./CapitalTiers";
 
 export interface NukeMagnitude {
   inner: number;
@@ -182,7 +183,18 @@ export class Config {
     return 30;
   }
 
+  capitalsEnabled(): boolean {
+    return this._gameConfig.capitals ?? false;
+  }
+
+  /** Capital tier `player` needs to build `type`; 0 when not gated. */
+  requiredTierFor(type: UnitType, player: PlayerLike): number {
+    if (!this.capitalsEnabled() || player.type() === PlayerType.Bot) return 0;
+    return requiredCapitalTier(type);
+  }
+
   isUnitDisabled(unitType: UnitType): boolean {
+    if (unitType === UnitType.Capital && !this.capitalsEnabled()) return true;
     return this._gameConfig.disabledUnits?.includes(unitType) ?? false;
   }
   instantBuild(): boolean {
@@ -245,6 +257,9 @@ export class Config {
             : SAM_CONSTRUCTION_TICKS,
           upgradable: true,
         };
+        break;
+      case UnitType.Capital:
+        info = { constructionDuration: 0, upgradable: true };
         break;
       case UnitType.City:
       case UnitType.Factory:

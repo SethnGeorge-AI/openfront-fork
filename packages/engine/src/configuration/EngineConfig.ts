@@ -20,6 +20,10 @@ import {
   toInt,
   within,
 } from "@openfront/engine-lib/Util";
+import {
+  capitalTier,
+  capitalTierCost,
+} from "@openfront/engine-lib/configuration/CapitalTiers";
 import type { EngineUnitInfo, Game, Player, Unit } from "../game/Game";
 
 export interface AttackLogicInput {
@@ -394,6 +398,17 @@ export class EngineConfig extends Config {
           UnitType.Factory,
           UnitType.Port,
         );
+      case UnitType.Capital:
+        // Price of the next tier; extraUnits = upgrades already counted in a bulk total.
+        return (game: Game, player: Player, extraUnits: number = 0) => {
+          if (
+            player.type() === PlayerType.Human &&
+            this.hasInfiniteGoldFor(player)
+          ) {
+            return 0n;
+          }
+          return capitalTierCost(capitalTier(player) + 1 + extraUnits);
+        };
       case UnitType.TransportShip:
       case UnitType.Shell:
       case UnitType.SAMMissile:

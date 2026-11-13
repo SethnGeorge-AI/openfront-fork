@@ -293,6 +293,8 @@ export const GameConfigSchema = z.object({
   infiniteGold: z.boolean(),
   infiniteTroops: z.boolean(),
   instantBuild: z.boolean(),
+  // Capital and tech tiers (docs/superpowers/specs/2026-11-13-capital-tech-tiers-design.md).
+  capitals: z.boolean().optional(),
   disableNavMesh: z.boolean().optional(),
   disableAlliances: z.boolean().nullable().optional(),
   disableClanTags: z.boolean().optional(),
