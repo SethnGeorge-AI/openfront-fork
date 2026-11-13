@@ -45,7 +45,10 @@ describe("BuildMenu.cost", () => {
 describe("BuildMenu hold-to-build availability", () => {
   it("uses the effective action for rendered buttons as the hold changes", async () => {
     const menu = makeMenu();
-    menu.game = { myPlayer: () => ({}) } as any;
+    menu.game = {
+      myPlayer: () => ({ type: () => "HUMAN", units: () => [] }),
+      config: () => ({ requiredTierFor: () => 0 }),
+    } as any;
     menu.uiState = { preventStacking: true } as any;
     menu.playerBuildables = [
       { type: UnitType.City, canBuild: false, canUpgrade: 7, cost: 1n },
