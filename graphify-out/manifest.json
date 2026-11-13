@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   ".oxfmtrc.json": {
-    "mtime": 1794574244.0,
-    "seen": 1794574515.2681925,
-    "ast_hash": "5e640dfc9552025e6183d56197bcd43c",
+    "mtime": 1794585718.3508217,
+    "seen": 1794585760.0066338,
+    "ast_hash": "aea369aa4787d2d09ade9b31198a2b2a",
     "semantic_hash": ""
   },
   ".oxlintrc.json": {
@@ -1332,9 +1332,9 @@
     "semantic_hash": ""
   },
   "packages/engine-lib/src/game/TerrainMapLoader.ts": {
-    "mtime": 1794582622.912792,
-    "seen": 1794582701.11073,
-    "ast_hash": "24c941a6fedbac88bc8b22a86d885d4a",
+    "mtime": 1794589974.8922067,
+    "seen": 1794590083.0140526,
+    "ast_hash": "d00cd1fb5611db6c43107f3015d08ff1",
     "semantic_hash": ""
   },
   "packages/engine-lib/src/game/TileSet.ts": {
@@ -1524,9 +1524,9 @@
     "semantic_hash": ""
   },
   "packages/engine/src/execution/PlayerExecution.ts": {
-    "mtime": 1794582622.9130707,
-    "seen": 1794582701.1107614,
-    "ast_hash": "79389f4f627f316e8c6d9a1e9a390524",
+    "mtime": 1794589974.8262062,
+    "seen": 1794590083.0140865,
+    "ast_hash": "6dee8f21f9d17393684ce94e513f84db",
     "semantic_hash": ""
   },
   "packages/engine/src/execution/PortExecution.ts": {
@@ -23460,27 +23460,27 @@
     "semantic_hash": ""
   },
   "src/client/hud/layers/LandmarkOverlay.ts": {
-    "mtime": 1794582622.9159808,
-    "seen": 1794582701.1114419,
-    "ast_hash": "903498f69a3d7306b9ac93895245242f",
+    "mtime": 1794590020.1724706,
+    "seen": 1794590083.0147889,
+    "ast_hash": "c69fc717570920e8178abd408429db78",
     "semantic_hash": ""
   },
   "tests/Landmarks.test.ts": {
-    "mtime": 1794582622.9162827,
-    "seen": 1794582701.1117587,
-    "ast_hash": "91c081601f05261ec4f42cf5af2a34dc",
+    "mtime": 1794589950.5945666,
+    "seen": 1794590083.0151181,
+    "ast_hash": "1cd46de2eef2818661afa10c24f0cf2f",
     "semantic_hash": ""
   },
   "tests/client/LandmarkOverlay.test.ts": {
-    "mtime": 1794582622.916384,
-    "seen": 1794582701.1119623,
-    "ast_hash": "364a1afeb7800c93ba46c199daf93a0c",
+    "mtime": 1794589998.422343,
+    "seen": 1794590083.0153267,
+    "ast_hash": "1f50e5e9ea5ee6810751acb650a4d233",
     "semantic_hash": ""
   },
   "tests/core/LandmarkBonus.test.ts": {
-    "mtime": 1794582622.9164402,
-    "seen": 1794582701.1122437,
-    "ast_hash": "a20dd0aa4a91ae4d52f0796e5dfecb95",
+    "mtime": 1794589962.125228,
+    "seen": 1794590083.015604,
+    "ast_hash": "9021c74758dec39748b1943f05a8b569",
     "semantic_hash": ""
   },
   "fork-assets/icons/icon512_maskable.png": {
