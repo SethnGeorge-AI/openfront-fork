@@ -9461,12 +9461,6 @@
     "ast_hash": "004ac699d02e951e7d10a8c88caeb7e2",
     "semantic_hash": ""
   },
-  "tests/client/RankedTrustLock.test.ts": {
-    "mtime": 1794574244.0,
-    "seen": 1794574515.269694,
-    "ast_hash": "e4bc3aafdbbaf5efd70d6c02e2df5091",
-    "semantic_hash": ""
-  },
   "tests/client/RankingControls.test.ts": {
     "mtime": 1794574244.0,
     "seen": 1794574515.269695,
@@ -23460,9 +23454,9 @@
     "semantic_hash": ""
   },
   "src/client/hud/layers/LandmarkOverlay.ts": {
-    "mtime": 1794590020.1724706,
-    "seen": 1794590083.0147889,
-    "ast_hash": "c69fc717570920e8178abd408429db78",
+    "mtime": 1794591237.3486552,
+    "seen": 1794591281.8978167,
+    "ast_hash": "6f9fc876d76aba9a5bf85bcf771a7d6b",
     "semantic_hash": ""
   },
   "tests/Landmarks.test.ts": {
@@ -23472,9 +23466,9 @@
     "semantic_hash": ""
   },
   "tests/client/LandmarkOverlay.test.ts": {
-    "mtime": 1794589998.422343,
-    "seen": 1794590083.0153267,
-    "ast_hash": "1f50e5e9ea5ee6810751acb650a4d233",
+    "mtime": 1794591222.2226284,
+    "seen": 1794591281.8984609,
+    "ast_hash": "6afa2ac7bd15200459e664ea5fd7770e",
     "semantic_hash": ""
   },
   "tests/core/LandmarkBonus.test.ts": {
@@ -23523,6 +23517,18 @@
     "mtime": 1794584015.1398923,
     "seen": 1794584080.7684355,
     "ast_hash": "e7ddc36b82b368eaf1bc21b4a1315798",
+    "semantic_hash": ""
+  },
+  "tests/client/LandmarkArt.test.ts": {
+    "mtime": 1794591053.6975706,
+    "seen": 1794591101.4125342,
+    "ast_hash": "e392f3f5ec7acdda5276f6f5375c0287",
+    "semantic_hash": ""
+  },
+  "src/client/hud/landmarkArt.ts": {
+    "mtime": 1794591213.088512,
+    "seen": 1794591281.897794,
+    "ast_hash": "a5b4ddb7162aade8fe590441255b0575",
     "semantic_hash": ""
   },
   "package-lock.json": {
