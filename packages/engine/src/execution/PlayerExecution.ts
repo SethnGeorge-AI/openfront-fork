@@ -5,6 +5,7 @@ import {
   Structures,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
+import { capitalOf } from "@openfront/engine-lib/configuration/CapitalTiers";
 import { LANDMARK_GOLD_PER_TICK } from "@openfront/engine-lib/configuration/Config";
 import { zInt, zPlayerRef } from "@openfront/engine-lib/snapshot/SnapshotType";
 import { getMode, simpleHash } from "@openfront/engine-lib/Util";
@@ -22,6 +23,7 @@ import type {
   SnapshotReader,
   SnapshotWriter,
 } from "../snapshot/SnapshotContext";
+import { placeCapital } from "./CapitalPlacement";
 
 const TICKS_PER_CLUSTER_CALC = 20;
 
@@ -58,12 +60,34 @@ export class PlayerExecution implements Execution {
 
   tick(ticks: number) {
     this.player.decayRelations();
+    const hasCapital =
+      this.mg!.config().capitalsEnabled() &&
+      this.player.type() !== PlayerType.Bot;
+    if (
+      hasCapital &&
+      this.player.isAlive() &&
+      !this.mg!.inSpawnPhase() &&
+      capitalOf(this.player) === null
+    ) {
+      placeCapital(this.mg!, this.player, 1, this.player.spawnTile() ?? null);
+    }
+    // A captured capital is destroyed and rebuilt one tier lower after the loop.
+    let lostCapital: { tier: number; tile: TileRef } | null = null;
     for (const u of this.player.units()) {
       if (!Structures.has(u.type())) {
         continue;
       }
 
       const owner = this.mg!.owner(u.tile());
+      if (u.type() === UnitType.Capital && owner !== this.player) {
+        // Lost tile (captured or left empty): rebuild one tier lower below.
+        lostCapital = { tier: u.level(), tile: u.tile() };
+        u.delete(
+          true,
+          owner.isPlayer() ? this.mg!.player(owner.id()) : undefined,
+        );
+        continue;
+      }
       if (!owner?.isPlayer()) {
         u.delete();
         continue;
@@ -78,6 +102,15 @@ export class PlayerExecution implements Execution {
       } else {
         captor.captureUnit(u);
       }
+    }
+
+    if (lostCapital !== null && this.player.isAlive()) {
+      placeCapital(
+        this.mg!,
+        this.player,
+        Math.max(1, lostCapital.tier - 1),
+        lostCapital.tile,
+      );
     }
 
     if (!this.player.isAlive()) {
