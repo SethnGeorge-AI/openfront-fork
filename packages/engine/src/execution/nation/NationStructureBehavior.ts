@@ -599,6 +599,9 @@ export class NationStructureBehavior {
   private doHandleStructures(): boolean {
     this.placement.startRound();
     const config = this.game.config();
+    if (this.maybeUpgradeCapital()) {
+      return true;
+    }
     const citiesDisabled = config.isUnitDisabled(UnitType.City);
     const cityCount = this.cityCount();
     const hasCoastalTiles = this.placement.hasCoastalTiles();
@@ -701,6 +704,20 @@ export class NationStructureBehavior {
     }
 
     return false;
+  }
+
+  /** Climb a capital tier when affordable, keeping at least one city per tier. */
+  private maybeUpgradeCapital(): boolean {
+    if (!this.game.config().capitalsEnabled()) return false;
+    const capital = this.player.units(UnitType.Capital)[0];
+    if (capital === undefined || !this.player.canUpgradeUnit(capital)) {
+      return false;
+    }
+    if (this.cityCount() < capital.level()) return false;
+    this.game.addExecution(
+      new UpgradeStructureExecution(this.player, capital.id(), 1),
+    );
+    return true;
   }
 
   // Cities owned, or a territory-based equivalent when cities are disabled
