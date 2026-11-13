@@ -32,6 +32,7 @@ import {
   buildPlayerStatsSummary,
 } from "../../src/client/components/baseComponents/stats/PlayerStatsSummary";
 import { PlayerStatsTreeView } from "../../src/client/components/baseComponents/stats/PlayerStatsTree";
+import { structureIconUrl } from "../../src/client/hud/structureArt";
 
 const leaf: PlayerStatsLeaf = {
   wins: 3n,
@@ -238,7 +239,7 @@ describe("PlayerStatsSummary", () => {
       "player_stats_tree.stats_per_game_suffix",
     );
     expect(cities?.querySelector("[data-unit]")?.getAttribute("src")).toBe(
-      "/images/CityIconWhite.svg",
+      structureIconUrl("City"),
     );
     // SoldierIcon is authored black, so it is flipped to sit on a dark tile.
     // TroopIconWhite would be the obvious pick and is unusable in an <img>:

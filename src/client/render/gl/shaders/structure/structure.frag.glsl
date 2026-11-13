@@ -145,6 +145,60 @@ float shapeSDF(vec2 p, float R) {
   return sdStar5(vec2(p.x, -p.y), R, 0.62);  // Capital → star (y flipped: vertex up on screen)
 }
 
+// Atlas: top half is the building art, bottom half the owner-accent mask
+// (scripts/genStructureAtlas.ts). Samples one half, clamped to this column.
+vec4 sampleAtlas(vec2 uv, float half_) {
+  float colStart = vAtlasIdx / float(ATLAS_COLS);
+  float colEnd = (vAtlasIdx + 1.0) / float(ATLAS_COLS);
+  if (uv.x < colStart || uv.x > colEnd || uv.y < 0.0 || uv.y > 1.0) return vec4(0.0);
+  return texture(uAtlas, vec2(uv.x, clamp(uv.y, 0.01, 0.99) * 0.5 + half_ * 0.5));
+}
+
+// Zoomed-in building: pixel art on the terrain, owner colour in its accents.
+vec4 drawArt(vec3 ownerRGB, float fw) {
+  vec4 art = sampleAtlas(vAtlasUV, 0.0);
+  float accent = sampleAtlas(vAtlasUV, 1.0).a;
+  vec3 rgb = mix(art.rgb, ownerRGB * art.rgb, accent);
+  if (vUnderConstruction > 0.5) {
+    float lum = dot(rgb, vec3(0.299, 0.587, 0.114));
+    rgb = mix(rgb, vec3(lum), 0.8);
+  }
+  float alpha = art.a;
+
+  if (vMarkedForDeletion > 0.5) {
+    float lineW = max(0.025, fw * 1.5);
+    float d1 = abs(vLocalPos.x - vLocalPos.y) * 0.7071;
+    float d2 = abs(vLocalPos.x + vLocalPos.y) * 0.7071;
+    float xLine = (1.0 - smoothstep(lineW - fw, lineW + fw, min(d1, d2)))
+                * (1.0 - smoothstep(0.38, 0.4, length(vLocalPos)));
+    rgb = mix(rgb, vec3(1.0, 0.25, 0.25), xLine * 0.95);
+    alpha = max(alpha, xLine * 0.95);
+  }
+
+  float tintActive = step(0.01, dot(uOutlineColor, uOutlineColor));
+  rgb = mix(rgb, uOutlineColor, tintActive * 0.5);
+  alpha *= uGhostAlpha * uIconAlpha;
+
+  if (uHighlightMask != 0) {
+    int bit = 1 << int(vAtlasIdx + 0.5);
+    if ((uHighlightMask & bit) != 0) {
+      // White outline hugging the art: art alpha a few texels away, minus its own.
+      vec2 o = vec2(1.5 / (64.0 * float(ATLAS_COLS)), 1.5 / 64.0);
+      float near = max(max(sampleAtlas(vAtlasUV + vec2(o.x, 0.0), 0.0).a,
+                           sampleAtlas(vAtlasUV - vec2(o.x, 0.0), 0.0).a),
+                       max(sampleAtlas(vAtlasUV + vec2(0.0, o.y), 0.0).a,
+                           sampleAtlas(vAtlasUV - vec2(0.0, o.y), 0.0).a));
+      float band = clamp(near - art.a, 0.0, 1.0);
+      rgb = mix(rgb, vec3(1.0), band);
+      alpha = max(alpha, band);
+    } else {
+      alpha *= uHighlightDimAlpha;
+    }
+  }
+  if (alpha <= 0.0) discard;
+  return vec4(rgb, alpha);
+}
+
 void main() {
   float dist = length(vLocalPos);
   float radius = 0.45;
@@ -157,19 +211,24 @@ void main() {
   float highlightOutlineW = uHighlightMask != 0 ? uHighlightOutlineW / vShapeScale : 0.0;
   float outerAlpha = 1.0 - smoothstep(-fw, fw, sdf - highlightOutlineW);
 
-  if (outerAlpha <= 0.0) discard;
+  // Zoomed in, buildings are pixel art sized by the quad, not by the badge shape.
+  bool artMode = vZoom > uDotsThreshold;
+  if (outerAlpha <= 0.0 && !artMode) discard;
 
   float borderMask = 1.0 - smoothstep(-fw, fw, sdf + borderWidth);
 
   // Player color
   vec4 fillColor;
+  vec3 ownerRGB; // undarkened owner colour, painted into the art's accents
   vec4 borderColor;
 
   if (uAltView != 0 && vUnderConstruction < 0.5) {
     vec3 ac = texelFetch(uAffiliation, ivec2(int(vOwnerID), 1), 0).rgb;
+    ownerRGB = ac;
     fillColor = vec4(darken(ac, uFillDarken), 1.0);
     borderColor = vec4(darken(ac, uBorderDarken), 1.0);
   } else if (vUnderConstruction > 0.5) {
+    ownerRGB = vec3(198.0/255.0);
     fillColor = vec4(198.0/255.0, 198.0/255.0, 198.0/255.0, 1.0);
     borderColor = vec4(127.0/255.0, 127.0/255.0, 127.0/255.0, 1.0);
   } else {
@@ -177,6 +236,7 @@ void main() {
     int local = int(uLocalPlayerID);
     float u = (vOwnerID + 0.5) / float(PALETTE_SIZE);
     fillColor = texture(uPalette, vec2(u, 0.25));
+    ownerRGB = fillColor.rgb;
     // if local player, use territory color because the border color is grey
     borderColor = texture(uPalette, vec2(u, owner == local ? 0.25 : 0.75));
     // Darken via HSV value so hue/saturation stay intact
@@ -200,9 +260,15 @@ void main() {
       vec3 effectRGB;
       if (structuresEffectColor(effOwner, effectRGB)) {
         fillColor.rgb = effectRGB;
+        ownerRGB = effectRGB;
         effectActive = true;
       }
     }
+  }
+
+  if (artMode) {
+    fragColor = drawArt(ownerRGB, fw);
+    return;
   }
 
   vec4 bgColor = mix(borderColor, fillColor, borderMask);
@@ -216,7 +282,7 @@ void main() {
     float colStart = vAtlasIdx / float(ATLAS_COLS);
     float colEnd = (vAtlasIdx + 1.0) / float(ATLAS_COLS);
     vec2 safeUV = vec2(clamp(vAtlasUV.x, colStart, colEnd), clamp(vAtlasUV.y, 0.0, 1.0));
-    vec4 iconSample = texture(uAtlas, safeUV);
+    vec4 iconSample = texture(uAtlas, vec2(safeUV.x, safeUV.y * 0.5));
     // Zero out icon outside the valid UV region (clamped pixels would repeat the edge)
     float inBounds = step(colStart, vAtlasUV.x) * step(vAtlasUV.x, colEnd)
                    * step(0.0, vAtlasUV.y) * step(vAtlasUV.y, 1.0);

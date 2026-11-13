@@ -130,19 +130,19 @@
     "shapes": {
       "City": {
         "scale": 1,
-        "iconFill": 0.85
+        "iconFill": 1
       },
       "Port": {
         "scale": 1.08,
-        "iconFill": 0.85
+        "iconFill": 1
       },
       "Factory": {
         "scale": 1.08,
-        "iconFill": 0.85
+        "iconFill": 1
       },
       "Defense Post": {
         "scale": 1,
-        "iconFill": 0.8
+        "iconFill": 1
       },
       "SAM Launcher": {
         "scale": 1.4,
@@ -150,11 +150,11 @@
       },
       "Missile Silo": {
         "scale": 1.55,
-        "iconFill": 0.85
+        "iconFill": 1
       },
       "Capital": {
         "scale": 1.6,
-        "iconFill": 0.6
+        "iconFill": 1.3
       }
     },
     "highlightOutlineWidth": 0.04,

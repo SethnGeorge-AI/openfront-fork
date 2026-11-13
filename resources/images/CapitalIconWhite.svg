@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff">
-  <!-- Flag on the keep -->
-  <rect x="11.2" y="0.8" width="1.4" height="6.2"/>
-  <path d="M12.6 0.8 L18.4 2.6 L12.6 4.4 Z"/>
-  <!-- Central keep with battlements -->
-  <path d="M8.5 13 V7 H10 V8.4 H11.2 V7 H12.8 V8.4 H14 V7 H15.5 V13 Z"/>
-  <!-- Outer wall with battlements, gate cut out -->
-  <path fill-rule="evenodd" d="M2.5 23 V12 H4.5 V13.8 H6.5 V12 H8.5 V13.8 H10.5 V12 H13.5 V13.8 H15.5 V12 H17.5 V13.8 H19.5 V12 H21.5 V23 Z M10 23 V19 A2 2 0 0 1 14 19 V23 Z"/>
-</svg>

@@ -8,8 +8,9 @@ import {
   TUTORIAL_VIDEO_URL,
 } from "../client/Utils";
 import { BaseModal } from "./components/BaseModal";
-import "./components/Difficulties";
 import { modalHeader } from "./components/ui/ModalHeader";
+import "./components/Difficulties";
+import { structureIconUrl } from "./hud/structureArt";
 import { KeyboardLayoutController } from "./KeyboardLayout";
 import { KEYBOARD_DETECTED_EVENT, Platform } from "./Platform";
 import { TroubleshootingModal } from "./TroubleshootingModal";
@@ -1060,7 +1061,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/CityIconWhite.svg")}
+                        src=${structureIconUrl("City")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>
@@ -1076,7 +1077,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/ShieldIconWhite.svg")}
+                        src=${structureIconUrl("Defense Post")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>
@@ -1092,7 +1093,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/PortIcon.svg")}
+                        src=${structureIconUrl("Port")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>
@@ -1108,7 +1109,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/FactoryIconWhite.svg")}
+                        src=${structureIconUrl("Factory")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>
@@ -1140,7 +1141,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/MissileSiloIconWhite.svg")}
+                        src=${structureIconUrl("Missile Silo")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>
@@ -1156,7 +1157,7 @@ export class HelpModal extends BaseModal {
                     </td>
                     <td class="py-3 border-b border-white/5">
                       <img
-                        src=${assetUrl("images/SamLauncherIconWhite.svg")}
+                        src=${structureIconUrl("SAM Launcher")}
                         class="w-8 h-8 scale-75 origin-left"
                       />
                     </td>

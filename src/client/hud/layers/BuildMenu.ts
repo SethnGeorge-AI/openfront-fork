@@ -27,18 +27,20 @@ import {
 } from "../../Transport";
 import { UIState } from "../../UIState";
 import { GameView } from "../../view";
+import {
+  capitalIcon,
+  cityIcon,
+  defensePostIcon,
+  factoryIcon,
+  missileSiloIcon,
+  portIcon,
+  samLauncherIcon,
+} from "../HotbarIcons";
 const warshipIcon = assetUrl("images/BattleshipIconWhite.svg");
-const cityIcon = assetUrl("images/CityIconWhite.svg");
-const factoryIcon = assetUrl("images/FactoryIconWhite.svg");
 const goldCoinIcon = assetUrl("images/GoldCoinIcon.svg");
 const mirvIcon = assetUrl("images/MIRVIcon.svg");
-const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
 const hydrogenBombIcon = assetUrl("images/MushroomCloudIconWhite.svg");
 const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
-const portIcon = assetUrl("images/PortIcon.svg");
-const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
-const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
-const capitalIcon = assetUrl("images/CapitalIconWhite.svg");
 
 export interface BuildItemDisplay {
   unitType: PlayerBuildableUnitType;
@@ -94,14 +96,14 @@ const buildTable: BuildItemDisplay[][] = [
     },
     {
       unitType: UnitType.SAMLauncher,
-      icon: samlauncherIcon,
+      icon: samLauncherIcon,
       description: "build_menu.desc.sam_launcher",
       key: "unit_type.sam_launcher",
       countable: true,
     },
     {
       unitType: UnitType.DefensePost,
-      icon: shieldIcon,
+      icon: defensePostIcon,
       description: "build_menu.desc.defense_post",
       key: "unit_type.defense_post",
       countable: true,

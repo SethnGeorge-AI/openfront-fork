@@ -34,6 +34,13 @@ import {
 } from "../../Utils";
 import { GameView, PlayerView, UnitView } from "../../view";
 import {
+  cityIcon,
+  factoryIcon,
+  missileSiloIcon,
+  portIcon,
+  samLauncherIcon,
+} from "../HotbarIcons";
+import {
   EMOJI_ICON_KIND,
   getFirstPlacePlayer,
   getPlayerIcons,
@@ -55,12 +62,7 @@ const requestAllianceIcon = assetUrl("images/AllianceIconWhite.svg");
 const breakAllianceIcon = assetUrl("images/TraitorIconWhite.svg");
 const targetIcon = assetUrl("images/TargetIconWhite.svg");
 const boatIcon = assetUrl("images/BoatIconWhite.svg");
-const cityIcon = assetUrl("images/CityIconWhite.svg");
-const factoryIcon = assetUrl("images/FactoryIconWhite.svg");
 const goldCoinIcon = assetUrl("images/GoldCoinIcon.svg");
-const missileSiloIcon = assetUrl("images/MissileSiloIconWhite.svg");
-const portIcon = assetUrl("images/PortIcon.svg");
-const samLauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const soldierIcon = assetUrl("images/SoldierIcon.svg");
 
 function euclideanDistWorld(

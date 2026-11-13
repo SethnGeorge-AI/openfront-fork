@@ -3,6 +3,7 @@ import type { PlayerStatsLeaf } from "@openfront/shared/ApiSchemas";
 import { assetUrl } from "@openfront/shared/AssetUrls";
 import { LitElement, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { structureIconUrl } from "../../../hud/structureArt";
 import { translateText } from "../../../Utils";
 
 type PlayerSummaryMetricKey =
@@ -101,17 +102,17 @@ const METRIC_GROUPS = [
 }[];
 
 const UNIT_ICONS = {
-  city: "images/CityIconWhite.svg",
-  port: "images/PortIcon.svg",
-  factory: "images/FactoryIconWhite.svg",
-  defensePost: "images/ShieldIconWhite.svg",
-  transport: "images/BoatIconWhite.svg",
-  tradeShip: "images/TradeShipIconWhite.svg",
-  troop: "images/SoldierIcon.svg",
-  nuke: "images/NukeIconWhite.svg",
-  warship: "images/DestroyerIconWhite.svg",
-  gold: "images/GoldCoinIcon.svg",
-} as const;
+  city: structureIconUrl("City"),
+  port: structureIconUrl("Port"),
+  factory: structureIconUrl("Factory"),
+  defensePost: structureIconUrl("Defense Post"),
+  transport: assetUrl("images/BoatIconWhite.svg"),
+  tradeShip: assetUrl("images/TradeShipIconWhite.svg"),
+  troop: assetUrl("images/SoldierIcon.svg"),
+  nuke: assetUrl("images/NukeIconWhite.svg"),
+  warship: assetUrl("images/DestroyerIconWhite.svg"),
+  gold: assetUrl("images/GoldCoinIcon.svg"),
+};
 
 type UnitIconName = keyof typeof UNIT_ICONS;
 
@@ -341,7 +342,7 @@ export class PlayerStatsSummary extends LitElement {
         >
           ${value}<img
             data-unit
-            src=${assetUrl(UNIT_ICONS[icon])}
+            src=${UNIT_ICONS[icon]}
             style=${iconStyle}
             alt=""
             aria-hidden="true"
