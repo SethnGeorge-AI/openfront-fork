@@ -474,9 +474,9 @@
     "semantic_hash": ""
   },
   "map-generator/assets/maps/europe/info.json": {
-    "mtime": 1794582622.9055805,
-    "seen": 1794582701.11059,
-    "ast_hash": "51ef25a2d47fc7a80b794beb2d241374",
+    "mtime": 1794593435.2014067,
+    "seen": 1794593489.4174542,
+    "ast_hash": "fa9e86d523405abfaa62fcfc09f2a3fc",
     "semantic_hash": ""
   },
   "map-generator/assets/maps/europeclassic/info.json": {
@@ -1020,9 +1020,9 @@
     "semantic_hash": ""
   },
   "map-generator/assets/maps/world/info.json": {
-    "mtime": 1794582622.9124477,
-    "seen": 1794582701.1106791,
-    "ast_hash": "50a6de189b6c5720395accc830db35fd",
+    "mtime": 1794593435.2009954,
+    "seen": 1794593489.4175632,
+    "ast_hash": "10698533423eff4c426c103060199a4f",
     "semantic_hash": ""
   },
   "map-generator/assets/maps/world10000/info.json": {
@@ -2898,9 +2898,9 @@
     "semantic_hash": ""
   },
   "resources/maps/europe/manifest.json": {
-    "mtime": 1794584015.1401896,
-    "seen": 1794584080.7668693,
-    "ast_hash": "43f12998ed2a2e89c003cb81950c9cbb",
+    "mtime": 1794593435.2015178,
+    "seen": 1794593489.417907,
+    "ast_hash": "0e2074d6ba93922d781f0f9d079211a9",
     "semantic_hash": ""
   },
   "resources/maps/europeclassic/manifest.json": {
@@ -3444,9 +3444,9 @@
     "semantic_hash": ""
   },
   "resources/maps/world/manifest.json": {
-    "mtime": 1794584015.1404219,
-    "seen": 1794584080.7669628,
-    "ast_hash": "994d96a9da5826e0fd9a3414bd37cb58",
+    "mtime": 1794593435.2012253,
+    "seen": 1794593489.4180076,
+    "ast_hash": "94c42504a5d122e3d6b95f3eb14c5ea8",
     "semantic_hash": ""
   },
   "resources/maps/world10000/manifest.json": {
@@ -23520,15 +23520,15 @@
     "semantic_hash": ""
   },
   "tests/client/LandmarkArt.test.ts": {
-    "mtime": 1794591053.6975706,
-    "seen": 1794591101.4125342,
-    "ast_hash": "e392f3f5ec7acdda5276f6f5375c0287",
+    "mtime": 1794593511.3627417,
+    "seen": 1794593563.802777,
+    "ast_hash": "1aeda473996481e5e3a1a020e358afa2",
     "semantic_hash": ""
   },
   "src/client/hud/landmarkArt.ts": {
-    "mtime": 1794591213.088512,
-    "seen": 1794591281.897794,
-    "ast_hash": "a5b4ddb7162aade8fe590441255b0575",
+    "mtime": 1794593502.1239026,
+    "seen": 1794593563.801536,
+    "ast_hash": "eb64e6c8183e930593374050e877271a",
     "semantic_hash": ""
   },
   "package-lock.json": {
