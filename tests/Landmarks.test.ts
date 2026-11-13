@@ -65,6 +65,20 @@ describe("loadTerrainMap landmarks", () => {
     expect(data.landmarks[0].coordinates).toEqual([5, 5]);
   });
 
+  test("rejects two landmarks that share a tile on a compact map", async () => {
+    await expect(
+      loadTerrainMap(
+        makeFiles(
+          [
+            { name: "A", coordinates: [10, 10] },
+            { name: "B", coordinates: [11, 11] },
+          ],
+          GameMapSize.Compact,
+        ),
+      ),
+    ).rejects.toThrow('landmarks "A" and "B" share a tile');
+  });
+
   test("rejects a landmark on water", async () => {
     await expect(
       loadTerrainMap(
@@ -118,5 +132,12 @@ describe.each(LANDMARK_MAPS)("%s landmarks", (map) => {
       if (!compact.isLand(compact.ref(cx, cy))) water.push(`${name} (compact)`);
     }
     expect(water).toEqual([]);
+  });
+
+  test("no two landmarks share a tile at compact size", () => {
+    const compact = landmarks.map(({ coordinates: [x, y] }) =>
+      [Math.floor(x / 2), Math.floor(y / 2)].join(","),
+    );
+    expect(new Set(compact).size).toBe(compact.length);
   });
 });

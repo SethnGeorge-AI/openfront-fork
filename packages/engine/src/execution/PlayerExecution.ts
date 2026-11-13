@@ -100,12 +100,12 @@ export class PlayerExecution implements Execution {
     const landmarksHeld = this.mg.landmarksHeldBy(this.player);
     const troopInc = this.config.troopIncreaseRate(this.player, landmarksHeld);
     this.player.addTroops(troopInc);
-    const goldFromWorkers =
-      this.config.goldAdditionRate(this.player) +
-      LANDMARK_GOLD_PER_TICK * BigInt(landmarksHeld);
-    this.player.addGold(goldFromWorkers);
+    const goldFromWorkers = this.config.goldAdditionRate(this.player);
+    this.player.addGold(
+      goldFromWorkers + LANDMARK_GOLD_PER_TICK * BigInt(landmarksHeld),
+    );
 
-    // Record stats
+    // Record stats (landmark gold is not workers' income)
     this.mg.stats().goldWork(this.player, goldFromWorkers);
 
     for (const alliance of this.player.alliances()) {

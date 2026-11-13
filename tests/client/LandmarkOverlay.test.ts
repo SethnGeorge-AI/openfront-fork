@@ -106,6 +106,63 @@ describe("LandmarkOverlay", () => {
     );
   });
 
+  it("keeps the card inside the screen near the left edge", async () => {
+    // The pin is at x = 105; a 224px card centred there would start at -7.
+    const card = await hoverCard(mount(alice));
+    expect(parseFloat(card!.style.left)).toBeGreaterThanOrEqual(112 + 8);
+  });
+
+  it("opens the card below the pin near the top edge", async () => {
+    // The pin's tile is at y = 125, too close to the top for a card above it.
+    const card = await hoverCard(mount(alice));
+    expect(card!.className).not.toContain("-translate-y-full");
+    expect(parseFloat(card!.style.top)).toBeGreaterThan(125);
+  });
+
+  it("passes the scroll wheel through to the map", async () => {
+    const map = document.createElement("div");
+    map.id = "game-input-overlay";
+    document.body.appendChild(map);
+    const wheels: WheelEvent[] = [];
+    map.addEventListener("wheel", (e) => wheels.push(e as WheelEvent));
+    const [marker] = await markers(mount(alice));
+    marker.dispatchEvent(
+      new WheelEvent("wheel", { deltaY: 50, clientX: 105, clientY: 119 }),
+    );
+    expect(wheels.map((w) => [w.deltaY, w.clientX, w.clientY])).toEqual([
+      [50, 105, 119],
+    ]);
+  });
+
+  it("hands a drag that starts on a pin to the map, without opening the card", async () => {
+    const map = document.createElement("div");
+    map.id = "game-input-overlay";
+    document.body.appendChild(map);
+    const downs: PointerEvent[] = [];
+    map.addEventListener("pointerdown", (e) => downs.push(e as PointerEvent));
+    const overlay = mount(alice);
+    const [marker] = await markers(overlay);
+    const at = (type: string, x: number) =>
+      new PointerEvent(type, {
+        pointerId: 7,
+        pointerType: "touch",
+        button: 0,
+        clientX: x,
+        clientY: 119,
+        bubbles: true,
+      });
+    marker.dispatchEvent(at("pointerdown", 105));
+    marker.dispatchEvent(at("pointermove", 108));
+    expect(downs).toHaveLength(0); // still a tap
+    marker.dispatchEvent(at("pointermove", 130));
+    expect(downs.map((d) => [d.pointerId, d.clientX, d.clientY])).toEqual([
+      [7, 105, 119],
+    ]);
+    marker.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await overlay.updateComplete;
+    expect(overlay.querySelector("[data-landmark-card]")).toBeNull();
+  });
+
   it("says unclaimed when nobody holds it", async () => {
     const card = await hoverCard(mount(null));
     expect(card?.textContent).toContain("landmark.unclaimed");

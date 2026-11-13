@@ -1,5 +1,6 @@
 import { PlayerInfo, PlayerType } from "@openfront/engine-api/game/GameTypes";
 import type { Landmark } from "@openfront/engine-api/game/MapFiles";
+import { GOLD_INDEX_WORK } from "@openfront/engine-api/StatsSchemas";
 import {
   LANDMARK_GOLD_PER_TICK,
   LANDMARK_TROOP_BONUS,
@@ -23,8 +24,8 @@ async function twoPlayers(landmarks?: Landmark[]) {
     "plains",
     {},
     [
-      new PlayerInfo("a", PlayerType.Human, null, "a_id"),
-      new PlayerInfo("b", PlayerType.Human, null, "b_id"),
+      new PlayerInfo("a", PlayerType.Human, "a_client", "a_id"),
+      new PlayerInfo("b", PlayerType.Human, "b_client", "b_id"),
     ],
     __dirname,
     TestConfig,
@@ -98,6 +99,16 @@ describe("landmark bonus", () => {
     const decay = config.troopIncreaseRate(a);
     expect(decay).toBeLessThan(0);
     expect(config.troopIncreaseRate(a, 3)).toBe(decay);
+  });
+
+  test("landmark gold is not counted as worker gold in the stats", async () => {
+    const { game, a } = await twoPlayers([LANDMARK]);
+    const work = () =>
+      game.stats().getPlayerStats(a)?.gold?.[GOLD_INDEX_WORK] ?? 0n;
+    const before = work();
+    const base = game.config().goldAdditionRate(a);
+    gains(game, [a]);
+    expect(work() - before).toBe(base);
   });
 
   test("a holder at max troops gains no troops", async () => {

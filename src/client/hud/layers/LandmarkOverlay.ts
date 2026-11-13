@@ -21,6 +21,15 @@ const TROOP_PERCENT = Math.round(LANDMARK_TROOP_BONUS * 100);
 const PIN_GAP_PX = 6;
 /** Markers this far past the screen edge are still drawn, so they slide in. */
 const EDGE_PX = 40;
+/** The card's width (w-56), its gap to the screen edge, and the room it needs above a pin. */
+const CARD_W = 224;
+const CARD_MARGIN = 8;
+const CARD_ROOM_PX = 150;
+/** Movement that turns a press on a pin into a map drag (InputHandler's threshold). */
+const DRAG_PX = 10;
+
+/** The element the map's InputHandler listens on. */
+const mapInput = () => document.getElementById("game-input-overlay");
 
 interface Spot {
   index: number;
@@ -41,6 +50,10 @@ export class LandmarkOverlay extends LitElement implements Controller {
   @state() private spots: Spot[] = [];
   @state() private openIndex: number | null = null;
   private frame: number | null = null;
+  /** A press on a pin that is not yet a drag. */
+  private press: { id: number; x: number; y: number } | null = null;
+  /** Set when a press became a map drag, so its click does not toggle the card. */
+  private dragged = false;
 
   createRenderRoot() {
     return this;
@@ -115,13 +128,64 @@ export class LandmarkOverlay extends LitElement implements Controller {
     return translateText("landmark.owner", { name: owner.displayName() });
   }
 
+  private onPinPointerDown = (e: PointerEvent) => {
+    if (e.button !== 0) return;
+    this.press = { id: e.pointerId, x: e.clientX, y: e.clientY };
+    this.dragged = false;
+  };
+
+  /** Past the drag threshold the press is the map's: replay its start there. */
+  private onPinPointerMove = (e: PointerEvent) => {
+    const p = this.press;
+    if (p === null || e.pointerId !== p.id) return;
+    if (Math.abs(e.clientX - p.x) + Math.abs(e.clientY - p.y) < DRAG_PX) return;
+    this.press = null;
+    this.dragged = true;
+    mapInput()?.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        pointerId: p.id,
+        pointerType: e.pointerType,
+        isPrimary: e.isPrimary,
+        button: 0,
+        buttons: 1,
+        clientX: p.x,
+        clientY: p.y,
+        bubbles: true,
+      }),
+    );
+  };
+
+  private onPinClick = (index: number) => {
+    this.press = null;
+    if (this.dragged) {
+      this.dragged = false;
+      return;
+    }
+    this.openIndex = this.openIndex === index ? null : index;
+  };
+
+  private onPinWheel = (e: WheelEvent) => {
+    e.preventDefault();
+    mapInput()?.dispatchEvent(new WheelEvent("wheel", e));
+  };
+
   private renderCard(spot: Spot) {
     const landmark = this.game.landmarks()[spot.index];
     const owner = this.game.landmarkOwner(spot.index);
+    // Kept on screen: clamped sideways, and below the pin when there is no room above.
+    const left = Math.min(
+      Math.max(spot.x, CARD_W / 2 + CARD_MARGIN),
+      window.innerWidth - CARD_W / 2 - CARD_MARGIN,
+    );
+    const below = spot.y < CARD_ROOM_PX;
     return html`<div
       data-landmark-card
-      class="absolute pointer-events-none w-56 -translate-x-1/2 -translate-y-full rounded-xl bg-gray-900/95 px-4 py-3 text-white shadow-2xl ring-1 ring-white/10"
-      style="left: ${spot.x}px; top: ${spot.y - PIN_GAP_PX - 36}px"
+      class="absolute pointer-events-none w-56 -translate-x-1/2 ${
+        below ? "" : "-translate-y-full"
+      } rounded-xl bg-gray-900/95 px-4 py-3 text-white shadow-2xl ring-1 ring-white/10"
+      style="left: ${left}px; top: ${
+        below ? spot.y + CARD_MARGIN : spot.y - PIN_GAP_PX - 36
+      }px"
     >
       <div class="text-sm font-bold uppercase tracking-wider text-yellow-300">
         ${landmark.name}
@@ -149,7 +213,7 @@ export class LandmarkOverlay extends LitElement implements Controller {
           type="button"
           data-landmark
           aria-label=${landmark.name}
-          class="absolute pointer-events-auto flex size-7 -translate-x-1/2 -translate-y-full items-center justify-center rounded-full border-2 bg-gray-900/85 text-white shadow-lg transition-transform hover:scale-110"
+          class="absolute pointer-events-auto touch-none flex size-7 -translate-x-1/2 -translate-y-full items-center justify-center rounded-full border-2 bg-gray-900/85 text-white shadow-lg transition-transform hover:scale-110"
           style="left: ${spot.x}px; top: ${spot.y - PIN_GAP_PX}px; border-color: ${
             owner ? owner.territoryColor().toHex() : "rgba(255, 255, 255, 0.3)"
           }"
@@ -160,9 +224,10 @@ export class LandmarkOverlay extends LitElement implements Controller {
           @pointerleave=${(e: PointerEvent) => {
             if (e.pointerType === "mouse") this.openIndex = null;
           }}
-          @click=${() =>
-            (this.openIndex =
-              this.openIndex === spot.index ? null : spot.index)}
+          @pointerdown=${this.onPinPointerDown}
+          @pointermove=${this.onPinPointerMove}
+          @wheel=${this.onPinWheel}
+          @click=${() => this.onPinClick(spot.index)}
         >
           <svg viewBox="0 0 16 16" class="size-4" aria-hidden="true">
             <path

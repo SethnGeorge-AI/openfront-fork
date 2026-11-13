@@ -85,10 +85,20 @@ export async function loadTerrainMap(files: MapFiles): Promise<TerrainMapData> {
           ] as [number, number])
         : l.coordinates,
   }));
+  // The schema checks tiles at normal size; halving can still merge two.
+  const byTile = new Map<string, string>();
   for (const { name, coordinates } of landmarks) {
     if (!gameMap.isLand(gameMap.ref(coordinates[0], coordinates[1]))) {
       throw new Error(`Map ${map}: landmark "${name}" is not on land`);
     }
+    const tile = coordinates.join(",");
+    const other = byTile.get(tile);
+    if (other !== undefined) {
+      throw new Error(
+        `Map ${map}: landmarks "${other}" and "${name}" share a tile`,
+      );
+    }
+    byTile.set(tile, name);
   }
 
   // Scale spawn areas for compact maps
