@@ -8,7 +8,7 @@ import {
   PlayerInfo,
   PlayerType,
 } from "@openfront/engine-api/game/GameTypes";
-import { MapManifest } from "@openfront/engine-api/game/MapFiles";
+import { Landmark, MapManifest } from "@openfront/engine-api/game/MapFiles";
 import { GameConfig } from "@openfront/engine-api/Schemas";
 import { genTerrainFromBin } from "@openfront/engine-lib/game/TerrainMapLoader";
 import { EngineConfig } from "@openfront/engine/configuration/EngineConfig";
@@ -29,6 +29,7 @@ export async function setup(
   ConfigClass: typeof EngineConfig = TestConfig,
   autoEndSpawnPhase: boolean = true,
   nations: Nation[] = [],
+  landmarks: Landmark[] = [],
 ): Promise<Game> {
   // Suppress console.debug for tests.
   console.debug = () => {};
@@ -74,7 +75,15 @@ export async function setup(
   };
   const config = new ConfigClass(gameConfig, false);
 
-  const game = createGame(humans, nations, gameMap, miniGameMap, config);
+  const game = createGame(
+    humans,
+    nations,
+    gameMap,
+    miniGameMap,
+    config,
+    undefined,
+    landmarks,
+  );
   if (autoEndSpawnPhase) game.endSpawnPhase();
   return game;
 }

@@ -5,6 +5,7 @@ import {
   Structures,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
+import { LANDMARK_GOLD_PER_TICK } from "@openfront/engine-lib/configuration/Config";
 import { zInt, zPlayerRef } from "@openfront/engine-lib/snapshot/SnapshotType";
 import { getMode, simpleHash } from "@openfront/engine-lib/Util";
 import { z } from "zod";
@@ -96,9 +97,12 @@ export class PlayerExecution implements Execution {
       return;
     }
 
-    const troopInc = this.config.troopIncreaseRate(this.player);
+    const landmarksHeld = this.mg.landmarksHeldBy(this.player);
+    const troopInc = this.config.troopIncreaseRate(this.player, landmarksHeld);
     this.player.addTroops(troopInc);
-    const goldFromWorkers = this.config.goldAdditionRate(this.player);
+    const goldFromWorkers =
+      this.config.goldAdditionRate(this.player) +
+      LANDMARK_GOLD_PER_TICK * BigInt(landmarksHeld);
     this.player.addGold(goldFromWorkers);
 
     // Record stats

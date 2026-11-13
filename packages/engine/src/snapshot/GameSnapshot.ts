@@ -3,6 +3,7 @@ import {
   Nation,
   TeamGameSpawnAreas,
 } from "@openfront/engine-api/game/GameTypes";
+import type { Landmark } from "@openfront/engine-api/game/MapFiles";
 import type { SnapshotHeader } from "@openfront/engine-api/game/SnapshotHeader";
 import { GameConfig, GameConfigSchema } from "@openfront/engine-api/Schemas";
 import {
@@ -261,6 +262,7 @@ export interface RestoreDeps {
   gameMap: GameMap;
   miniGameMap: GameMap;
   teamGameSpawnAreas?: TeamGameSpawnAreas;
+  landmarks?: readonly Landmark[];
 }
 
 /**
@@ -297,6 +299,7 @@ export function restoreGame(bytes: Uint8Array, deps: RestoreDeps): Game {
     new StatsImpl(),
     deps.teamGameSpawnAreas,
     true,
+    deps.landmarks,
   );
 
   // Pass 1: an empty shell for every object, so references resolve.

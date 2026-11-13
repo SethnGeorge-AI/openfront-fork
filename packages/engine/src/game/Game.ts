@@ -516,6 +516,9 @@ export interface Game extends GameLike {
   height(): number;
   map(): GameMap;
   miniMap(): GameMap;
+  // Landmarks from the map; whoever owns a landmark's tile holds it.
+  landmarks(): readonly { name: string; tile: TileRef }[];
+  landmarksHeldBy(player: Player): number;
   forEachTile(fn: (tile: TileRef) => void): void;
   // Zero-allocation neighbor iteration (cardinal only), in the same N, S, W, E
   // order as neighbors().

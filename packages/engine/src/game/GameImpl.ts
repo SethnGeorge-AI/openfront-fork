@@ -28,6 +28,7 @@ import {
   GameUpdate,
   GameUpdateType,
 } from "@openfront/engine-api/game/GameUpdates";
+import type { Landmark } from "@openfront/engine-api/game/MapFiles";
 import {
   ReadonlyTileSet,
   UnitPredicate,
@@ -114,6 +115,7 @@ export function createGame(
   miniGameMap: GameMap,
   config: EngineConfig,
   teamGameSpawnAreas?: TeamGameSpawnAreas,
+  landmarks: readonly Landmark[] = [],
 ): Game {
   const stats = new StatsImpl();
   return new GameImpl(
@@ -124,6 +126,8 @@ export function createGame(
     config,
     stats,
     teamGameSpawnAreas,
+    false,
+    landmarks,
   );
 }
 
@@ -178,6 +182,7 @@ export class GameImpl implements Game {
   private _teamGameSpawnAreas: TeamGameSpawnAreas | undefined;
   /** Tiles from nuke blast radii this tick, drained by the renderer. */
   private _nukeImpactQueue: TileRef[] = [];
+  private _landmarks: { name: string; tile: TileRef }[];
 
   constructor(
     private _humans: PlayerInfo[],
@@ -190,9 +195,16 @@ export class GameImpl implements Game {
     // Restoring a snapshot: skip team and player setup, the snapshot
     // supplies both (see restoreState).
     restoring: boolean = false,
+    // Map data, not state: a landmark's holder is its tile's owner, so
+    // snapshots need nothing for them.
+    landmarks: readonly Landmark[] = [],
   ) {
     const constructorStart = performance.now();
 
+    this._landmarks = landmarks.map((l) => ({
+      name: l.name,
+      tile: _map.ref(l.coordinates[0], l.coordinates[1]),
+    }));
     this._teamGameSpawnAreas = teamGameSpawnAreas;
     this._terraNullius = new TerraNulliusImpl();
     this._width = _map.width();
@@ -280,6 +292,18 @@ export class GameImpl implements Game {
   }
   miniMap(): GameMap {
     return this.miniGameMap;
+  }
+
+  landmarks(): readonly { name: string; tile: TileRef }[] {
+    return this._landmarks;
+  }
+
+  landmarksHeldBy(player: Player): number {
+    let held = 0;
+    for (const l of this._landmarks) {
+      if (this.owner(l.tile) === player) held++;
+    }
+    return held;
   }
 
   addUpdate(update: GameUpdate) {
