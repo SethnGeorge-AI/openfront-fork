@@ -72,7 +72,11 @@ export class PlayerExecution implements Execution {
       placeCapital(this.mg!, this.player, 1, this.player.spawnTile() ?? null);
     }
     // A captured capital is destroyed and rebuilt one tier lower after the loop.
-    let lostCapital: { tier: number; tile: TileRef } | null = null;
+    let lostCapital: {
+      tier: number;
+      tile: TileRef;
+      upgradeAt: number | null;
+    } | null = null;
     for (const u of this.player.units()) {
       if (!Structures.has(u.type())) {
         continue;
@@ -85,6 +89,8 @@ export class PlayerExecution implements Execution {
         lostCapital = {
           tier: owner.isPlayer() ? u.level() - 1 : u.level(),
           tile: u.tile(),
+          // A capture cancels a pending upgrade; a nuke-cleared tile keeps it.
+          upgradeAt: owner.isPlayer() ? null : u.capitalUpgradeAt(),
         };
         u.delete(
           true,
@@ -109,12 +115,15 @@ export class PlayerExecution implements Execution {
     }
 
     if (lostCapital !== null && this.player.isAlive()) {
-      placeCapital(
+      const capital = placeCapital(
         this.mg!,
         this.player,
         Math.max(1, lostCapital.tier),
         lostCapital.tile,
       );
+      if (capital !== null && lostCapital.upgradeAt !== null) {
+        capital.startCapitalUpgrade(lostCapital.upgradeAt);
+      }
     }
 
     if (!this.player.isAlive()) {

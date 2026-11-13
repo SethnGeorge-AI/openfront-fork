@@ -137,4 +137,13 @@ describe("Capital defenses", () => {
     executeTicks(game, 5);
     expect(city.isMarkedForDeletion() || !city.isActive()).toBe(true);
   });
+
+  test("capitals off: attacks don't look for a capital", async () => {
+    const game = await setup("plains", {});
+    const p = game.addPlayer(new PlayerInfo("p", PlayerType.Human, null, "p"));
+    const spy = vi.spyOn(game, "hasUnitNearby");
+    defenderHasDefenseNearby(game, game.ref(5, 5), p);
+    const types = spy.mock.calls.map((c) => c[2]);
+    expect(types).not.toContain(UnitType.Capital);
+  });
 });

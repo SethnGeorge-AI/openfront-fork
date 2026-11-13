@@ -135,4 +135,17 @@ describe("Capital timed upgrade", () => {
     executeTicks(restored, 201);
     expect(cap().level()).toBe(2);
   });
+
+  test("build menu offers no capital upgrade while one is pending or at tier 5", async () => {
+    const { player, capital } = await spawned();
+    player.addGold(100_000_000n);
+    const offer = () =>
+      player.buildableUnits(capital().tile(), [UnitType.Capital])[0].canUpgrade;
+    expect(offer()).toBe(capital().id());
+    capital().startCapitalUpgrade();
+    expect(offer()).toBe(false);
+    capital().increaseLevel(); // lands: tier 2
+    for (let i = 0; i < 3; i++) capital().increaseLevel(); // tier 5
+    expect(offer()).toBe(false);
+  });
 });

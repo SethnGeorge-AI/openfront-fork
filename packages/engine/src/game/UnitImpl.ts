@@ -760,12 +760,14 @@ export class UnitImpl implements Unit {
     return s.upgradeStartTick + s.duration;
   }
 
-  startCapitalUpgrade(): void {
+  startCapitalUpgrade(
+    finishTick: Tick = this.mg.ticks() + CAPITAL_UPGRADE_TICKS,
+  ): void {
     this._samLauncherState = {
       upgradeStartTick: this.mg.ticks(),
       startRange: this.mg.config().dynamicSamRange(this, this.mg.ticks()),
       targetLevel: this._level + 1,
-      duration: CAPITAL_UPGRADE_TICKS,
+      duration: finishTick - this.mg.ticks(),
     };
     this.mg.addUpdate(this.toUpdate());
   }

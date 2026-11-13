@@ -81,6 +81,7 @@ export class TrainStationExecution implements Execution {
   private spawnTrain(station: TrainStation, currentTick: number) {
     if (this.mg === undefined) throw new Error("Not initialized");
     if (!this.spawnTrains) return;
+    if (this.mg.config().isStructureOffline(this.unit)) return;
     if (this.random === undefined) throw new Error("Not initialized");
     if (currentTick < this.lastSpawnTick + this.ticksCooldown) return;
     const cluster = station.getCluster();

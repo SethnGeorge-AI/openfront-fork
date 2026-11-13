@@ -46,12 +46,13 @@ export function defenderHasDefenseNearby(
       UnitType.DefensePost,
       defender.id(),
     ) ||
-    mg.hasUnitNearby(
-      tile,
-      CAPITAL_DEFENSE_RANGE,
-      UnitType.Capital,
-      defender.id(),
-    )
+    (mg.config().capitalsEnabled() &&
+      mg.hasUnitNearby(
+        tile,
+        CAPITAL_DEFENSE_RANGE,
+        UnitType.Capital,
+        defender.id(),
+      ))
   );
 }
 

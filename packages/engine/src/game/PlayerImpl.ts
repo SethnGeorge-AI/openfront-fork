@@ -1467,7 +1467,9 @@ export class PlayerImpl implements Player {
     if (this.mg.config().isUnitDisabled(unitType)) {
       return false;
     }
-    if (capitalTier(this) < this.mg.config().requiredTierFor(unitType, this)) {
+    // Tier lookup only when gated: canBuildUnitType is hot and capitals are usually off.
+    const neededTier = this.mg.config().requiredTierFor(unitType, this);
+    if (neededTier > 0 && capitalTier(this) < neededTier) {
       return false;
     }
     const cost = knownCost ?? this.mg.unitInfo(unitType).cost(this.mg, this);
@@ -1494,6 +1496,13 @@ export class PlayerImpl implements Player {
     if (unit.owner() !== this) {
       return false;
     }
+    // One timed upgrade at a time, up to the top tier; the build menu reads this too.
+    if (
+      unit.type() === UnitType.Capital &&
+      (unit.capitalUpgradeAt() !== null || unit.level() >= CAPITAL_MAX_TIER)
+    ) {
+      return false;
+    }
     return true;
   }
 
@@ -1505,12 +1514,6 @@ export class PlayerImpl implements Player {
       return false;
     }
     if (!this.isUnitValidToUpgrade(unit)) {
-      return false;
-    }
-    if (
-      unit.type() === UnitType.Capital &&
-      (unit.capitalUpgradeAt() !== null || unit.level() >= CAPITAL_MAX_TIER)
-    ) {
       return false;
     }
     return true;

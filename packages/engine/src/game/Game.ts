@@ -299,8 +299,8 @@ export interface Unit extends UnitLike {
   increaseLevel(): void;
   /** Tick the capital's pending upgrade lands, or null when none is pending. */
   capitalUpgradeAt(): Tick | null;
-  /** Starts a timed upgrade to the next level (capital only). */
-  startCapitalUpgrade(): void;
+  /** Starts a timed upgrade to the next level, landing at `finishTick` (capital only). */
+  startCapitalUpgrade(finishTick?: Tick): void;
   decreaseLevel(destroyer?: Player): void;
 }
 

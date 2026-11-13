@@ -11,6 +11,7 @@ import { NukeExecution } from "@openfront/engine/execution/NukeExecution";
 import { PortExecution } from "@openfront/engine/execution/PortExecution";
 import { SAMLauncherExecution } from "@openfront/engine/execution/SAMLauncherExecution";
 import { SpawnExecution } from "@openfront/engine/execution/SpawnExecution";
+import { TrainStationExecution } from "@openfront/engine/execution/TrainStationExecution";
 import { Game, Player, Unit } from "@openfront/engine/game/Game";
 import { setup } from "./util/Setup";
 import { executeTicks } from "./util/utils";
@@ -104,6 +105,74 @@ describe("Offline structures", () => {
     for (let i = 0; i < 200; i++) {
       expect(exec.shouldSpawnTradeShip()).toBe(false);
     }
+  });
+
+  test("an offline factory spawns no trains", async () => {
+    const { game, player, capital } = await spawned();
+    const factory = player.buildUnit(
+      UnitType.Factory,
+      farPatch(game, player),
+      {},
+    );
+    const exec = new TrainStationExecution(factory, true);
+    exec.init(game, game.ticks());
+    let reachedCluster = false;
+    const station = {
+      getCluster: () => {
+        reachedCluster = true;
+        return null;
+      },
+    };
+    const spawn = (t: number) => (exec as any).spawnTrain(station, t);
+    spawn(game.ticks() + 10_000);
+    expect(reachedCluster).toBe(false); // tier 1: offline, stops first
+    capital().increaseLevel();
+    spawn(game.ticks() + 20_000);
+    expect(reachedCluster).toBe(true); // tier 2: online, goes on
+  });
+
+  test("an offline port is not a trade destination", async () => {
+    const game = await setup("ocean_and_land", {
+      capitals: true,
+      instantBuild: true,
+      infiniteGold: true,
+    });
+    const a = game.addPlayer(new PlayerInfo("a", PlayerType.Human, null, "a"));
+    const b = game.addPlayer(new PlayerInfo("b", PlayerType.Human, null, "b"));
+    const shores: number[] = [];
+    game.map().forEachTile((t) => {
+      if (game.isLand(t) && game.isOceanShore(t)) shores.push(t);
+    });
+    const ta = shores[0];
+    const tb = shores[shores.length - 1];
+    a.conquer(ta);
+    b.conquer(tb);
+    const capA = a.buildUnit(UnitType.Capital, ta, {});
+    capA.increaseLevel(); // a: tier 2
+    b.buildUnit(UnitType.Capital, tb, {}); // b: tier 1
+    const portA = a.buildUnit(UnitType.Port, ta, {});
+    const portB = b.buildUnit(UnitType.Port, tb, {});
+    const exec = new PortExecution(portA);
+    exec.init(game, game.ticks());
+    const dests = () => exec.tradingPorts().map((w: any) => w.port ?? w);
+    expect(dests()).not.toContain(portB);
+    b.units(UnitType.Capital)[0].increaseLevel(); // b: tier 2, port online
+    expect(dests()).toContain(portB);
+  });
+
+  test("a destroyed offline SAM's execution ends", async () => {
+    const { game, player } = await spawned();
+    const sam = player.buildUnit(
+      UnitType.SAMLauncher,
+      farPatch(game, player),
+      {},
+    );
+    const exec = new SAMLauncherExecution(player, null, sam);
+    game.addExecution(exec);
+    executeTicks(game, 2);
+    sam.delete(false);
+    executeTicks(game, 2);
+    expect(exec.isActive()).toBe(false);
   });
 
   test("toggle off: nothing is offline", async () => {

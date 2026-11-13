@@ -6,8 +6,8 @@ import { SAMLauncherExecution } from "./SAMLauncherExecution";
 
 /**
  * Builds `player`'s capital at `tier` (free) and starts its executions.
- * Uses `near` when the player owns it, else the owned tile closest to the
- * centre of their largest territory. Returns null when they own no land.
+ * Uses `near` when the player owns it, else the owned tile farthest from it.
+ * Returns null when they own no land.
  */
 export function placeCapital(
   game: Game,
@@ -30,27 +30,14 @@ function pickCapitalTile(
   near: TileRef | null,
 ): TileRef | null {
   if (near !== null && game.owner(near) === player) return near;
-  const box = player.largestClusterBoundingBox ?? null;
-  let cx: number;
-  let cy: number;
-  if (box !== null) {
-    cx = Math.floor((box.min.x + box.max.x) / 2);
-    cy = Math.floor((box.min.y + box.max.y) / 2);
-  } else if (near !== null) {
-    cx = game.x(near);
-    cy = game.y(near);
-  } else {
-    cx = 0;
-    cy = 0;
-  }
-  // shortcut: scans every owned tile (O(tiles)); runs only on placement and capture, upgrade if profiling shows it.
+  // Lost tile: go as far from it as possible, so the push that took it
+  // can't take the new capital a few ticks later.
+  // shortcut: scans every owned tile (O(tiles)) and may pick a far island over the main landmass; runs only on capture, upgrade if it matters in play.
   let best: TileRef | null = null;
-  let bestDist = Infinity;
+  let bestDist = -1;
   for (const t of player.tiles()) {
-    const dx = game.x(t) - cx;
-    const dy = game.y(t) - cy;
-    const d = dx * dx + dy * dy;
-    if (d < bestDist || (d === bestDist && best !== null && t < best)) {
+    const d = near === null ? 0 : game.manhattanDist(t, near);
+    if (d > bestDist || (d === bestDist && best !== null && t < best)) {
       best = t;
       bestDist = d;
     }

@@ -123,4 +123,35 @@ describe("Capital placement", () => {
     expect(capitals(player)[0].level()).toBe(2);
     expect(capitals(player)[0].tile()).not.toBe(oldTile);
   });
+
+  test("a captured capital moves away from the front, not next to it", async () => {
+    const { game, player, enemy } = await spawned({ capitals: true });
+    for (let x = 10; x <= 50; x++) {
+      for (let y = 15; y <= 25; y++) player.conquer(game.ref(x, y));
+    }
+    executeTicks(game, 25); // let the cluster box catch up
+    const lost = capitals(player)[0].tile();
+    enemy.conquer(lost);
+    executeTicks(game, 1);
+    const moved = capitals(player)[0].tile();
+    // The farthest owned tile from the lost one, so the push can't take it next.
+    let farthest = 0;
+    for (const t of player.tiles()) {
+      farthest = Math.max(farthest, game.manhattanDist(t, lost));
+    }
+    expect(game.manhattanDist(moved, lost)).toBe(farthest);
+  });
+
+  test("tile left unowned mid-upgrade: the paid upgrade carries over", async () => {
+    const { game, player } = await spawned({ capitals: true });
+    const capital = capitals(player)[0];
+    capital.startCapitalUpgrade();
+    const landsAt = capital.capitalUpgradeAt();
+    executeTicks(game, 100);
+    player.relinquish(capital.tile());
+    executeTicks(game, 1);
+    expect(capitals(player)[0].capitalUpgradeAt()).toBe(landsAt);
+    executeTicks(game, 200);
+    expect(capitals(player)[0].level()).toBe(2);
+  });
 });

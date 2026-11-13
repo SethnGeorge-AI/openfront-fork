@@ -358,13 +358,13 @@ export class SAMLauncherExecution implements Execution {
     if (this.sam.isUnderConstruction()) {
       return;
     }
-    if (this.mg.config().isStructureOffline(this.sam)) {
-      return; // above its owner's capital tier
-    }
 
     if (!this.sam.isActive()) {
       this.active = false;
       return;
+    }
+    if (this.mg.config().isStructureOffline(this.sam)) {
+      return; // above its owner's capital tier
     }
 
     if (this.player !== this.sam.owner()) {
