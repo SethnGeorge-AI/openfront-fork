@@ -151,6 +151,10 @@
       "Missile Silo": {
         "scale": 1.55,
         "iconFill": 0.85
+      },
+      "Capital": {
+        "scale": 1.6,
+        "iconFill": 0.6
       }
     },
     "highlightOutlineWidth": 0.04,

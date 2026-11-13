@@ -5,6 +5,10 @@ import {
   PlayerBuildableUnitType,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
+import {
+  CAPITAL_MAX_TIER,
+  capitalTierCost,
+} from "@openfront/engine-lib/configuration/CapitalTiers";
 import { renderNumber } from "@openfront/engine-lib/Format";
 import { EventBus } from "@openfront/shared/EventBus";
 import { html, LitElement, nothing } from "lit";
@@ -21,12 +25,14 @@ import {
 } from "../../InputHandler";
 import { KeyboardLayoutController } from "../../KeyboardLayout";
 import { KEYBOARD_DETECTED_EVENT, Platform } from "../../Platform";
+import { SendUpgradeStructureIntentEvent } from "../../Transport";
 import { UIState } from "../../UIState";
 import { UserSettings } from "../../UserSettings";
 import { resolveKeybindLabel, translateText } from "../../Utils";
 import { GameView } from "../../view";
 import {
   atomBombIcon,
+  capitalIcon,
   cityIcon,
   defensePostIcon,
   factoryIcon,
@@ -636,6 +642,7 @@ export class UnitDisplay extends LitElement implements Controller {
           <div
             class="unit-display-grid grid gap-0.5 grid-rows-1 grid-flow-col auto-cols-fr lg:auto-cols-max lg:w-fit lg:mx-auto side-bar:grid-rows-none side-bar:grid-flow-row side-bar:grid-cols-1"
           >
+            ${this.renderCapitalItem()}
             ${this.renderUnitItem(
               cityIcon,
               this._cities,
@@ -722,6 +729,69 @@ export class UnitDisplay extends LitElement implements Controller {
       defaultCode,
       this.keyboardLayout.map,
     );
+  }
+
+  /**
+   * The capital can't be placed, so its button upgrades it in place: shows the
+   * tier, the seconds left while upgrading, and is dim when it can't upgrade.
+   */
+  private renderCapitalItem() {
+    const player = this.game?.myPlayer();
+    const capital = player?.units(UnitType.Capital)[0] as
+      | { id(): number; level(): number; capitalUpgradeAt(): number | null }
+      | undefined;
+    if (!player || !capital) return nothing;
+    const tier = capital.level();
+    const upgradeAt = capital.capitalUpgradeAt();
+    const secondsLeft =
+      upgradeAt === null
+        ? null
+        : Math.max(0, Math.ceil((upgradeAt - this.game.ticks()) / 10));
+    // The engine's price for this player (0 with infinite gold), else the table price.
+    const cost =
+      this.playerBuildables?.find((b) => b.type === UnitType.Capital)?.cost ??
+      capitalTierCost(tier + 1);
+    const canUpgrade =
+      upgradeAt === null && tier < CAPITAL_MAX_TIER && player.gold() >= cost;
+    const title =
+      secondsLeft !== null
+        ? translateText("build_menu.capital_upgrading", {
+            seconds: secondsLeft,
+          })
+        : tier >= CAPITAL_MAX_TIER
+          ? translateText("build_menu.capital_max_tier")
+          : translateText("build_menu.capital_upgrade", {
+              tier: tier + 1,
+              cost: renderNumber(cost),
+            });
+    return html`
+      <div class="flex flex-col items-center relative">
+        <button
+          class="capital-button ${
+            canUpgrade ? "" : "opacity-40"
+          } border border-amber-400/70 rounded-sm max-lg:landscape:h-7.5 side-bar:h-12 side-bar:min-w-6.5 w-full px-0.5 side-bar:px-0 pb-0.5 flex items-center justify-center gap-0.5 cursor-pointer lg:justify-start pointer-fine:hover:bg-gray-800 text-white"
+          title=${title}
+          @click=${() => {
+            if (!canUpgrade) return;
+            this.eventBus?.emit(
+              new SendUpgradeStructureIntentEvent(
+                capital.id(),
+                UnitType.Capital,
+              ),
+            );
+          }}
+        >
+          <img
+            src=${capitalIcon}
+            alt=""
+            class="w-6 h-6 side-bar:w-5 side-bar:h-5"
+          />
+          <span class="text-xs font-bold tabular-nums">
+            ${secondsLeft !== null ? `${secondsLeft}s` : `T${tier}`}
+          </span>
+        </button>
+      </div>
+    `;
   }
 
   private renderUnitItem(

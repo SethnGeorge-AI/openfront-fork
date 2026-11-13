@@ -230,6 +230,19 @@ export class UnitView implements UnitLike {
   level(): number {
     return this.state.level;
   }
+  /** Tick the capital's pending upgrade lands (it reuses the SAM upgrade fields), or null. */
+  capitalUpgradeAt(): number | null {
+    const s = this.state;
+    if (
+      s.samUpgradeStartTick === null ||
+      s.samUpgradeDuration === null ||
+      s.samUpgradeTargetLevel === null ||
+      s.samUpgradeTargetLevel <= s.level
+    ) {
+      return null;
+    }
+    return s.samUpgradeStartTick + s.samUpgradeDuration;
+  }
   hasTrainStation(): boolean {
     return this.state.hasTrainStation;
   }

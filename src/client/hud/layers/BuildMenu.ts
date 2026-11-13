@@ -38,7 +38,7 @@ const atomBombIcon = assetUrl("images/NukeIconWhite.svg");
 const portIcon = assetUrl("images/PortIcon.svg");
 const samlauncherIcon = assetUrl("images/SamLauncherIconWhite.svg");
 const shieldIcon = assetUrl("images/ShieldIconWhite.svg");
-const crownIcon = assetUrl("images/CrownIcon.svg");
+const capitalIcon = assetUrl("images/CapitalIconWhite.svg");
 
 export interface BuildItemDisplay {
   unitType: PlayerBuildableUnitType;
@@ -109,7 +109,7 @@ const buildTable: BuildItemDisplay[][] = [
     {
       // Never built by hand: enabled only next to the capital, as its upgrade.
       unitType: UnitType.Capital,
-      icon: crownIcon,
+      icon: capitalIcon,
       description: "build_menu.desc.capital",
       key: "unit_type.capital",
       countable: true,

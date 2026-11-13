@@ -10,6 +10,7 @@
  */
 
 import type { MapLayer } from "@openfront/engine-api/game/MapFiles";
+import { CAPITAL_DEFENSE_RANGE } from "@openfront/engine-lib/configuration/CapitalTiers";
 import type { Config } from "@openfront/engine-lib/configuration/Config";
 import { translateText } from "../../Utils";
 import type { SpiralRibbon } from "../frame/SpiralTrails";
@@ -29,6 +30,7 @@ import type {
   TerrainRect,
   UnitState,
 } from "../types";
+import { UT_CAPITAL } from "../types/UnitType";
 import { Camera } from "./Camera";
 import { GLUnavailableError, initGL } from "./initGL";
 import { BarPass } from "./passes/BarPass";
@@ -962,14 +964,18 @@ export class GPURenderer {
     this.structureLevelPass.updateStructures(units);
     this.samRadiusPass.updateStructures(units);
     this.unitPass.setStructures(units);
-    const posts: { x: number; y: number; ownerID: number }[] = [];
+    const posts: { x: number; y: number; ownerID: number; range?: number }[] =
+      [];
     const w = this.mapW;
     for (const u of units.values()) {
-      if (u.unitType === "Defense Post" && !u.underConstruction) {
+      const isPost = u.unitType === "Defense Post";
+      // The capital defends like a Defense Post, over its own 35-tile radius.
+      if ((isPost || u.unitType === UT_CAPITAL) && !u.underConstruction) {
         posts.push({
           x: u.pos % w,
           y: (u.pos - (u.pos % w)) / w,
           ownerID: u.ownerID,
+          range: isPost ? undefined : CAPITAL_DEFENSE_RANGE,
         });
       }
     }

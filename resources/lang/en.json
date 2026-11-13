@@ -199,6 +199,9 @@
     "title": "Your account is banned"
   },
   "build_menu": {
+    "capital_max_tier": "Capital is at the top tier",
+    "capital_upgrade": "Upgrade capital to tier {tier} ({cost} gold, 30s)",
+    "capital_upgrading": "Capital upgrading… {seconds}s left",
     "desc": {
       "atom_bomb": "Small explosion",
       "capital": "Upgrade (30s) to unlock buildings; defends nearby land and shoots down nukes",

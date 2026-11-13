@@ -101,4 +101,6 @@ export const ALL_UNIT_TYPES = [
   UT_SAM_LAUNCHER,
   UT_MISSILE_SILO,
   UT_TRAIN,
+  // Appended last: replays store unit types by index into this list.
+  UT_CAPITAL,
 ] as const;
