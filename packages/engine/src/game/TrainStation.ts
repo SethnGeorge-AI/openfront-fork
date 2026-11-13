@@ -159,6 +159,7 @@ export class TrainStation {
   }
 
   onTrainStop(trainExecution: TrainExecution) {
+    if (this.mg.config().isStructureOffline(this.unit)) return; // pays nothing
     const type = this.unit.type();
     const handler = this.stopHandlers[type];
     if (handler) {

@@ -85,6 +85,7 @@ export class PortExecution implements Execution {
   }
 
   shouldSpawnTradeShip(): boolean {
+    if (this.mg.config().isStructureOffline(this.port!)) return false;
     const numTradeShips = this.mg.unitCount(UnitType.TradeShip);
     const portLevels = this.port!.owner().unitCount(UnitType.Port);
     for (let i = 0; i < this.port!.level(); i++) {

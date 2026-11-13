@@ -13,6 +13,7 @@ import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
 import { TeamCountConfig } from "@openfront/engine-api/Schemas";
 import { NukeType } from "@openfront/engine-api/StatsSchemas";
 import {
+  capitalGoldMultiplierPct,
   capitalTier,
   capitalTierCost,
 } from "@openfront/engine-lib/configuration/CapitalTiers";
@@ -695,7 +696,12 @@ export class EngineConfig extends Config {
     } else {
       baseRate = 100n;
     }
-    return BigInt(Math.floor(Number(baseRate) * multiplier));
+    const rate = BigInt(Math.floor(Number(baseRate) * multiplier));
+    // Only above tier 1, so games without capitals keep the exact old maths.
+    const tier = this.capitalsEnabled() ? capitalTier(player) : 0;
+    return tier > 1
+      ? (rate * BigInt(capitalGoldMultiplierPct(tier))) / 100n
+      : rate;
   }
 
   nukeSpeed(unitType: UnitType): number {

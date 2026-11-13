@@ -1,4 +1,8 @@
-import { Gold, UnitType } from "@openfront/engine-api/game/GameTypes";
+import {
+  Gold,
+  PlayerType,
+  UnitType,
+} from "@openfront/engine-api/game/GameTypes";
 import { PlayerLike, UnitLike } from "@openfront/engine-api/game/ReadViews";
 
 /** Capital tiers (docs/superpowers/specs/2026-11-13-capital-tech-tiers-design.md). */
@@ -47,6 +51,27 @@ export function requiredCapitalTier(type: UnitType): number {
 
 export function capitalOf(player: PlayerLike): UnitLike | null {
   return player.units(UnitType.Capital)[0] ?? null;
+}
+
+/**
+ * A structure is offline while its owner's capital tier is below what it
+ * needs (tier dropped, or captured from a higher-tier player).
+ */
+export function isOffline(unit: UnitLike, enabled: boolean): boolean {
+  if (!enabled || unit.type() === UnitType.Capital) return false;
+  const owner = unit.owner();
+  if (owner.type() === PlayerType.Bot) return false;
+  return requiredCapitalTier(unit.type()) > capitalTier(owner);
+}
+
+/** Gold per tick in percent: +10% per tier above 1. */
+export function capitalGoldMultiplierPct(tier: number): number {
+  return 100 + 10 * Math.max(0, tier - 1);
+}
+
+/** Troop growth factor: +5% per tier above 1. */
+export function capitalTroopMultiplier(tier: number): number {
+  return 1 + 0.05 * Math.max(0, tier - 1);
 }
 
 /** The capital's level, or 0 with no capital. */

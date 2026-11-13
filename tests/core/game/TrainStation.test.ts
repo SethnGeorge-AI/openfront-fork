@@ -37,6 +37,7 @@ describe("TrainStation", () => {
     game = {
       ticks: vi.fn().mockReturnValue(123),
       config: vi.fn().mockReturnValue({
+        isStructureOffline: () => false,
         trainGold: (rel: string, _tradeStopsVisited: number) =>
           rel !== "other" ? BigInt(1000) : BigInt(500),
       }),
@@ -134,6 +135,7 @@ describe("TrainStation", () => {
     unit.type.mockReturnValue(UnitType.City);
     const trainGoldSpy = vi.fn().mockReturnValue(500n);
     (game.config as any).mockReturnValue({
+      isStructureOffline: () => false,
       trainGold: trainGoldSpy,
     });
     (trainExecution as any).tradeStopsVisited = vi.fn().mockReturnValue(3);

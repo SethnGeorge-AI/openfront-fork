@@ -7,12 +7,18 @@ import {
   UnitInfo,
   UnitType,
 } from "@openfront/engine-api/game/GameTypes";
-import { PlayerLike } from "@openfront/engine-api/game/ReadViews";
+import { PlayerLike, UnitLike } from "@openfront/engine-api/game/ReadViews";
 import { GameConfig } from "@openfront/engine-api/Schemas";
 import { pow } from "../DetMath";
 import { DoomsdayClockSpeed } from "../game/DoomsdayClock";
 import { assertNever } from "../Util";
-import { CAPITAL_SAM_COOLDOWN, requiredCapitalTier } from "./CapitalTiers";
+import {
+  CAPITAL_SAM_COOLDOWN,
+  capitalTier,
+  capitalTroopMultiplier,
+  isOffline,
+  requiredCapitalTier,
+} from "./CapitalTiers";
 
 export interface NukeMagnitude {
   inner: number;
@@ -197,6 +203,10 @@ export class Config {
   requiredTierFor(type: UnitType, player: PlayerLike): number {
     if (!this.capitalsEnabled() || player.type() === PlayerType.Bot) return 0;
     return requiredCapitalTier(type);
+  }
+
+  isStructureOffline(unit: UnitLike): boolean {
+    return isOffline(unit, this.capitalsEnabled());
   }
 
   isUnitDisabled(unitType: UnitType): boolean {
@@ -414,6 +424,8 @@ export class Config {
 
     let toAdd = 10 + pow(player.troops(), 0.73) / 4;
     toAdd *= 1 + LANDMARK_TROOP_BONUS * landmarksHeld;
+    const tier = this.capitalsEnabled() ? capitalTier(player) : 0;
+    if (tier > 1) toAdd *= capitalTroopMultiplier(tier);
 
     const ratio = 1 - player.troops() / max;
     toAdd *= ratio;
