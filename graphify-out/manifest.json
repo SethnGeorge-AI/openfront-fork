@@ -23454,9 +23454,9 @@
     "semantic_hash": ""
   },
   "src/client/hud/layers/LandmarkOverlay.ts": {
-    "mtime": 1794591237.3486552,
-    "seen": 1794591281.8978167,
-    "ast_hash": "6f9fc876d76aba9a5bf85bcf771a7d6b",
+    "mtime": 1794592733.7934299,
+    "seen": 1794592752.2795026,
+    "ast_hash": "b7429ea6b0e6cd09e55a2d844bfc0bf6",
     "semantic_hash": ""
   },
   "tests/Landmarks.test.ts": {
@@ -23466,9 +23466,9 @@
     "semantic_hash": ""
   },
   "tests/client/LandmarkOverlay.test.ts": {
-    "mtime": 1794591222.2226284,
-    "seen": 1794591281.8984609,
-    "ast_hash": "6afa2ac7bd15200459e664ea5fd7770e",
+    "mtime": 1794592702.1440923,
+    "seen": 1794592752.2800686,
+    "ast_hash": "3fe50b4ac3f7c825120bf8cb55a8fdb6",
     "semantic_hash": ""
   },
   "tests/core/LandmarkBonus.test.ts": {
